@@ -22,12 +22,11 @@ import org.hibernate.annotations.UuidGenerator;
  * @author thinhorigami-rio
  */
 @Entity
-@Table(name = "InvoiceDetail")
+@Table(name = "PromotionDetail")
 @NamedQueries({
-    @NamedQuery(name = "InvoiceDetail.findAll", query = "SELECT i FROM InvoiceDetail i"),
-    @NamedQuery(name = "InvoiceDetail.findById", query = "SELECT i FROM InvoiceDetail i WHERE i.id = :id"),
-    @NamedQuery(name = "InvoiceDetail.findByQuantity", query = "SELECT i FROM InvoiceDetail i WHERE i.quantity = :quantity")})
-public class InvoiceDetail implements Serializable {
+    @NamedQuery(name = "PromotionDetail.findAll", query = "SELECT p FROM PromotionDetail p"),
+    @NamedQuery(name = "PromotionDetail.findById", query = "SELECT p FROM PromotionDetail p WHERE p.id = :id")})
+public class PromotionDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,26 +35,18 @@ public class InvoiceDetail implements Serializable {
     @GeneratedValue
     @UuidGenerator
     private String id;
-    @Basic(optional = false)
-    @Column(name = "quantity")
-    private int quantity;
-    @JoinColumn(name = "invoice", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Invoice invoice;
     @JoinColumn(name = "product_detail", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private ProductDetail productDetail;
+    @JoinColumn(name = "Promotion", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Promotion promotion;
 
-    public InvoiceDetail() {
+    public PromotionDetail() {
     }
 
-    public InvoiceDetail(String id) {
+    public PromotionDetail(String id) {
         this.id = id;
-    }
-
-    public InvoiceDetail(String id, int quantity) {
-        this.id = id;
-        this.quantity = quantity;
     }
 
     public String getId() {
@@ -66,28 +57,20 @@ public class InvoiceDetail implements Serializable {
         this.id = id;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public Invoice getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
-
     public ProductDetail getProductDetail() {
         return productDetail;
     }
 
     public void setProductDetail(ProductDetail productDetail) {
         this.productDetail = productDetail;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
     }
 
     @Override
@@ -100,10 +83,10 @@ public class InvoiceDetail implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InvoiceDetail)) {
+        if (!(object instanceof PromotionDetail)) {
             return false;
         }
-        InvoiceDetail other = (InvoiceDetail) object;
+        PromotionDetail other = (PromotionDetail) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +95,7 @@ public class InvoiceDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "com.project1.model.InvoiceDetail[ id=" + id + " ]";
+        return "com.project1.model.PromotionDetail[ id=" + id + " ]";
     }
     
 }

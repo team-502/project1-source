@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -19,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -36,10 +38,15 @@ import javax.persistence.Table;
     @NamedQuery(name = "ProductDetail.findByExportPrice", query = "SELECT p FROM ProductDetail p WHERE p.exportPrice = :exportPrice")})
 public class ProductDetail implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetail")
+    private Collection<PromotionDetail> promotionDetailCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Column(name = "Size")
     private Integer size;
@@ -194,6 +201,14 @@ public class ProductDetail implements Serializable {
     @Override
     public String toString() {
         return "com.project1.model.ProductDetail[ id=" + id + " ]";
+    }
+
+    public Collection<PromotionDetail> getPromotionDetailCollection() {
+        return promotionDetailCollection;
+    }
+
+    public void setPromotionDetailCollection(Collection<PromotionDetail> promotionDetailCollection) {
+        this.promotionDetailCollection = promotionDetailCollection;
     }
     
 }

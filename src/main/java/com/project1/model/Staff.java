@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -42,6 +44,8 @@ public class Staff implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Basic(optional = false)
     @Column(name = "id_staff")

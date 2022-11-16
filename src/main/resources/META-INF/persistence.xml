@@ -22,6 +22,7 @@
     <class>com.project1.model.Customer</class>
     <class>com.project1.model.ProductLine</class>
     <class>com.project1.model.Product</class>
+    <class>com.project1.model.PromotionDetail</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=PhanMem_BanGiay_Limited;Encrypt=false;TrsutServerCertificate=true"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>

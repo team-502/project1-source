@@ -8,17 +8,21 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -34,10 +38,15 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Promotion.findByEndDate", query = "SELECT p FROM Promotion p WHERE p.endDate = :endDate")})
 public class Promotion implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion")
+    private Collection<PromotionDetail> promotionDetailCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Column(name = "_name")
     private String name;
@@ -131,6 +140,14 @@ public class Promotion implements Serializable {
     @Override
     public String toString() {
         return "com.project1.model.Promotion[ id=" + id + " ]";
+    }
+
+    public Collection<PromotionDetail> getPromotionDetailCollection() {
+        return promotionDetailCollection;
+    }
+
+    public void setPromotionDetailCollection(Collection<PromotionDetail> promotionDetailCollection) {
+        this.promotionDetailCollection = promotionDetailCollection;
     }
     
 }
