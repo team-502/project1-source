@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com_project1_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.project1.Producer</class>
+    <class>com.project1.ProductLine</class>
+    <class>com.project1.InvoiceDetail</class>
+    <class>com.project1.ProductDetail</class>
+    <class>com.project1.Color</class>
+    <class>com.project1.Product</class>
+    <class>com.project1.Promotion</class>
+    <class>com.project1.Customer</class>
+    <class>com.project1.Staff</class>
+    <class>com.project1.Invoice</class>
+    <class>com.project1.model.Staff</class>
+    <class>com.project1.model.Invoice</class>
+    <class>com.project1.model.Color</class>
+    <class>com.project1.model.Promotion</class>
+    <class>com.project1.model.InvoiceDetail</class>
+    <class>com.project1.model.Producer</class>
+    <class>com.project1.model.ProductDetail</class>
+    <class>com.project1.model.Customer</class>
+    <class>com.project1.model.ProductLine</class>
+    <class>com.project1.model.Product</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=PhanMem_BanGiay_Limited;Encrypt=false;TrsutServerCertificate=true"/>
+      <property name="javax.persistence.jdbc.user" value="sa"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="javax.persistence.jdbc.password" value="R00T@r00t"/>
+    </properties>
+  </persistence-unit>
+</persistence>
