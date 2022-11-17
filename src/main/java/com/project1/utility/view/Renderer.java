@@ -11,15 +11,15 @@ import javax.swing.JPanel;
  * @author thinhorigami-rio
  */
 public class Renderer<T extends JPanel> {
-    
+
     private T value;
-    
+
     public Renderer(T value) {
         this.value = value;
     }
-    
-    public Renderer<T> reSize(int width, int height) {
-        this.value.resize(width, height);
+
+    public Renderer<T> reSize(JPanel parent) {
+        this.value.resize(parent.getWidth(), parent.getHeight());
         return this;
     }
     
@@ -27,7 +27,7 @@ public class Renderer<T extends JPanel> {
         this.value.setBounds(x, y, value.getWidth(), value.getHeight());
         return this;
     }
-    
+
     public T get() {
         return value;
     }
