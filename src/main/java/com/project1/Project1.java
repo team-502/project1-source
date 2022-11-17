@@ -5,6 +5,8 @@
 
 package com.project1;
 
+import com.project1.utility.DBConnector;
+
 /**
  *
  * @author thinhorigami-rio
@@ -12,6 +14,7 @@ package com.project1;
 public class Project1 {
 
     public static void main(String[] args) {
+        var session = new DBConnector();
         System.out.println("Hello World!");
     }
 }
