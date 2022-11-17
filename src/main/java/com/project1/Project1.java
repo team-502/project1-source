@@ -6,7 +6,8 @@
 package com.project1;
 
 import com.project1.utility.DBConnector;
-
+import com.project1.view.BH_fr;
+import com.project1.view.Login_fr;
 /**
  *
  * @author thinhorigami-rio
@@ -14,6 +15,7 @@ import com.project1.utility.DBConnector;
 public class Project1 {
 
     public static void main(String[] args) {
+        new BH_fr().setVisible(true);
         var session = new DBConnector();
         System.out.println("Hello World!");
     }
