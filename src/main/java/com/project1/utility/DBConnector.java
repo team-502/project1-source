@@ -4,7 +4,8 @@
  */
 package com.project1.utility;
 
-import com.project1.model.Staff;
+import com.project1.model.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 /**
@@ -17,9 +18,21 @@ public class DBConnector {
     public DBConnector() {
         this.session_factory = new Configuration()
                 .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Color.class)
+                .addAnnotatedClass(Customer.class)
+                .addAnnotatedClass(Invoice.class)
+                .addAnnotatedClass(InvoiceDetail.class)
+                .addAnnotatedClass(Producer.class)
+                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(ProductDetail.class)
+                .addAnnotatedClass(ProductLine.class)
+                .addAnnotatedClass(Promotion.class)
+                .addAnnotatedClass(PromotionDetail.class)
                 .addAnnotatedClass(Staff.class)
                 .buildSessionFactory();
     }
     
-    
+    public Session getSession() {
+        return this.session_factory.openSession();
+    }
 }

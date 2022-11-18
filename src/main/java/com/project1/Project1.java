@@ -5,9 +5,14 @@
 
 package com.project1;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.project1.model.Color;
+import com.project1.repository.implement.ColorRepository;
 import com.project1.utility.DBConnector;
 import com.project1.view.BH_fr;
-import com.project1.view.Login_fr;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+import javax.swing.UIManager;
 /**
  *
  * @author thinhorigami-rio
@@ -15,8 +20,30 @@ import com.project1.view.Login_fr;
 public class Project1 {
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         new BH_fr().setVisible(true);
         var session = new DBConnector();
+        
+        
         System.out.println("Hello World!");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

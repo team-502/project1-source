@@ -7,18 +7,7 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 /**
@@ -66,6 +55,9 @@ public class Staff implements Serializable {
     @Basic(optional = false)
     @Column(name = "_address")
     private String address;
+    @Basic(optional = false)
+    @Column(name = "_password")
+    private String password;
     @Basic(optional = false)
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -197,6 +189,14 @@ public class Staff implements Serializable {
     @Override
     public String toString() {
         return "com.project1.model.Staff[ id=" + id + " ]";
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
 }

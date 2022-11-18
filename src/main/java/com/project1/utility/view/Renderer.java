@@ -27,6 +27,12 @@ public class Renderer<T extends JPanel> {
         this.value.setBounds(x, y, value.getWidth(), value.getHeight());
         return this;
     }
+    
+    public T getDefault(JPanel parent) {
+        return setPos(0, 0)
+                .reSize(parent)
+                .get();
+    }
 
     public T get() {
         return value;
