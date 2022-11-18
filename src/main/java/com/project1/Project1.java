@@ -6,12 +6,7 @@
 package com.project1;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.project1.model.Color;
-import com.project1.repository.implement.ColorRepository;
-import com.project1.utility.DBConnector;
 import com.project1.view.BH_fr;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
 import javax.swing.UIManager;
 /**
  *
@@ -26,8 +21,12 @@ public class Project1 {
             e.printStackTrace();
         }
         new BH_fr().setVisible(true);
-        var session = new DBConnector();
+//        var session = new DBConnector();
         
+//        for (var i: new ColorRepository().getAll())
+//        {
+//            System.out.println(i.getId());
+//        }
         
         System.out.println("Hello World!");
     }

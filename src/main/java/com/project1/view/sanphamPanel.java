@@ -4,6 +4,9 @@
  */
 package com.project1.view;
 
+import com.project1.model_adapter.ProductDetailAdapter;
+import com.project1.repository.implement.ProductDetailReposytory;
+
 /**
  *
  * @author vanng
@@ -15,6 +18,8 @@ public class sanphamPanel extends javax.swing.JPanel {
      */
     public sanphamPanel() {
         initComponents();
+        var model = new ProductDetailAdapter();
+        tbl_data.setModel(model.model());
     }
 
     /**
@@ -41,7 +46,7 @@ public class sanphamPanel extends javax.swing.JPanel {
         btn_update = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_data = new javax.swing.JTable();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -131,7 +136,7 @@ public class sanphamPanel extends javax.swing.JPanel {
 
         add(jPanel1);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_data.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -142,7 +147,7 @@ public class sanphamPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_data);
 
         add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
@@ -171,7 +176,7 @@ public class sanphamPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable tbl_data;
     // End of variables declaration//GEN-END:variables
 }

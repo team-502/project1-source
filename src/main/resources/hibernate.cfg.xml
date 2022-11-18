@@ -28,3 +28,29 @@
         <property name="hbm2ddl.auto">update </property>
     </session-factory>
 </hibernate-configuration>
+
+Cannot get a connection as the driver manager is not properly initialized
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

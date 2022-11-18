@@ -7,6 +7,7 @@ package com.project1.model_adapter;
 import com.project1.repository.implement.ProductDetailReposytory;
 import javax.swing.table.DefaultTableModel;
 import com.project1.model.*;
+import com.project1.repository.implement.ColorRepository;
 /**
  *
  * @author thinhorigami-rio
