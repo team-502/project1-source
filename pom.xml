@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>11.2.1.jre18</version>
+            <version>11.2.1.jre17</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>

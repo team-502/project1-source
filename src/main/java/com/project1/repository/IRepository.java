@@ -4,6 +4,7 @@
  */
 package com.project1.repository;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.Optional;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -17,6 +18,7 @@ public interface IRepository<T> {
     
     public Root<T> root();
     public CriteriaQuery<T> query();
+    public CriteriaBuilder e();
     public ArrayList<T> getAll();
     public Optional<T> insert(T value);
     public Optional<T> update(T value);

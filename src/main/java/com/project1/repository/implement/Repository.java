@@ -34,6 +34,12 @@ class Repository<T> implements IRepository<T>{
         root = query.from(target);
     }
 
+    // expression
+    @Override
+    public CriteriaBuilder e() {
+        return criteria_builder;
+    }
+    
     @Override
     public Root<T> root() {
         return root;

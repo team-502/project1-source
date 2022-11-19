@@ -4,13 +4,16 @@
  */
 package com.project1.repository.implement;
 
+import com.project1.model.InvoiceDetail;
+
 /**
  *
  * @author thinhorigami-rio
  */
-public class ProductLine extends Repository<ProductLine>{
-
-    public ProductLine() {
-        super(ProductLine.class);
+public class InvoicedetailRepository extends Repository<InvoiceDetail> {
+    
+    public InvoicedetailRepository() {
+        super(InvoiceDetail.class);
     }
+    
 }

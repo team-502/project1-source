@@ -16,20 +16,24 @@ public class DBConnector {
     private SessionFactory session_factory;
     
     public DBConnector() {
-        this.session_factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Color.class)
-                .addAnnotatedClass(Customer.class)
-                .addAnnotatedClass(Invoice.class)
-                .addAnnotatedClass(InvoiceDetail.class)
-                .addAnnotatedClass(Producer.class)
-                .addAnnotatedClass(Product.class)
-                .addAnnotatedClass(ProductDetail.class)
-                .addAnnotatedClass(ProductLine.class)
-                .addAnnotatedClass(Promotion.class)
-                .addAnnotatedClass(PromotionDetail.class)
-                .addAnnotatedClass(Staff.class)
-                .buildSessionFactory();
+        try {
+            this.session_factory = new Configuration()
+                    .configure("hibernate.cfg.xml")
+                    .addAnnotatedClass(Color.class)
+                    .addAnnotatedClass(Customer.class)
+                    .addAnnotatedClass(Invoice.class)
+                    .addAnnotatedClass(InvoiceDetail.class)
+                    .addAnnotatedClass(Producer.class)
+                    .addAnnotatedClass(Product.class)
+                    .addAnnotatedClass(ProductDetail.class)
+                    .addAnnotatedClass(ProductLine.class)
+                    .addAnnotatedClass(Promotion.class)
+                    .addAnnotatedClass(PromotionDetail.class)
+                    .addAnnotatedClass(Staff.class)
+                    .buildSessionFactory();              
+        } catch (Exception e) {
+            System.out.println("connect falied");
+        }
     }
     
     public Session getSession() {
