@@ -5,6 +5,8 @@
 package com.project1.repository.implement;
 
 import com.project1.model.Color;
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  *
@@ -14,5 +16,18 @@ public class ColorRepository extends Repository<Color> {
 
     public ColorRepository() {
         super(Color.class);
+    }
+    
+    public ArrayList<Color> getByName(String name) {
+        
+        return list(query().select(root())
+            .where(
+                e()
+                    .equal(
+                        root().get("name")
+                        , name
+                    )
+                )
+        );
     }
 }

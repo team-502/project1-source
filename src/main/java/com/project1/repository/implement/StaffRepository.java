@@ -15,4 +15,6 @@ public class StaffRepository extends Repository<Staff>{
     public StaffRepository() {
         super(Staff.class);
     }
+    
+    
 }

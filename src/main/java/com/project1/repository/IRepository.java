@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -23,5 +25,6 @@ public interface IRepository<T> {
     public Optional<T> insert(T value);
     public Optional<T> update(T value);
     public Optional<T> delete(T value);
-    
+    public Session session();
+    public ArrayList<T> list(CriteriaQuery<T> query);
 }

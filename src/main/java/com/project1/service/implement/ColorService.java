@@ -26,9 +26,7 @@ public class ColorService implements IService<Color>{
 
     @Override
     public Optional<Color> insert(Color value) {
-        
         return repo.insert(value);
-        
     }
 
     @Override
@@ -44,5 +42,9 @@ public class ColorService implements IService<Color>{
     @Override
     public ArrayList<Color> getAll() {
         return repo.getAll();
+    }
+    
+    public ArrayList<Color> getByName(String name) {
+        return repo.getByName(name);
     }
 }

@@ -5,6 +5,8 @@
 package com.project1.repository.implement;
 
 import com.project1.model.Producer;
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  *
@@ -16,4 +18,15 @@ public class ProducerRepository extends Repository<Producer>{
         super(Producer.class);
     }
     
+    public ArrayList<Producer> getByName(String name) {
+        return list(query().select(root())
+                .where(
+                        e()
+                                .equal(
+                                        root().get("name"),
+                                         name
+                                )
+                )
+        );
+    }
 }

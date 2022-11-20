@@ -4,7 +4,7 @@
  */
 package com.project1.model_adapter;
 
-import com.project1.repository.implement.ProductLineRepository;
+import com.project1.repository.implement.ProductRepository;
 import com.project1.service.implement.ColorService;
 import javax.swing.DefaultComboBoxModel;
 
@@ -12,19 +12,18 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author thinhorigami-rio
  */
-public class ProductLineAdapter {
+public class ProductAdapter {
     
-    public ProductLineAdapter() {
+    
+    public ProductAdapter() {
         
     }
     
     public DefaultComboBoxModel model() {
         var m = new DefaultComboBoxModel(
-                new ProductLineRepository()
-                        .getAll()
-                        .stream()
-                        .map((o ) -> (o.getName()))
-                        .toArray(String[]::new)
+                new ProductRepository().getAll().stream()
+                .map((o ) -> (o.getName()))
+                .toArray(String[]::new)
         );
         m.addElement("them");
         return m;

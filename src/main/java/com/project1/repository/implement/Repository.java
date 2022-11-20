@@ -12,6 +12,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -39,6 +40,20 @@ public class Repository<T> implements IRepository<T>{
     public CriteriaBuilder e() {
         return criteria_builder;
     }
+
+    @Override
+    public ArrayList<T> list(CriteriaQuery<T> query) {
+        return new ArrayList<T>(
+                session
+                        .createQuery(query)
+                        .getResultList()
+        );
+    }
+    
+    @Override
+    public Session session() {
+        return session;
+    }
     
     @Override
     public Root<T> root() {
@@ -52,9 +67,7 @@ public class Repository<T> implements IRepository<T>{
     
     @Override
     public ArrayList<T> getAll() {
-        return new ArrayList<T>(
-                session.createQuery(query.select(root)).getResultList()
-        );
+        return list(query.select(root));
     }
 
     @Override

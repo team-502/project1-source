@@ -5,6 +5,8 @@
 package com.project1.repository.implement;
 
 import com.project1.model.ProductLine;
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  *
@@ -14,5 +16,17 @@ public class ProductLineRepository extends Repository<ProductLine>{
 
     public ProductLineRepository() {
         super(ProductLine.class);
+    }
+    
+    public ArrayList<ProductLine> getByName(String name) {
+        return list(query().select(root())
+                .where(
+                        e()
+                                .equal(
+                                        root().get("name"),
+                                         name
+                                )
+                )
+        );
     }
 }

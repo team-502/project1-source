@@ -4,6 +4,7 @@
  */
 package com.project1.model_adapter;
 
+import com.project1.repository.implement.ColorRepository;
 import com.project1.service.implement.ColorService;
 import javax.swing.DefaultComboBoxModel;
 
@@ -19,10 +20,11 @@ public class ColorAdapter {
     
     public DefaultComboBoxModel model() {
         var m = new DefaultComboBoxModel(
-                new ColorService().getAll().stream()
+                new ColorRepository().getAll().stream()
                 .map((o ) -> (o.getName()))
                 .toArray(String[]::new)
         );
+        m.addElement("them");
         return m;
     }
 }

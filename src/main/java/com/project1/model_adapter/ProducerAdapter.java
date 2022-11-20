@@ -4,23 +4,18 @@
  */
 package com.project1.model_adapter;
 
-import com.project1.repository.implement.ProductLineRepository;
-import com.project1.service.implement.ColorService;
+import com.project1.repository.implement.ProducerRepository;
 import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author thinhorigami-rio
  */
-public class ProductLineAdapter {
-    
-    public ProductLineAdapter() {
-        
-    }
+public class ProducerAdapter {
     
     public DefaultComboBoxModel model() {
         var m = new DefaultComboBoxModel(
-                new ProductLineRepository()
+                new ProducerRepository()
                         .getAll()
                         .stream()
                         .map((o ) -> (o.getName()))
