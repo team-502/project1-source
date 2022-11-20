@@ -7,17 +7,8 @@ package com.project1.model;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -39,6 +30,8 @@ public class ProductDetail implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Column(name = "Size")
     private Integer size;
