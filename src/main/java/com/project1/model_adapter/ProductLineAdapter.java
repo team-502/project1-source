@@ -5,7 +5,6 @@
 package com.project1.model_adapter;
 
 import com.project1.repository.implement.ProductLineRepository;
-import com.project1.service.implement.ColorService;
 import javax.swing.DefaultComboBoxModel;
 
 /**

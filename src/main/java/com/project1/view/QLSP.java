@@ -492,8 +492,9 @@ public class QLSP extends javax.swing.JFrame {
             pl.setVisible(true);
             var value = pl.toProductLine();
             if (value.isPresent()) {
-                pl_service.insert(value.get());
-                cbb_product_line.setModel(pcr_adapter.model());
+                if (pl_service.insert(value.get()).isPresent()) {
+                    
+                }cbb_product_line.setModel(pcr_adapter.model());
             }
         }
     }//GEN-LAST:event_cbb_product_lineActionPerformed

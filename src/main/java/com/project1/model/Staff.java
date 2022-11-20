@@ -7,7 +7,17 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import jakarta.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -16,17 +26,17 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "staff")
 @NamedQueries({
-    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s"),
-    @NamedQuery(name = "Staff.findById", query = "SELECT s FROM Staff s WHERE s.id = :id"),
-    @NamedQuery(name = "Staff.findByIdStaff", query = "SELECT s FROM Staff s WHERE s.idStaff = :idStaff"),
-    @NamedQuery(name = "Staff.findByFullName", query = "SELECT s FROM Staff s WHERE s.fullName = :fullName"),
-    @NamedQuery(name = "Staff.findByGender", query = "SELECT s FROM Staff s WHERE s.gender = :gender"),
-    @NamedQuery(name = "Staff.findByEmai", query = "SELECT s FROM Staff s WHERE s.emai = :emai"),
-    @NamedQuery(name = "Staff.findByBirth", query = "SELECT s FROM Staff s WHERE s.birth = :birth"),
-    @NamedQuery(name = "Staff.findByAddress", query = "SELECT s FROM Staff s WHERE s.address = :address"),
-    @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password"),
-    @NamedQuery(name = "Staff.findByPhoneNumber", query = "SELECT s FROM Staff s WHERE s.phoneNumber = :phoneNumber"),
-    @NamedQuery(name = "Staff.findByState", query = "SELECT s FROM Staff s WHERE s.state = :state")})
+    @NamedQuery(name = "Staff_1.findAll", query = "SELECT s FROM Staff_1 s"),
+    @NamedQuery(name = "Staff_1.findById", query = "SELECT s FROM Staff_1 s WHERE s.id = :id"),
+    @NamedQuery(name = "Staff_1.findByIdStaff", query = "SELECT s FROM Staff_1 s WHERE s.idStaff = :idStaff"),
+    @NamedQuery(name = "Staff_1.findByFullName", query = "SELECT s FROM Staff_1 s WHERE s.fullName = :fullName"),
+    @NamedQuery(name = "Staff_1.findByGender", query = "SELECT s FROM Staff_1 s WHERE s.gender = :gender"),
+    @NamedQuery(name = "Staff_1.findByEmai", query = "SELECT s FROM Staff_1 s WHERE s.emai = :emai"),
+    @NamedQuery(name = "Staff_1.findByBirth", query = "SELECT s FROM Staff_1 s WHERE s.birth = :birth"),
+    @NamedQuery(name = "Staff_1.findByAddress", query = "SELECT s FROM Staff_1 s WHERE s.address = :address"),
+    @NamedQuery(name = "Staff_1.findByPassword", query = "SELECT s FROM Staff_1 s WHERE s.password = :password"),
+    @NamedQuery(name = "Staff_1.findByPhoneNumber", query = "SELECT s FROM Staff_1 s WHERE s.phoneNumber = :phoneNumber"),
+    @NamedQuery(name = "Staff_1.findByState", query = "SELECT s FROM Staff_1 s WHERE s.state = :state")})
 public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -195,7 +205,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "com.project1.model.Staff[ id=" + id + " ]";
+        return "com.project1.model.Staff_1[ id=" + id + " ]";
     }
     
 }

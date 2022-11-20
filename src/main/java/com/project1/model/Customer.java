@@ -5,9 +5,8 @@
 package com.project1.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import java.util.Collection;
 
 /**
  *
@@ -16,23 +15,21 @@ import org.hibernate.annotations.UuidGenerator;
 @Entity
 @Table(name = "Customer")
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
-    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
-    @NamedQuery(name = "Customer.findByIdCustomer", query = "SELECT c FROM Customer c WHERE c.idCustomer = :idCustomer"),
-    @NamedQuery(name = "Customer.findByFullName", query = "SELECT c FROM Customer c WHERE c.fullName = :fullName"),
-    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
-    @NamedQuery(name = "Customer.findByGender", query = "SELECT c FROM Customer c WHERE c.gender = :gender"),
-    @NamedQuery(name = "Customer.findByPhoneNumber", query = "SELECT c FROM Customer c WHERE c.phoneNumber = :phoneNumber"),
-    @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address"),
-    @NamedQuery(name = "Customer.findByCountry", query = "SELECT c FROM Customer c WHERE c.country = :country")})
+    @NamedQuery(name = "Customer_1.findAll", query = "SELECT c FROM Customer_1 c"),
+    @NamedQuery(name = "Customer_1.findById", query = "SELECT c FROM Customer_1 c WHERE c.id = :id"),
+    @NamedQuery(name = "Customer_1.findByIdCustomer", query = "SELECT c FROM Customer_1 c WHERE c.idCustomer = :idCustomer"),
+    @NamedQuery(name = "Customer_1.findByFullName", query = "SELECT c FROM Customer_1 c WHERE c.fullName = :fullName"),
+    @NamedQuery(name = "Customer_1.findByEmail", query = "SELECT c FROM Customer_1 c WHERE c.email = :email"),
+    @NamedQuery(name = "Customer_1.findByGender", query = "SELECT c FROM Customer_1 c WHERE c.gender = :gender"),
+    @NamedQuery(name = "Customer_1.findByPhoneNumber", query = "SELECT c FROM Customer_1 c WHERE c.phoneNumber = :phoneNumber"),
+    @NamedQuery(name = "Customer_1.findByAddress", query = "SELECT c FROM Customer_1 c WHERE c.address = :address"),
+    @NamedQuery(name = "Customer_1.findByCountry", query = "SELECT c FROM Customer_1 c WHERE c.country = :country")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
-    @GeneratedValue
-    @UuidGenerator
     private String id;
     @Column(name = "id_customer")
     private String idCustomer;
@@ -158,7 +155,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.project1.model.Customer[ id=" + id + " ]";
+        return "com.project1.model.Customer_1[ id=" + id + " ]";
     }
     
 }

@@ -6,6 +6,7 @@
 package com.project1;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.project1.repository.implement.ProductLineRepository;
 import com.project1.view.Main_FR;
 import javax.swing.UIManager;
 /**
@@ -20,7 +21,17 @@ public class Project1 {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+
+        
         new Main_FR().setVisible(true);
+        for (var i: new ProductLineRepository()
+                .getAll()
+                .stream()
+                .map((o) -> (o.getName()))
+                .toArray(String[]::new)) {
+            System.out.println(i + "\n");
+        }
     }
 }
 

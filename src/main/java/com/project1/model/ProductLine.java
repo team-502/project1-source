@@ -5,7 +5,6 @@
 package com.project1.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -33,8 +32,6 @@ public class ProductLine implements Serializable {
     private String idProductLine;
     @Column(name = "_name")
     private String name;
-    @OneToMany(mappedBy = "productLine")
-    private Collection<ProductDetail> productDetailCollection;
 
     public ProductLine() {
     }
@@ -65,14 +62,6 @@ public class ProductLine implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Collection<ProductDetail> getProductDetailCollection() {
-        return productDetailCollection;
-    }
-
-    public void setProductDetailCollection(Collection<ProductDetail> productDetailCollection) {
-        this.productDetailCollection = productDetailCollection;
     }
 
     @Override

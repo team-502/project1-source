@@ -23,7 +23,7 @@ public class RegisterService implements IService<Staff>{
 
     @Override
     public Optional<Staff> insert(Staff value) {
-    return staffrepo.insert(value);    
+        return staffrepo.insert(value);    
     }
 
     @Override

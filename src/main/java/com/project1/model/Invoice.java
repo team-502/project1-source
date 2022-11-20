@@ -5,10 +5,18 @@
 package com.project1.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -17,22 +25,23 @@ import org.hibernate.annotations.UuidGenerator;
 @Entity
 @Table(name = "Invoice")
 @NamedQueries({
-    @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i"),
-    @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id"),
-    @NamedQuery(name = "Invoice.findByCreatedDate", query = "SELECT i FROM Invoice i WHERE i.createdDate = :createdDate"),
-    @NamedQuery(name = "Invoice.findByPaymentDate", query = "SELECT i FROM Invoice i WHERE i.paymentDate = :paymentDate"),
-    @NamedQuery(name = "Invoice.findByReceivedDate", query = "SELECT i FROM Invoice i WHERE i.receivedDate = :receivedDate"),
-    @NamedQuery(name = "Invoice.findByState", query = "SELECT i FROM Invoice i WHERE i.state = :state"),
-    @NamedQuery(name = "Invoice.findByPaymentMethod", query = "SELECT i FROM Invoice i WHERE i.paymentMethod = :paymentMethod")})
+    @NamedQuery(name = "Invoice_1.findAll", query = "SELECT i FROM Invoice_1 i"),
+    @NamedQuery(name = "Invoice_1.findById", query = "SELECT i FROM Invoice_1 i WHERE i.id = :id"),
+    @NamedQuery(name = "Invoice_1.findByIdInvoice", query = "SELECT i FROM Invoice_1 i WHERE i.idInvoice = :idInvoice"),
+    @NamedQuery(name = "Invoice_1.findByCreatedDate", query = "SELECT i FROM Invoice_1 i WHERE i.createdDate = :createdDate"),
+    @NamedQuery(name = "Invoice_1.findByPaymentDate", query = "SELECT i FROM Invoice_1 i WHERE i.paymentDate = :paymentDate"),
+    @NamedQuery(name = "Invoice_1.findByReceivedDate", query = "SELECT i FROM Invoice_1 i WHERE i.receivedDate = :receivedDate"),
+    @NamedQuery(name = "Invoice_1.findByState", query = "SELECT i FROM Invoice_1 i WHERE i.state = :state"),
+    @NamedQuery(name = "Invoice_1.findByPaymentMethod", query = "SELECT i FROM Invoice_1 i WHERE i.paymentMethod = :paymentMethod")})
 public class Invoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    @GeneratedValue
-    @UuidGenerator
     private String id;
+    @Column(name = "id_invoice")
+    private String idInvoice;
     @Basic(optional = false)
     @Column(name = "created_date")
     @Temporal(TemporalType.DATE)
@@ -51,8 +60,6 @@ public class Invoice implements Serializable {
     @Basic(optional = false)
     @Column(name = "payment_method")
     private int paymentMethod;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice1")
-    private Collection<InvoiceDetail> invoiceDetailCollection;
     @JoinColumn(name = "customer", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private Customer customer;
@@ -82,6 +89,14 @@ public class Invoice implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getIdInvoice() {
+        return idInvoice;
+    }
+
+    public void setIdInvoice(String idInvoice) {
+        this.idInvoice = idInvoice;
     }
 
     public Date getCreatedDate() {
@@ -124,14 +139,6 @@ public class Invoice implements Serializable {
         this.paymentMethod = paymentMethod;
     }
 
-    public Collection<InvoiceDetail> getInvoiceDetailCollection() {
-        return invoiceDetailCollection;
-    }
-
-    public void setInvoiceDetailCollection(Collection<InvoiceDetail> invoiceDetailCollection) {
-        this.invoiceDetailCollection = invoiceDetailCollection;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -170,7 +177,7 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "com.project1.model.Invoice[ id=" + id + " ]";
+        return "com.project1.model.Invoice_1[ id=" + id + " ]";
     }
     
 }
