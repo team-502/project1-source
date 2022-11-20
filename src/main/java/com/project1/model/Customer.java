@@ -7,6 +7,7 @@ package com.project1.model;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.Collection;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -30,6 +31,8 @@ public class Customer implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Column(name = "id_customer")
     private String idCustomer;

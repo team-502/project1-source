@@ -6,17 +6,8 @@ package com.project1.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -39,6 +30,8 @@ public class Invoice implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Column(name = "id_invoice")
     private String idInvoice;
