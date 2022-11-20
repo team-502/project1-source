@@ -99,5 +99,4 @@ public class Product implements Serializable {
     public String toString() {
         return "com.project1.model.Product[ id=" + id + " ]";
     }
-    
 }
