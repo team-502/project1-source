@@ -24,7 +24,10 @@ public class Renderer<T extends JPanel> {
     }
     
     public Renderer<T> setPos(int x, int y) {
-        this.value.setBounds(x, y, value.getWidth(), value.getHeight());
+        this.value.setBounds(
+                x, y
+                , value.getWidth() + 5, value.getHeight() + 5
+        );
         return this;
     }
     

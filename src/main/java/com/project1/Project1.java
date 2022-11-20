@@ -21,14 +21,6 @@ public class Project1 {
             e.printStackTrace();
         }
         new Main_FR().setVisible(true);
-//        var session = new DBConnector();
-        
-//        for (var i: new ColorRepository().getAll())
-//        {
-//            System.out.println(i.getId());
-//        }
-        
-        System.out.println("Hello World!");
     }
 }
 

@@ -24,7 +24,7 @@ public class ColorAdapter {
                 .map((o ) -> (o.getName()))
                 .toArray(String[]::new)
         );
-        m.addElement("them");
+        m.addElement("...");
         return m;
     }
 }
