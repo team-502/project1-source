@@ -4,10 +4,16 @@
  */
 package com.project1.service;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 /**
  *
  * @author thinhorigami-rio
  */
-public interface IService {
-    
+public interface IService<T> {
+    public Optional<T> insert(T value);
+    public Optional<T> update(T value);
+    public Optional<T> delete(T value);
+    public ArrayList<T> getAll();
 }

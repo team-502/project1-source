@@ -18,8 +18,8 @@ import org.hibernate.Session;
  * @author thinhorigami-rio
  */
 
-/* public */
-class Repository<T> implements IRepository<T>{
+
+public class Repository<T> implements IRepository<T>{
     private DBConnector connector;
     private Session session;
     private CriteriaBuilder criteria_builder;
