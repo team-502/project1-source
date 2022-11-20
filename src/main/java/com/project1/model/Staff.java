@@ -4,12 +4,17 @@
  */
 package com.project1.model;
 
-import jakarta.persistence.GeneratedValue;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -35,8 +40,6 @@ public class Staff implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
-    @GeneratedValue
-    @UuidGenerator
     private String id;
     @Basic(optional = false)
     @Column(name = "id_staff")
@@ -46,7 +49,7 @@ public class Staff implements Serializable {
     private String fullName;
     @Basic(optional = false)
     @Column(name = "gender")
-    private String gender;
+    private boolean gender;
     @Basic(optional = false)
     @Column(name = "emai")
     private String emai;
@@ -66,8 +69,6 @@ public class Staff implements Serializable {
     @Basic(optional = false)
     @Column(name = "_state")
     private int state;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staff")
-    private Collection<Invoice> invoiceCollection;
 
     public Staff() {
     }
@@ -76,7 +77,7 @@ public class Staff implements Serializable {
         this.id = id;
     }
 
-    public Staff(String id, String idStaff, String fullName, String gender, String emai, Date birth, String address, String password, String phoneNumber, int state) {
+    public Staff(String id, String idStaff, String fullName, boolean gender, String emai, Date birth, String address, String password, String phoneNumber, int state) {
         this.id = id;
         this.idStaff = idStaff;
         this.fullName = fullName;
@@ -113,11 +114,11 @@ public class Staff implements Serializable {
         this.fullName = fullName;
     }
 
-    public String getGender() {
+    public boolean getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
@@ -167,14 +168,6 @@ public class Staff implements Serializable {
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    public Collection<Invoice> getInvoiceCollection() {
-        return invoiceCollection;
-    }
-
-    public void setInvoiceCollection(Collection<Invoice> invoiceCollection) {
-        this.invoiceCollection = invoiceCollection;
     }
 
     @Override
