@@ -477,7 +477,9 @@ public class QLSP extends javax.swing.JFrame {
             pcr.setVisible(true);
             var value = pcr.toProducer();
             if (value.isPresent()) {
-                pcr_service.insert(value.get());
+                if (pcr_service.insert(value.get()).isPresent()) {
+                    System.out.println("added");
+                } 
                 cbb_producer.setModel(pcr_adapter.model());
             }
         }
