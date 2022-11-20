@@ -9,7 +9,7 @@ package com.project1.service.implement;
  * @author thinhorigami-rio
  */
 public class ProductLineSService {
-    
-    
-    
+    public ProductLineSService() {
+        
+    }
 }
