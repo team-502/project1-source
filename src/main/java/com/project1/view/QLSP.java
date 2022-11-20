@@ -4,12 +4,19 @@
  */
 package com.project1.view;
 
+import com.project1.model.ProductDetail;
 import com.project1.model_adapter.ColorAdapter;
 import com.project1.model_adapter.ProducerAdapter;
 import com.project1.model_adapter.ProductLineAdapter;
+import com.project1.repository.implement.ColorRepository;
+import com.project1.repository.implement.ProductRepository;
 import com.project1.service.implement.ColorService;
 import com.project1.service.implement.ProducerService;
 import com.project1.service.implement.ProductLineService;
+import com.project1.view.dialog.ProducerForm;
+import com.project1.view.dialog.ProductColorForm;
+import com.project1.view.dialog.ProductLineForm;
+import java.math.BigInteger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,9 +29,13 @@ public class QLSP extends javax.swing.JFrame {
     
     private ColorAdapter c_adapter;
     private ColorService c_service;
+    private ColorRepository c_repo;
+    
+    private ProductRepository p_repo;
     
     private ProductLineAdapter pl_adapter;
-    private ProductLineService pl_service; 
+    private ProductLineService pl_service;
+    
     private ProducerAdapter pcr_adapter;
     private ProducerService pcr_service;
     /**
@@ -34,6 +45,9 @@ public class QLSP extends javax.swing.JFrame {
         initComponents();
         c_adapter = new ColorAdapter();
         c_service = new ColorService();
+        c_repo = new ColorRepository();
+        
+        p_repo = new ProductRepository();
         
         pl_adapter = new ProductLineAdapter();
         pl_service = new ProductLineService();
@@ -41,7 +55,7 @@ public class QLSP extends javax.swing.JFrame {
         pcr_adapter = new ProducerAdapter();
         pcr_service = new ProducerService();
         
-        cbb_color.setModel(c_adapter.model());
+        cbb_product_color.setModel(c_adapter.model());
         cbb_product_line.setModel(pl_adapter.model());
         cbb_producer.setModel(pcr_adapter.model());
     }
@@ -75,16 +89,16 @@ public class QLSP extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        cbb_color = new javax.swing.JComboBox<>();
+        cbb_product_color = new javax.swing.JComboBox<>();
         cbb_product_line = new javax.swing.JComboBox<>();
         cbb_producer = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        txt_product_id = new javax.swing.JTextField();
+        txt_product_name = new javax.swing.JTextField();
+        txt_product_size = new javax.swing.JTextField();
+        txt_product_quantity = new javax.swing.JTextField();
+        txt_product_decript = new javax.swing.JTextField();
+        txt_product_import_price = new javax.swing.JTextField();
+        txt_product_export_price = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btn_insert = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -188,10 +202,10 @@ public class QLSP extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel11.setText("Giá Bán");
 
-        cbb_color.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbb_color.addActionListener(new java.awt.event.ActionListener() {
+        cbb_product_color.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_product_color.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbb_colorActionPerformed(evt);
+                cbb_product_colorActionPerformed(evt);
             }
         });
 
@@ -242,11 +256,11 @@ public class QLSP extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbb_color, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbb_product_color, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbb_product_line, 0, 207, Short.MAX_VALUE)
                             .addComponent(cbb_producer, 0, 207, Short.MAX_VALUE)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2))
+                            .addComponent(txt_product_id)
+                            .addComponent(txt_product_name))
                         .addGap(65, 65, 65)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -256,11 +270,11 @@ public class QLSP extends javax.swing.JFrame {
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField7))
+                            .addComponent(txt_product_quantity, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_product_size)
+                            .addComponent(txt_product_decript)
+                            .addComponent(txt_product_import_price, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_product_export_price))
                         .addGap(48, 48, 48))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -280,35 +294,35 @@ public class QLSP extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_product_size, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_product_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_product_decript, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_product_import_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_product_export_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_product_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_product_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(cbb_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbb_product_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -389,37 +403,71 @@ public class QLSP extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_insertActionPerformed
 
-    private void cbb_colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_colorActionPerformed
-        if (cbb_color.getSelectedItem().toString().compareTo("...") == 0) {
-            var color = new Color_fr();
-            JOptionPane.showMessageDialog(this, color.getPanel());
+    public ProductDetail toProductDetail() {
+        var pd = new ProductDetail();
+        var p = p_repo.getByIdProductAndName(txt_product_name.getText(), txt_product_name.getText());
+        var c = c_repo.getByName(cbb_product_color.getSelectedItem().toString());
+        var pcr = pcr_service.getByName(cbb_producer.getSelectedItem().toString());
+        var pl = pl_service.getByName(cbb_product_line.getSelectedItem().toString());
+        
+        if (!p.isEmpty()) {
+            pd.setProduct(p.get(0));
+        }
+        if (!c.isEmpty()) {
+            pd.setColor(c.get(0));
+        }
+        if (!pcr.isEmpty()) {
+            pd.setProducer(pcr.get(0));
+        }
+        if (!pl.isEmpty()) {
+            pd.setProductLine(pl.get(0));
+        }
+        
+        pd.setSize(Integer.valueOf(txt_product_size.getText()));
+        pd.setQuantity(Integer.valueOf(txt_product_quantity.getText()));
+        pd.setDecription(txt_product_decript.getText());
+        pd.setImportPrice(new BigInteger(txt_product_import_price.getText()));
+        pd.setExportPrice(new BigInteger(txt_product_export_price.getText()));
+        return pd;
+    }
+    
+    public boolean valid() {
+        
+        // temp
+        return true;
+        
+    }
+    
+    private void cbb_product_colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_product_colorActionPerformed
+        if (cbb_product_color.getSelectedItem().toString().compareTo("...") == 0) {
+            var color = new ProductColorForm(this, true);
+            color.setVisible(true);
             var value = color.toColor();
             if (value.isPresent()) {
                 c_service.insert(value.get());
-                cbb_color.setModel(c_adapter.model());
+                cbb_product_color.setModel(c_adapter.model());
             }
         }
-    }//GEN-LAST:event_cbb_colorActionPerformed
+    }//GEN-LAST:event_cbb_product_colorActionPerformed
 
     private void cbb_producerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_producerActionPerformed
         
         if (cbb_producer.getSelectedItem().toString().compareTo("...") == 0) {
-            var pcr = new Producer_fr();
-            JOptionPane.showMessageDialog(this, pcr.getPanel());
+            var pcr = new ProducerForm(this, true);
+            pcr.setVisible(true);
             var value = pcr.toProducer();
             if (value.isPresent()) {
                 pcr_service.insert(value.get());
                 cbb_producer.setModel(pcr_adapter.model());
             }
         }
-        
     }//GEN-LAST:event_cbb_producerActionPerformed
 
     private void cbb_product_lineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_product_lineActionPerformed
         
         if (cbb_product_line.getSelectedItem().toString().compareTo("...") == 0) {
-            var pl = new ProductLine_fr();
-            JOptionPane.showMessageDialog(this, pl.getPanel());
+            var pl = new ProductLineForm(this, true);
+            pl.setVisible(true);
             var value = pl.toProductLine();
             if (value.isPresent()) {
                 pl_service.insert(value.get());
@@ -428,45 +476,11 @@ public class QLSP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbb_product_lineActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(QLSP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(QLSP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(QLSP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(QLSP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new QLSP().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_insert;
-    private javax.swing.JComboBox<String> cbb_color;
     private javax.swing.JComboBox<String> cbb_producer;
+    private javax.swing.JComboBox<String> cbb_product_color;
     private javax.swing.JComboBox<String> cbb_product_line;
     private javax.swing.JPanel content_panel;
     private javax.swing.JButton jButton1;
@@ -490,13 +504,13 @@ public class QLSP extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txt_product_decript;
+    private javax.swing.JTextField txt_product_export_price;
+    private javax.swing.JTextField txt_product_id;
+    private javax.swing.JTextField txt_product_import_price;
+    private javax.swing.JTextField txt_product_name;
+    private javax.swing.JTextField txt_product_quantity;
+    private javax.swing.JTextField txt_product_size;
     // End of variables declaration//GEN-END:variables
 }

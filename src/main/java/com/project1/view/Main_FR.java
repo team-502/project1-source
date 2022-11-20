@@ -21,20 +21,30 @@ public class Main_FR extends javax.swing.JFrame {
      */
     
     private QLSP qlsp;
+    private KhachHang khach_hang;
+    private BanHang_fr ban_hang;
     private HashMap<JButton, JPanel> panels;
     
     public Main_FR() {
         initComponents();
         qlsp = new QLSP();
-        
+        khach_hang = new KhachHang();
+        ban_hang = new BanHang_fr();
         panels = new HashMap<JButton, JPanel>() {{
             put (
                     product_manager
                     , new Renderer<JPanel>(qlsp.getPanel())
                             .getDefault(content_panel));
+            put (
+                    btn_customer
+                    , new Renderer<JPanel>( khach_hang.getPanel())
+                            .getDefault(content_panel));
         }};
         
-        content_panel.add(qlsp.getPanel());
+        for (var i: panels.entrySet()) {
+            content_panel.add(i.getValue());
+        }
+        panels.get(product_manager).setVisible(true);
     }
 
     /**
@@ -48,7 +58,7 @@ public class Main_FR extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         product_manager = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_customer = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -64,10 +74,10 @@ public class Main_FR extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton1");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_customer.setText("khach hang");
+        btn_customer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_customerActionPerformed(evt);
             }
         });
 
@@ -90,7 +100,7 @@ public class Main_FR extends javax.swing.JFrame {
                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_customer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(product_manager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -100,7 +110,7 @@ public class Main_FR extends javax.swing.JFrame {
                 .addGap(142, 142, 142)
                 .addComponent(product_manager, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_customer, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -116,7 +126,7 @@ public class Main_FR extends javax.swing.JFrame {
         content_panel.setLayout(content_panelLayout);
         content_panelLayout.setHorizontalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 971, Short.MAX_VALUE)
+            .addGap(0, 991, Short.MAX_VALUE)
         );
         content_panelLayout.setVerticalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +140,8 @@ public class Main_FR extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,17 +153,23 @@ public class Main_FR extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void product_managerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_product_managerActionPerformed
+        for (var i: panels.entrySet()) {
+            i.getValue().setVisible(false);
+        }
         panels.get(product_manager).setVisible(true);
     }//GEN-LAST:event_product_managerActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btn_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_customerActionPerformed
+        for (var i: panels.entrySet()) {
+            i.getValue().setVisible(false);
+        }
+        panels.get(btn_customer).setVisible(true);
+    }//GEN-LAST:event_btn_customerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_customer;
     private javax.swing.JPanel content_panel;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

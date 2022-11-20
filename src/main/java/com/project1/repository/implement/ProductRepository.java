@@ -19,15 +19,32 @@ public class ProductRepository extends Repository<Product> {
         super(Product.class);
     }
     
-    public ArrayList<Product> hetByName(String name) {
-        return list(query().select(root())
-                .where(
-                        e()
-                                .equal(
-                                        root().get("name"),
-                                         name
-                                )
-                )
-        );
+    public ArrayList<Product> getByIdProductAndName(String ip, String n) {
+        
+        var id_product = e().equal(root().get("idProduct"), ip);
+        var name = e().equal(root().get("name"), n);
+        var id_product_and_name = e().and(id_product, name);
+        
+        return list(query()
+                .select(root())
+                .where(id_product_and_name));
+    }
+    
+    public ArrayList<Product> getByIdProduct(String ip) {
+        
+        var id_product = e().equal(root().get("idProduct"),ip);
+        
+        return list(query()
+                .select(root())
+                .where(id_product));
+    }
+    
+    public ArrayList<Product> getByName(String n) {
+        
+        var name = e().equal(root().get("name"), n);
+        
+        return list(query()
+                .select(root())
+                .where(name));
     }
 }
