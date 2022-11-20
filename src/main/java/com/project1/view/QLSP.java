@@ -7,6 +7,9 @@ package com.project1.view;
 import com.project1.model_adapter.ColorAdapter;
 import com.project1.model_adapter.ProducerAdapter;
 import com.project1.model_adapter.ProductLineAdapter;
+import com.project1.service.implement.ColorService;
+import com.project1.service.implement.ProducerService;
+import com.project1.service.implement.ProductLineService;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -18,19 +21,28 @@ public class QLSP extends javax.swing.JFrame {
 
     
     private ColorAdapter c_adapter;
+    private ColorService c_service;
+    
     private ProductLineAdapter pl_adapter;
+    private ProductLineService pl_service; 
     private ProducerAdapter pcr_adapter;
+    private ProducerService pcr_service;
     /**
      * Creates new form QLSP
      */
     public QLSP() {
         initComponents();
         c_adapter = new ColorAdapter();
+        c_service = new ColorService();
+        
         pl_adapter = new ProductLineAdapter();
+        pl_service = new ProductLineService();
+        
         pcr_adapter = new ProducerAdapter();
+        pcr_service = new ProducerService();
         
         cbb_color.setModel(c_adapter.model());
-        cbb_productLine.setModel(pl_adapter.model());
+        cbb_product_line.setModel(pl_adapter.model());
         cbb_producer.setModel(pcr_adapter.model());
     }
     
@@ -64,7 +76,7 @@ public class QLSP extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cbb_color = new javax.swing.JComboBox<>();
-        cbb_productLine = new javax.swing.JComboBox<>();
+        cbb_product_line = new javax.swing.JComboBox<>();
         cbb_producer = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -183,7 +195,12 @@ public class QLSP extends javax.swing.JFrame {
             }
         });
 
-        cbb_productLine.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_product_line.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_product_line.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_product_lineActionPerformed(evt);
+            }
+        });
 
         cbb_producer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbb_producer.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +243,7 @@ public class QLSP extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbb_color, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbb_productLine, 0, 207, Short.MAX_VALUE)
+                            .addComponent(cbb_product_line, 0, 207, Short.MAX_VALUE)
                             .addComponent(cbb_producer, 0, 207, Short.MAX_VALUE)
                             .addComponent(jTextField1)
                             .addComponent(jTextField2))
@@ -295,7 +312,7 @@ public class QLSP extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(cbb_productLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbb_product_line, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -376,18 +393,40 @@ public class QLSP extends javax.swing.JFrame {
         if (cbb_color.getSelectedItem().toString().compareTo("...") == 0) {
             var color = new Color_fr();
             JOptionPane.showMessageDialog(this, color.getPanel());
-            
+            var value = color.toColor();
+            if (value.isPresent()) {
+                c_service.insert(value.get());
+                cbb_color.setModel(c_adapter.model());
+            }
         }
     }//GEN-LAST:event_cbb_colorActionPerformed
 
     private void cbb_producerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_producerActionPerformed
         
         if (cbb_producer.getSelectedItem().toString().compareTo("...") == 0) {
-            
-            JOptionPane.showMessageDialog(this, evt);
+            var pcr = new Producer_fr();
+            JOptionPane.showMessageDialog(this, pcr.getPanel());
+            var value = pcr.toProducer();
+            if (value.isPresent()) {
+                pcr_service.insert(value.get());
+                cbb_producer.setModel(pcr_adapter.model());
+            }
         }
         
     }//GEN-LAST:event_cbb_producerActionPerformed
+
+    private void cbb_product_lineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_product_lineActionPerformed
+        
+        if (cbb_product_line.getSelectedItem().toString().compareTo("...") == 0) {
+            var pl = new ProductLine_fr();
+            JOptionPane.showMessageDialog(this, pl.getPanel());
+            var value = pl.toProductLine();
+            if (value.isPresent()) {
+                pl_service.insert(value.get());
+                cbb_product_line.setModel(pcr_adapter.model());
+            }
+        }
+    }//GEN-LAST:event_cbb_product_lineActionPerformed
 
     /**
      * @param args the command line arguments
@@ -428,7 +467,7 @@ public class QLSP extends javax.swing.JFrame {
     private javax.swing.JButton btn_insert;
     private javax.swing.JComboBox<String> cbb_color;
     private javax.swing.JComboBox<String> cbb_producer;
-    private javax.swing.JComboBox<String> cbb_productLine;
+    private javax.swing.JComboBox<String> cbb_product_line;
     private javax.swing.JPanel content_panel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
