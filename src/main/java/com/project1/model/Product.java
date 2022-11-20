@@ -7,6 +7,7 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Collection;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -25,6 +26,8 @@ public class Product implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Column(name = "id_product")
     private String idProduct;

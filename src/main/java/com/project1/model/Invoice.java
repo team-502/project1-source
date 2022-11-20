@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -29,6 +30,8 @@ public class Invoice implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Basic(optional = false)
     @Column(name = "created_date")
