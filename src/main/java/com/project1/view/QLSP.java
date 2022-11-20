@@ -4,11 +4,14 @@
  */
 package com.project1.view;
 
+import com.project1.model.Product;
 import com.project1.model.ProductDetail;
 import com.project1.model_adapter.ColorAdapter;
 import com.project1.model_adapter.ProducerAdapter;
+import com.project1.model_adapter.ProductDetailAdapter;
 import com.project1.model_adapter.ProductLineAdapter;
 import com.project1.repository.implement.ColorRepository;
+import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.repository.implement.ProductRepository;
 import com.project1.service.implement.ColorService;
 import com.project1.service.implement.ProducerService;
@@ -58,6 +61,7 @@ public class QLSP extends javax.swing.JFrame {
         cbb_product_color.setModel(c_adapter.model());
         cbb_product_line.setModel(pl_adapter.model());
         cbb_producer.setModel(pcr_adapter.model());
+//        tbl_data.setModel(new ProductDetailAdapter().model());
     }
     
     public JPanel getPanel() {
@@ -77,7 +81,7 @@ public class QLSP extends javax.swing.JFrame {
         content_panel = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_data = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -123,7 +127,7 @@ public class QLSP extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_data.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -139,18 +143,18 @@ public class QLSP extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
+        jScrollPane1.setViewportView(tbl_data);
+        if (tbl_data.getColumnModel().getColumnCount() > 0) {
+            tbl_data.getColumnModel().getColumn(0).setResizable(false);
+            tbl_data.getColumnModel().getColumn(1).setResizable(false);
+            tbl_data.getColumnModel().getColumn(2).setResizable(false);
+            tbl_data.getColumnModel().getColumn(3).setResizable(false);
+            tbl_data.getColumnModel().getColumn(4).setResizable(false);
+            tbl_data.getColumnModel().getColumn(5).setResizable(false);
+            tbl_data.getColumnModel().getColumn(6).setResizable(false);
+            tbl_data.getColumnModel().getColumn(7).setResizable(false);
+            tbl_data.getColumnModel().getColumn(8).setResizable(false);
+            tbl_data.getColumnModel().getColumn(9).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -400,19 +404,34 @@ public class QLSP extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertActionPerformed
-        
+        new ProductDetailReposytory().insert(toProductDetail());
+        tbl_data.setModel(new ProductDetailAdapter().model());
     }//GEN-LAST:event_btn_insertActionPerformed
 
     public ProductDetail toProductDetail() {
         var pd = new ProductDetail();
-        var p = p_repo.getByIdProductAndName(txt_product_name.getText(), txt_product_name.getText());
         var c = c_repo.getByName(cbb_product_color.getSelectedItem().toString());
         var pcr = pcr_service.getByName(cbb_producer.getSelectedItem().toString());
         var pl = pl_service.getByName(cbb_product_line.getSelectedItem().toString());
         
-        if (!p.isEmpty()) {
-            pd.setProduct(p.get(0));
+        if (!p_repo.findByNameOrIdProduct(
+                txt_product_name.getText().trim(),
+                txt_product_id.getText().trim()) ) {
+            
+            var temp_product = new Product();
+            temp_product.setIdProduct(txt_product_id.getText().trim());
+            temp_product.setName(txt_product_name.getText().trim());
+            p_repo.insert(temp_product);
+            
+            pd.setProduct(temp_product);
+            System.out.println("add new product");
+        } else {
+            pd.setProduct(p_repo
+                    .getByIdProductAndName(
+                    txt_product_id.getText().trim(), txt_product_name.getText().trim())
+                    .get(0));
         }
+        
         if (!c.isEmpty()) {
             pd.setColor(c.get(0));
         }
@@ -428,6 +447,7 @@ public class QLSP extends javax.swing.JFrame {
         pd.setDecription(txt_product_decript.getText());
         pd.setImportPrice(new BigInteger(txt_product_import_price.getText()));
         pd.setExportPrice(new BigInteger(txt_product_export_price.getText()));
+        
         return pd;
     }
     
@@ -503,8 +523,8 @@ public class QLSP extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTable tbl_data;
     private javax.swing.JTextField txt_product_decript;
     private javax.swing.JTextField txt_product_export_price;
     private javax.swing.JTextField txt_product_id;
