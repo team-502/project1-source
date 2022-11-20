@@ -5,8 +5,15 @@
 package com.project1.model;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
@@ -16,45 +23,46 @@ import org.hibernate.annotations.UuidGenerator;
 @Table(name = "InvoiceDetail")
 @NamedQueries({
     @NamedQuery(name = "InvoiceDetail.findAll", query = "SELECT i FROM InvoiceDetail i"),
-    @NamedQuery(name = "InvoiceDetail.findById", query = "SELECT i FROM InvoiceDetail i WHERE i.id = :id"),
+    @NamedQuery(name = "InvoiceDetail.findByInvoice", query = "SELECT i FROM InvoiceDetail i WHERE i.invoiceDetailPK.invoice = :invoice"),
+    @NamedQuery(name = "InvoiceDetail.findByProductDetail", query = "SELECT i FROM InvoiceDetail i WHERE i.invoiceDetailPK.productDetail = :productDetail"),
     @NamedQuery(name = "InvoiceDetail.findByQuantity", query = "SELECT i FROM InvoiceDetail i WHERE i.quantity = :quantity")})
 public class InvoiceDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "id")
-    @GeneratedValue
-    @UuidGenerator
-    private String id;
+    @EmbeddedId
+    protected InvoiceDetailPK invoiceDetailPK;
     @Basic(optional = false)
     @Column(name = "quantity")
     private int quantity;
-    @JoinColumn(name = "invoice", referencedColumnName = "id")
+    @JoinColumn(name = "invoice", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Invoice invoice;
-    @JoinColumn(name = "product_detail", referencedColumnName = "Id")
+    private Invoice invoice1;
+    @JoinColumn(name = "product_detail", referencedColumnName = "Id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private ProductDetail productDetail;
+    private ProductDetail productDetail1;
 
     public InvoiceDetail() {
     }
 
-    public InvoiceDetail(String id) {
-        this.id = id;
+    public InvoiceDetail(InvoiceDetailPK invoiceDetailPK) {
+        this.invoiceDetailPK = invoiceDetailPK;
     }
 
-    public InvoiceDetail(String id, int quantity) {
-        this.id = id;
+    public InvoiceDetail(InvoiceDetailPK invoiceDetailPK, int quantity) {
+        this.invoiceDetailPK = invoiceDetailPK;
         this.quantity = quantity;
     }
 
-    public String getId() {
-        return id;
+    public InvoiceDetail(String invoice, String productDetail) {
+        this.invoiceDetailPK = new InvoiceDetailPK(invoice, productDetail);
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public InvoiceDetailPK getInvoiceDetailPK() {
+        return invoiceDetailPK;
+    }
+
+    public void setInvoiceDetailPK(InvoiceDetailPK invoiceDetailPK) {
+        this.invoiceDetailPK = invoiceDetailPK;
     }
 
     public int getQuantity() {
@@ -65,26 +73,26 @@ public class InvoiceDetail implements Serializable {
         this.quantity = quantity;
     }
 
-    public Invoice getInvoice() {
-        return invoice;
+    public Invoice getInvoice1() {
+        return invoice1;
     }
 
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
+    public void setInvoice1(Invoice invoice1) {
+        this.invoice1 = invoice1;
     }
 
-    public ProductDetail getProductDetail() {
-        return productDetail;
+    public ProductDetail getProductDetail1() {
+        return productDetail1;
     }
 
-    public void setProductDetail(ProductDetail productDetail) {
-        this.productDetail = productDetail;
+    public void setProductDetail1(ProductDetail productDetail1) {
+        this.productDetail1 = productDetail1;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (invoiceDetailPK != null ? invoiceDetailPK.hashCode() : 0);
         return hash;
     }
 
@@ -95,7 +103,7 @@ public class InvoiceDetail implements Serializable {
             return false;
         }
         InvoiceDetail other = (InvoiceDetail) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.invoiceDetailPK == null && other.invoiceDetailPK != null) || (this.invoiceDetailPK != null && !this.invoiceDetailPK.equals(other.invoiceDetailPK))) {
             return false;
         }
         return true;
@@ -103,7 +111,7 @@ public class InvoiceDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "com.project1.model.InvoiceDetail[ id=" + id + " ]";
+        return "com.project1.model.InvoiceDetail[ invoiceDetailPK=" + invoiceDetailPK + " ]";
     }
     
 }

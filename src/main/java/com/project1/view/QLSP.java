@@ -61,7 +61,7 @@ public class QLSP extends javax.swing.JFrame {
         cbb_product_color.setModel(c_adapter.model());
         cbb_product_line.setModel(pl_adapter.model());
         cbb_producer.setModel(pcr_adapter.model());
-//        tbl_data.setModel(new ProductDetailAdapter().model());
+        tbl_data.setModel(new ProductDetailAdapter().model());
     }
     
     public JPanel getPanel() {

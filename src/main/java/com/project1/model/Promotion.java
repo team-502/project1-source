@@ -7,8 +7,17 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -21,18 +30,16 @@ import org.hibernate.annotations.UuidGenerator;
     @NamedQuery(name = "Promotion.findById", query = "SELECT p FROM Promotion p WHERE p.id = :id"),
     @NamedQuery(name = "Promotion.findByName", query = "SELECT p FROM Promotion p WHERE p.name = :name"),
     @NamedQuery(name = "Promotion.findByStateDate", query = "SELECT p FROM Promotion p WHERE p.stateDate = :stateDate"),
-    @NamedQuery(name = "Promotion.findByEndDate", query = "SELECT p FROM Promotion p WHERE p.endDate = :endDate")})
+    @NamedQuery(name = "Promotion.findByEndDate", query = "SELECT p FROM Promotion p WHERE p.endDate = :endDate"),
+    @NamedQuery(name = "Promotion.findByPercent", query = "SELECT p FROM Promotion p WHERE p.percent = :percent"),
+    @NamedQuery(name = "Promotion.findByMoney", query = "SELECT p FROM Promotion p WHERE p.money = :money"),
+    @NamedQuery(name = "Promotion.findByType", query = "SELECT p FROM Promotion p WHERE p.type = :type")})
 public class Promotion implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion")
-    private Collection<PromotionDetail> promotionDetailCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    @GeneratedValue
-    @UuidGenerator
     private String id;
     @Column(name = "_name")
     private String name;
@@ -44,11 +51,17 @@ public class Promotion implements Serializable {
     @Column(name = "end_date")
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    @JoinTable(name = "PromotionDetail", joinColumns = {
-        @JoinColumn(name = "Promotion", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "product_detail", referencedColumnName = "Id")})
-    @ManyToMany
-    private Collection<ProductDetail> productDetailCollection;
+    @Basic(optional = false)
+    @Column(name = "_percent")
+    private int percent;
+    @Basic(optional = false)
+    @Column(name = "_money")
+    private long money;
+    @Basic(optional = false)
+    @Column(name = "_type")
+    private boolean type;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion")
+    private Collection<PromotionDetail> promotionDetailCollection;
 
     public Promotion() {
     }
@@ -57,10 +70,13 @@ public class Promotion implements Serializable {
         this.id = id;
     }
 
-    public Promotion(String id, Date stateDate, Date endDate) {
+    public Promotion(String id, Date stateDate, Date endDate, int percent, long money, boolean type) {
         this.id = id;
         this.stateDate = stateDate;
         this.endDate = endDate;
+        this.percent = percent;
+        this.money = money;
+        this.type = type;
     }
 
     public String getId() {
@@ -95,12 +111,36 @@ public class Promotion implements Serializable {
         this.endDate = endDate;
     }
 
-    public Collection<ProductDetail> getProductDetailCollection() {
-        return productDetailCollection;
+    public int getPercent() {
+        return percent;
     }
 
-    public void setProductDetailCollection(Collection<ProductDetail> productDetailCollection) {
-        this.productDetailCollection = productDetailCollection;
+    public void setPercent(int percent) {
+        this.percent = percent;
+    }
+
+    public long getMoney() {
+        return money;
+    }
+
+    public void setMoney(long money) {
+        this.money = money;
+    }
+
+    public boolean getType() {
+        return type;
+    }
+
+    public void setType(boolean type) {
+        this.type = type;
+    }
+
+    public Collection<PromotionDetail> getPromotionDetailCollection() {
+        return promotionDetailCollection;
+    }
+
+    public void setPromotionDetailCollection(Collection<PromotionDetail> promotionDetailCollection) {
+        this.promotionDetailCollection = promotionDetailCollection;
     }
 
     @Override
@@ -126,14 +166,6 @@ public class Promotion implements Serializable {
     @Override
     public String toString() {
         return "com.project1.model.Promotion[ id=" + id + " ]";
-    }
-
-    public Collection<PromotionDetail> getPromotionDetailCollection() {
-        return promotionDetailCollection;
-    }
-
-    public void setPromotionDetailCollection(Collection<PromotionDetail> promotionDetailCollection) {
-        this.promotionDetailCollection = promotionDetailCollection;
     }
     
 }

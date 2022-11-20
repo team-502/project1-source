@@ -6,8 +6,15 @@ package com.project1.model;
 
 import java.io.Serializable;
 import java.util.Collection;
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -21,6 +28,7 @@ import org.hibernate.annotations.UuidGenerator;
     @NamedQuery(name = "Customer.findByIdCustomer", query = "SELECT c FROM Customer c WHERE c.idCustomer = :idCustomer"),
     @NamedQuery(name = "Customer.findByFullName", query = "SELECT c FROM Customer c WHERE c.fullName = :fullName"),
     @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
+    @NamedQuery(name = "Customer.findByGender", query = "SELECT c FROM Customer c WHERE c.gender = :gender"),
     @NamedQuery(name = "Customer.findByPhoneNumber", query = "SELECT c FROM Customer c WHERE c.phoneNumber = :phoneNumber"),
     @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address"),
     @NamedQuery(name = "Customer.findByCountry", query = "SELECT c FROM Customer c WHERE c.country = :country")})
@@ -30,8 +38,6 @@ public class Customer implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
-    @GeneratedValue
-    @UuidGenerator
     private String id;
     @Column(name = "id_customer")
     private String idCustomer;
@@ -39,6 +45,9 @@ public class Customer implements Serializable {
     private String fullName;
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @Column(name = "gender")
+    private boolean gender;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "_address")
@@ -53,6 +62,11 @@ public class Customer implements Serializable {
 
     public Customer(String id) {
         this.id = id;
+    }
+
+    public Customer(String id, boolean gender) {
+        this.id = id;
+        this.gender = gender;
     }
 
     public String getId() {
@@ -85,6 +99,14 @@ public class Customer implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
     }
 
     public String getPhoneNumber() {

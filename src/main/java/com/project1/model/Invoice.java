@@ -7,8 +7,19 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -21,20 +32,15 @@ import org.hibernate.annotations.UuidGenerator;
     @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id"),
     @NamedQuery(name = "Invoice.findByCreatedDate", query = "SELECT i FROM Invoice i WHERE i.createdDate = :createdDate"),
     @NamedQuery(name = "Invoice.findByPaymentDate", query = "SELECT i FROM Invoice i WHERE i.paymentDate = :paymentDate"),
-    @NamedQuery(name = "Invoice.findByDeliveryDate", query = "SELECT i FROM Invoice i WHERE i.deliveryDate = :deliveryDate"),
     @NamedQuery(name = "Invoice.findByReceivedDate", query = "SELECT i FROM Invoice i WHERE i.receivedDate = :receivedDate"),
     @NamedQuery(name = "Invoice.findByState", query = "SELECT i FROM Invoice i WHERE i.state = :state"),
-    @NamedQuery(name = "Invoice.findByRecipimentName", query = "SELECT i FROM Invoice i WHERE i.recipimentName = :recipimentName"),
-    @NamedQuery(name = "Invoice.findByAddress", query = "SELECT i FROM Invoice i WHERE i.address = :address"),
-    @NamedQuery(name = "Invoice.findByPhoneNumber", query = "SELECT i FROM Invoice i WHERE i.phoneNumber = :phoneNumber")})
+    @NamedQuery(name = "Invoice.findByPaymentMethod", query = "SELECT i FROM Invoice i WHERE i.paymentMethod = :paymentMethod")})
 public class Invoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    @GeneratedValue
-    @UuidGenerator
     private String id;
     @Basic(optional = false)
     @Column(name = "created_date")
@@ -45,10 +51,6 @@ public class Invoice implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date paymentDate;
     @Basic(optional = false)
-    @Column(name = "delivery_date")
-    @Temporal(TemporalType.DATE)
-    private Date deliveryDate;
-    @Basic(optional = false)
     @Column(name = "received_date")
     @Temporal(TemporalType.DATE)
     private Date receivedDate;
@@ -56,15 +58,9 @@ public class Invoice implements Serializable {
     @Column(name = "_state")
     private int state;
     @Basic(optional = false)
-    @Column(name = "recipiment_name")
-    private String recipimentName;
-    @Basic(optional = false)
-    @Column(name = "_address")
-    private String address;
-    @Basic(optional = false)
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
+    @Column(name = "payment_method")
+    private int paymentMethod;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice1")
     private Collection<InvoiceDetail> invoiceDetailCollection;
     @JoinColumn(name = "customer", referencedColumnName = "Id")
     @ManyToOne(optional = false)
@@ -80,16 +76,13 @@ public class Invoice implements Serializable {
         this.id = id;
     }
 
-    public Invoice(String id, Date createdDate, Date paymentDate, Date deliveryDate, Date receivedDate, int state, String recipimentName, String address, String phoneNumber) {
+    public Invoice(String id, Date createdDate, Date paymentDate, Date receivedDate, int state, int paymentMethod) {
         this.id = id;
         this.createdDate = createdDate;
         this.paymentDate = paymentDate;
-        this.deliveryDate = deliveryDate;
         this.receivedDate = receivedDate;
         this.state = state;
-        this.recipimentName = recipimentName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+        this.paymentMethod = paymentMethod;
     }
 
     public String getId() {
@@ -116,14 +109,6 @@ public class Invoice implements Serializable {
         this.paymentDate = paymentDate;
     }
 
-    public Date getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(Date deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
     public Date getReceivedDate() {
         return receivedDate;
     }
@@ -140,28 +125,12 @@ public class Invoice implements Serializable {
         this.state = state;
     }
 
-    public String getRecipimentName() {
-        return recipimentName;
+    public int getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setRecipimentName(String recipimentName) {
-        this.recipimentName = recipimentName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPaymentMethod(int paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public Collection<InvoiceDetail> getInvoiceDetailCollection() {

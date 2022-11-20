@@ -7,8 +7,17 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -25,6 +34,7 @@ import org.hibernate.annotations.UuidGenerator;
     @NamedQuery(name = "Staff.findByEmai", query = "SELECT s FROM Staff s WHERE s.emai = :emai"),
     @NamedQuery(name = "Staff.findByBirth", query = "SELECT s FROM Staff s WHERE s.birth = :birth"),
     @NamedQuery(name = "Staff.findByAddress", query = "SELECT s FROM Staff s WHERE s.address = :address"),
+    @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password"),
     @NamedQuery(name = "Staff.findByPhoneNumber", query = "SELECT s FROM Staff s WHERE s.phoneNumber = :phoneNumber"),
     @NamedQuery(name = "Staff.findByState", query = "SELECT s FROM Staff s WHERE s.state = :state")})
 public class Staff implements Serializable {
@@ -33,8 +43,6 @@ public class Staff implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
-    @GeneratedValue
-    @UuidGenerator
     private String id;
     @Basic(optional = false)
     @Column(name = "id_staff")
@@ -74,7 +82,7 @@ public class Staff implements Serializable {
         this.id = id;
     }
 
-    public Staff(String id, String idStaff, String fullName, String gender, String emai, Date birth, String address, String phoneNumber, int state) {
+    public Staff(String id, String idStaff, String fullName, String gender, String emai, Date birth, String address, String password, String phoneNumber, int state) {
         this.id = id;
         this.idStaff = idStaff;
         this.fullName = fullName;
@@ -82,6 +90,7 @@ public class Staff implements Serializable {
         this.emai = emai;
         this.birth = birth;
         this.address = address;
+        this.password = password;
         this.phoneNumber = phoneNumber;
         this.state = state;
     }
@@ -142,6 +151,14 @@ public class Staff implements Serializable {
         this.address = address;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -189,14 +206,6 @@ public class Staff implements Serializable {
     @Override
     public String toString() {
         return "com.project1.model.Staff[ id=" + id + " ]";
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
     
 }

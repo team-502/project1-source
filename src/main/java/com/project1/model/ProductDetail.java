@@ -7,8 +7,17 @@ package com.project1.model;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -26,15 +35,10 @@ import org.hibernate.annotations.UuidGenerator;
     @NamedQuery(name = "ProductDetail.findByExportPrice", query = "SELECT p FROM ProductDetail p WHERE p.exportPrice = :exportPrice")})
 public class ProductDetail implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetail")
-    private Collection<PromotionDetail> promotionDetailCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
-    @GeneratedValue
-    @UuidGenerator
     private String id;
     @Column(name = "Size")
     private Integer size;
@@ -46,9 +50,7 @@ public class ProductDetail implements Serializable {
     private BigInteger importPrice;
     @Column(name = "export_price")
     private BigInteger exportPrice;
-    @ManyToMany(mappedBy = "productDetailCollection")
-    private Collection<Promotion> promotionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetail")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetail1")
     private Collection<InvoiceDetail> invoiceDetailCollection;
     @JoinColumn(name = "color", referencedColumnName = "Id")
     @ManyToOne
@@ -62,6 +64,8 @@ public class ProductDetail implements Serializable {
     @JoinColumn(name = "product_line", referencedColumnName = "Id")
     @ManyToOne
     private ProductLine productLine;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetail")
+    private Collection<PromotionDetail> promotionDetailCollection;
 
     public ProductDetail() {
     }
@@ -118,14 +122,6 @@ public class ProductDetail implements Serializable {
         this.exportPrice = exportPrice;
     }
 
-    public Collection<Promotion> getPromotionCollection() {
-        return promotionCollection;
-    }
-
-    public void setPromotionCollection(Collection<Promotion> promotionCollection) {
-        this.promotionCollection = promotionCollection;
-    }
-
     public Collection<InvoiceDetail> getInvoiceDetailCollection() {
         return invoiceDetailCollection;
     }
@@ -166,6 +162,14 @@ public class ProductDetail implements Serializable {
         this.productLine = productLine;
     }
 
+    public Collection<PromotionDetail> getPromotionDetailCollection() {
+        return promotionDetailCollection;
+    }
+
+    public void setPromotionDetailCollection(Collection<PromotionDetail> promotionDetailCollection) {
+        this.promotionDetailCollection = promotionDetailCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -189,14 +193,6 @@ public class ProductDetail implements Serializable {
     @Override
     public String toString() {
         return "com.project1.model.ProductDetail[ id=" + id + " ]";
-    }
-
-    public Collection<PromotionDetail> getPromotionDetailCollection() {
-        return promotionDetailCollection;
-    }
-
-    public void setPromotionDetailCollection(Collection<PromotionDetail> promotionDetailCollection) {
-        this.promotionDetailCollection = promotionDetailCollection;
     }
     
 }

@@ -40,9 +40,9 @@ public class ProductColorForm extends javax.swing.JDialog {
             {
                 put(err_product_color_id, Pattern.matches(
                         "^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]$",
-                         txt_product_color_id.getText()));
+                         txt_product_color_id.getText().trim()));
                 put(err_product_color_name, Pattern.matches("^[a-zA-Z ]+$",
-                         txt_product_color_name.getText()));
+                         txt_product_color_name.getText().trim()));
             }
         };
 

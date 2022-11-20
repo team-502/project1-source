@@ -41,9 +41,9 @@ public class ProductLineForm extends javax.swing.JDialog {
         var err_map = new HashMap<JLabel, Boolean>() {{
                 put(err_product_line_id, Pattern.matches(
                         "^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]$",
-                         txt_product_line_id.getText()));
+                         txt_product_line_id.getText().trim()));
                 put(err_product_line_name, Pattern.matches("^[a-zA-Z ]+$",
-                         txt_product_line_name.getText()));
+                         txt_product_line_name.getText().trim()));
         }};
 
         boolean result = true;
