@@ -30,6 +30,7 @@ public class Main_FR extends javax.swing.JFrame {
         qlsp = new QLSP();
         khach_hang = new KhachHang();
         ban_hang = new BanHang_fr();
+        ban_hang = new BanHang_fr();
         panels = new HashMap<JButton, JPanel>() {{
             put (
                     product_manager
@@ -39,12 +40,23 @@ public class Main_FR extends javax.swing.JFrame {
                     btn_customer
                     , new Renderer<JPanel>( khach_hang.getPanel())
                             .getDefault(content_panel));
+            put (btn_payment
+                    , new Renderer<JPanel>(ban_hang.getPanel())
+                            .getDefault(content_panel));
         }};
         
         for (var i: panels.entrySet()) {
             content_panel.add(i.getValue());
+            i.getValue().setVisible(false);
         }
+        reRender();
         panels.get(product_manager).setVisible(true);
+    }
+    
+    public void reRender() {
+        for (var i: panels.entrySet()) {
+            i.getValue().setVisible(false);
+        }
     }
 
     /**
@@ -59,7 +71,7 @@ public class Main_FR extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         product_manager = new javax.swing.JButton();
         btn_customer = new javax.swing.JButton();
-        btn_promotion = new javax.swing.JButton();
+        btn_payment = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -81,7 +93,12 @@ public class Main_FR extends javax.swing.JFrame {
             }
         });
 
-        btn_promotion.setText("jButton1");
+        btn_payment.setText("ban hang");
+        btn_payment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_paymentActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("jButton1");
 
@@ -99,7 +116,7 @@ public class Main_FR extends javax.swing.JFrame {
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_promotion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_payment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_customer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(product_manager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -112,7 +129,7 @@ public class Main_FR extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_customer, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_promotion, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_payment, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,23 +170,24 @@ public class Main_FR extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void product_managerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_product_managerActionPerformed
-        for (var i: panels.entrySet()) {
-            i.getValue().setVisible(false);
-        }
+        reRender();
         panels.get(product_manager).setVisible(true);
     }//GEN-LAST:event_product_managerActionPerformed
 
     private void btn_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_customerActionPerformed
-        for (var i: panels.entrySet()) {
-            i.getValue().setVisible(false);
-        }
+        reRender();
         panels.get(btn_customer).setVisible(true);
     }//GEN-LAST:event_btn_customerActionPerformed
+
+    private void btn_paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paymentActionPerformed
+        reRender();
+        panels.get(btn_payment).setVisible(true);
+    }//GEN-LAST:event_btn_paymentActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_customer;
-    private javax.swing.JButton btn_promotion;
+    private javax.swing.JButton btn_payment;
     private javax.swing.JPanel content_panel;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

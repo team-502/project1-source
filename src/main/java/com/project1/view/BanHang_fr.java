@@ -74,7 +74,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tbl_list_product = new javax.swing.JTable();
         jTextField4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
@@ -263,7 +263,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                                                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(0, 20, Short.MAX_VALUE)))
+                                .addGap(0, 31, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -386,7 +386,7 @@ public class BanHang_fr extends javax.swing.JFrame {
 
         jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_list_product.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -402,16 +402,16 @@ public class BanHang_fr extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setResizable(false);
-            jTable3.getColumnModel().getColumn(1).setResizable(false);
-            jTable3.getColumnModel().getColumn(2).setResizable(false);
-            jTable3.getColumnModel().getColumn(3).setResizable(false);
-            jTable3.getColumnModel().getColumn(4).setResizable(false);
-            jTable3.getColumnModel().getColumn(5).setResizable(false);
-            jTable3.getColumnModel().getColumn(6).setResizable(false);
-            jTable3.getColumnModel().getColumn(8).setResizable(false);
+        jScrollPane3.setViewportView(tbl_list_product);
+        if (tbl_list_product.getColumnModel().getColumnCount() > 0) {
+            tbl_list_product.getColumnModel().getColumn(0).setResizable(false);
+            tbl_list_product.getColumnModel().getColumn(1).setResizable(false);
+            tbl_list_product.getColumnModel().getColumn(2).setResizable(false);
+            tbl_list_product.getColumnModel().getColumn(3).setResizable(false);
+            tbl_list_product.getColumnModel().getColumn(4).setResizable(false);
+            tbl_list_product.getColumnModel().getColumn(5).setResizable(false);
+            tbl_list_product.getColumnModel().getColumn(6).setResizable(false);
+            tbl_list_product.getColumnModel().getColumn(8).setResizable(false);
         }
 
         jLabel7.setText("Tìm Kiếm Sản Phẩm");
@@ -596,7 +596,6 @@ public class BanHang_fr extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
@@ -608,5 +607,6 @@ public class BanHang_fr extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tbl_list_product;
     // End of variables declaration//GEN-END:variables
 }
