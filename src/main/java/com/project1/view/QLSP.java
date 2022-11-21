@@ -20,6 +20,7 @@ import com.project1.view.dialog.ProducerForm;
 import com.project1.view.dialog.ProductColorForm;
 import com.project1.view.dialog.ProductLineForm;
 import java.math.BigInteger;
+import java.security.SecureRandom;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -143,6 +144,11 @@ public class QLSP extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_dataMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_data);
         if (tbl_data.getColumnModel().getColumnCount() > 0) {
             tbl_data.getColumnModel().getColumn(0).setResizable(false);
@@ -228,6 +234,11 @@ public class QLSP extends javax.swing.JFrame {
         });
 
         jButton1.setText("Sửa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btn_insert.setText("Thêm");
         btn_insert.addActionListener(new java.awt.event.ActionListener() {
@@ -404,12 +415,12 @@ public class QLSP extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertActionPerformed
-        new ProductDetailReposytory().insert(toProductDetail());
+        new ProductDetailReposytory().insert(toProductDetail(new ProductDetail()));
         tbl_data.setModel(new ProductDetailAdapter().model());
     }//GEN-LAST:event_btn_insertActionPerformed
 
-    public ProductDetail toProductDetail() {
-        var pd = new ProductDetail();
+    public ProductDetail toProductDetail(ProductDetail product_deetail) {
+        var pd = product_deetail;
         var c = c_repo.getByName(cbb_product_color.getSelectedItem().toString());
         var pcr = pcr_service.getByName(cbb_producer.getSelectedItem().toString());
         var pl = pl_service.getByName(cbb_product_line.getSelectedItem().toString());
@@ -498,6 +509,30 @@ public class QLSP extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cbb_product_lineActionPerformed
+
+    private void tbl_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_dataMouseClicked
+        if (tbl_data.getSelectedRowCount() == 1) {
+            var pd = new ProductDetailReposytory().getAll().get(tbl_data.getSelectedRow());
+            txt_product_id.setText(pd.getProduct().getIdProduct());
+            txt_product_name.setText(pd.getProduct().getName());
+            cbb_product_color.setSelectedItem(pd.getColor());
+            cbb_product_line.setSelectedItem(pd.getProductLine().getName());
+            cbb_producer.setSelectedItem(pd.getProducer().getName());
+            txt_product_size.setText(pd.getSize() + "");
+            txt_product_quantity.setText(pd.getQuantity() + "");
+            txt_product_decript.setText(pd.getDecription());
+            txt_product_import_price.setText(pd.getImportPrice().toString());
+            txt_product_export_price.setText(pd.getExportPrice().toString());
+        }
+    }//GEN-LAST:event_tbl_dataMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (tbl_data.getSelectedRowCount() == 1) {
+            var repo = new ProductDetailReposytory();
+            repo.update(toProductDetail(repo.getAll().get(tbl_data.getSelectedRow())));
+            tbl_data.setModel(new ProductDetailAdapter().model());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -25,7 +25,7 @@ public class Project1 {
         
 
         
-        new Register().setVisible(true);
+        new Main_FR().setVisible(true);
     }
 }
 

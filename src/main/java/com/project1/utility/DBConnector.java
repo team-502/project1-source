@@ -32,6 +32,7 @@ public class DBConnector {
                     .addAnnotatedClass(Staff.class)
                     .buildSessionFactory();              
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("connect falied");
         }
     }
