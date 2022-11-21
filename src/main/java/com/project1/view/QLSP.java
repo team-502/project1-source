@@ -19,8 +19,12 @@ import com.project1.service.implement.ProductLineService;
 import com.project1.view.dialog.ProducerForm;
 import com.project1.view.dialog.ProductColorForm;
 import com.project1.view.dialog.ProductLineForm;
+import java.awt.Color;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.regex.Pattern;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -84,16 +88,16 @@ public class QLSP extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_data = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        err_id = new javax.swing.JLabel();
+        err_name = new javax.swing.JLabel();
+        err_color = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        err_size = new javax.swing.JLabel();
+        err_quantity = new javax.swing.JLabel();
+        err_decryption = new javax.swing.JLabel();
+        err_import_price = new javax.swing.JLabel();
+        err_export_price = new javax.swing.JLabel();
         cbb_product_color = new javax.swing.JComboBox<>();
         cbb_product_line = new javax.swing.JComboBox<>();
         cbb_producer = new javax.swing.JComboBox<>();
@@ -182,35 +186,45 @@ public class QLSP extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel1.setText("Mã Sản Phẩm");
+        err_id.setBackground(new java.awt.Color(255, 255, 255));
+        err_id.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        err_id.setText("Mã Sản Phẩm");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel3.setText("Tên Sản Phẩm");
+        err_name.setBackground(new java.awt.Color(255, 255, 255));
+        err_name.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        err_name.setText("Tên Sản Phẩm");
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel4.setText("Màu Sắc");
+        err_color.setBackground(new java.awt.Color(255, 255, 255));
+        err_color.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        err_color.setText("Màu Sắc");
 
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel5.setText("Dòng Sản Phẩm");
 
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel6.setText("Nhà Sản Xuất");
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel7.setText("Size");
+        err_size.setBackground(new java.awt.Color(255, 255, 255));
+        err_size.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        err_size.setText("Size");
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel8.setText("Số Lượng");
+        err_quantity.setBackground(new java.awt.Color(255, 255, 255));
+        err_quantity.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        err_quantity.setText("Số Lượng");
 
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel9.setText("Mô Tả");
+        err_decryption.setBackground(new java.awt.Color(255, 255, 255));
+        err_decryption.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        err_decryption.setText("Mô Tả");
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel10.setText("Giá Nhập");
+        err_import_price.setBackground(new java.awt.Color(255, 255, 255));
+        err_import_price.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        err_import_price.setText("Giá Nhập");
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel11.setText("Giá Bán");
+        err_export_price.setBackground(new java.awt.Color(255, 255, 255));
+        err_export_price.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        err_export_price.setText("Giá Bán");
 
         cbb_product_color.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbb_product_color.addActionListener(new java.awt.event.ActionListener() {
@@ -261,9 +275,9 @@ public class QLSP extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(err_color, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(err_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(err_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btn_insert)
                         .addComponent(jLabel6)))
@@ -271,26 +285,26 @@ public class QLSP extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbb_producer, 0, 258, Short.MAX_VALUE)
+                            .addComponent(cbb_product_line, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbb_product_color, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbb_product_line, 0, 207, Short.MAX_VALUE)
-                            .addComponent(cbb_producer, 0, 207, Short.MAX_VALUE)
-                            .addComponent(txt_product_id)
-                            .addComponent(txt_product_name))
-                        .addGap(65, 65, 65)
+                            .addComponent(txt_product_name)
+                            .addComponent(txt_product_id))
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(err_quantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(err_decryption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(err_export_price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(err_import_price)
+                            .addComponent(err_size, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txt_product_import_price, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                             .addComponent(txt_product_quantity, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_product_size)
-                            .addComponent(txt_product_decript)
-                            .addComponent(txt_product_import_price, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_product_decript, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_product_size, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_product_export_price))
-                        .addGap(48, 48, 48))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(90, 90, 90)
@@ -308,52 +322,50 @@ public class QLSP extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(err_size, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_product_size, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_product_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_product_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_product_decript, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_product_import_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_product_decript, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_product_import_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(err_export_price, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_product_export_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
+                            .addComponent(err_id)
                             .addComponent(txt_product_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txt_product_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(err_name)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txt_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(err_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(cbb_product_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(err_color)
+                            .addComponent(cbb_product_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(err_decryption, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(cbb_product_line, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbb_product_line, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(err_import_price, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(cbb_producer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_insert)
                     .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jButton5)
                     .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                .addGap(15, 15, 15))
         );
 
         jLabel2.setText("Thiết Lập Thông Tin Sản Phẩm");
@@ -415,8 +427,10 @@ public class QLSP extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertActionPerformed
-        new ProductDetailReposytory().insert(toProductDetail(new ProductDetail()));
-        tbl_data.setModel(new ProductDetailAdapter().model());
+        if (valid()) {
+            new ProductDetailReposytory().insert(toProductDetail(new ProductDetail()));
+            tbl_data.setModel(new ProductDetailAdapter().model());    
+        }
     }//GEN-LAST:event_btn_insertActionPerformed
 
     public ProductDetail toProductDetail(ProductDetail product_deetail) {
@@ -425,47 +439,76 @@ public class QLSP extends javax.swing.JFrame {
         var pcr = pcr_service.getByName(cbb_producer.getSelectedItem().toString());
         var pl = pl_service.getByName(cbb_product_line.getSelectedItem().toString());
         
-        if (!p_repo.findByNameOrIdProduct(
-                txt_product_name.getText().trim(),
-                txt_product_id.getText().trim()) ) {
-            
-            var temp_product = new Product();
-            temp_product.setIdProduct(txt_product_id.getText().trim());
-            temp_product.setName(txt_product_name.getText().trim());
-            p_repo.insert(temp_product);
-            
-            pd.setProduct(temp_product);
-            System.out.println("add new product");
+        if (p_repo.findByIdProduct(txt_product_id.getText().trim())) {
+            JOptionPane.showMessageDialog(this, "ma san pham da ton tai");
         } else {
-            pd.setProduct(p_repo
-                    .getByIdProductAndName(
-                    txt_product_id.getText().trim(), txt_product_name.getText().trim())
-                    .get(0));
+            if (p_repo.findByNameAndIdProduct(
+                    txt_product_name.getText().trim(),
+                    txt_product_id.getText().trim()) ) {
+                pd.setProduct(p_repo
+                        .getByIdProductAndName(
+                        txt_product_id.getText().trim(), txt_product_name.getText().trim())
+                        .get(0));
+            } else {
+                var temp_product = new Product();
+                temp_product.setIdProduct(txt_product_id.getText().trim());
+                temp_product.setName(txt_product_name.getText().trim());
+                p_repo.insert(temp_product);
+
+                pd.setProduct(temp_product);
+                System.out.println("add new product");
+            }
+
+            if (!c.isEmpty()) {
+                pd.setColor(c.get(0));
+            }
+            if (!pcr.isEmpty()) {
+                pd.setProducer(pcr.get(0));
+            }
+            if (!pl.isEmpty()) {
+                pd.setProductLine(pl.get(0));
+            }
+
+            pd.setSize(Integer.valueOf(txt_product_size.getText()));
+            pd.setQuantity(Integer.valueOf(txt_product_quantity.getText()));
+            pd.setDecription(txt_product_decript.getText());
+            pd.setImportPrice(new BigInteger(txt_product_import_price.getText()));
+            pd.setExportPrice(new BigInteger(txt_product_export_price.getText()));
         }
-        
-        if (!c.isEmpty()) {
-            pd.setColor(c.get(0));
-        }
-        if (!pcr.isEmpty()) {
-            pd.setProducer(pcr.get(0));
-        }
-        if (!pl.isEmpty()) {
-            pd.setProductLine(pl.get(0));
-        }
-        
-        pd.setSize(Integer.valueOf(txt_product_size.getText()));
-        pd.setQuantity(Integer.valueOf(txt_product_quantity.getText()));
-        pd.setDecription(txt_product_decript.getText());
-        pd.setImportPrice(new BigInteger(txt_product_import_price.getText()));
-        pd.setExportPrice(new BigInteger(txt_product_export_price.getText()));
-        
         return pd;
     }
     
     public boolean valid() {
         
-        // temp
-        return true;
+        var err_map = new HashMap<JLabel, Boolean>() {{
+            put (err_id,
+                    Pattern.matches("^[a-zA-Z0-9]+$", txt_product_id.getText().trim()));
+            put (err_name,
+                    Pattern.matches("^[a-zA-Z0-9 ]+$", txt_product_name.getText().trim()));
+            put (err_size,
+                    Pattern.matches("^[1-9]([0-9]+)?$", txt_product_size.getText().trim()));
+            put (err_quantity,
+                    Pattern.matches("^[1-9]([0-9]+)?$", txt_product_quantity.getText().trim()));
+            put (err_decryption,
+                    Pattern.matches("^[a-zA-Z0-9 ]+$", txt_product_decript.getText().trim()));
+            put (err_import_price,
+                    Pattern.matches("^[1-9]([0-9]+)?$", txt_product_import_price.getText().trim()));
+            put (err_export_price,
+                    Pattern.matches("^[1-9]([0-9]+)?$", txt_product_export_price.getText().trim()));
+        }};
+        
+        var result = true;
+        
+        for (var i: err_map.entrySet()) {
+            if (!i.getValue()) {
+                i.getKey().setForeground(Color.red);
+                result = false;
+            } else {
+                i.getKey().setForeground(Color.white);
+            }
+        }
+        
+        return result;
         
     }
     
@@ -524,13 +567,16 @@ public class QLSP extends javax.swing.JFrame {
             txt_product_import_price.setText(pd.getImportPrice().toString());
             txt_product_export_price.setText(pd.getExportPrice().toString());
         }
+        valid();
     }//GEN-LAST:event_tbl_dataMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (tbl_data.getSelectedRowCount() == 1) {
-            var repo = new ProductDetailReposytory();
-            repo.update(toProductDetail(repo.getAll().get(tbl_data.getSelectedRow())));
-            tbl_data.setModel(new ProductDetailAdapter().model());
+            if (valid()) {
+                var repo = new ProductDetailReposytory();
+                repo.update(toProductDetail(repo.getAll().get(tbl_data.getSelectedRow())));
+                tbl_data.setModel(new ProductDetailAdapter().model());                
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -541,22 +587,22 @@ public class QLSP extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbb_product_color;
     private javax.swing.JComboBox<String> cbb_product_line;
     private javax.swing.JPanel content_panel;
+    private javax.swing.JLabel err_color;
+    private javax.swing.JLabel err_decryption;
+    private javax.swing.JLabel err_export_price;
+    private javax.swing.JLabel err_id;
+    private javax.swing.JLabel err_import_price;
+    private javax.swing.JLabel err_name;
+    private javax.swing.JLabel err_quantity;
+    private javax.swing.JLabel err_size;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;

@@ -49,6 +49,26 @@ public class ProductRepository extends Repository<Product> {
                 .where(or)).isEmpty();
     }
     
+    public boolean findByNameAndIdProduct(String n, String ip) {
+        
+        var id_product = e().equal(root().get("idProduct"), ip);
+        var name = e().equal(root().get("name"), n);
+        var and = e().and(id_product, name);
+        return !list(query()
+                .select(root())
+                .where(and)).isEmpty();
+    }
+    
+    public boolean findByIdProduct(String ip) {
+        
+        var id = e().equal(root().get("idProduct"), ip);
+        
+        return list(query()
+                .select(root())
+                .where(id)).size() != 0;
+        
+    }
+    
     public ArrayList<Product> getByName(String n) {
         
         var name = e().equal(root().get("name"), n);

@@ -234,9 +234,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel5" max="32767" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="err_color" alignment="0" max="32767" attributes="0"/>
+                          <Component id="err_id" alignment="0" max="32767" attributes="0"/>
+                          <Component id="err_name" alignment="0" max="32767" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Component id="btn_insert" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -246,29 +246,29 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="cbb_product_color" max="32767" attributes="0"/>
-                                  <Component id="cbb_product_line" pref="207" max="32767" attributes="0"/>
-                                  <Component id="cbb_producer" pref="207" max="32767" attributes="0"/>
-                                  <Component id="txt_product_id" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cbb_producer" pref="258" max="32767" attributes="0"/>
+                                  <Component id="cbb_product_line" max="32767" attributes="0"/>
+                                  <Component id="cbb_product_color" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txt_product_name" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txt_product_id" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="err_quantity" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="err_decryption" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="err_export_price" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="err_import_price" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="err_size" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="txt_product_import_price" pref="317" max="32767" attributes="0"/>
                                   <Component id="txt_product_quantity" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txt_product_size" max="32767" attributes="0"/>
-                                  <Component id="txt_product_decript" max="32767" attributes="0"/>
-                                  <Component id="txt_product_import_price" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txt_product_decript" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txt_product_size" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txt_product_export_price" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -291,49 +291,45 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel7" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Component id="err_size" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                                   <Component id="txt_product_size" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel8" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="txt_product_quantity" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="txt_product_quantity" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txt_product_decript" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txt_product_import_price" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel9" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="txt_product_decript" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel10" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="txt_product_import_price" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel11" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Component id="err_export_price" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                                   <Component id="txt_product_export_price" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="err_id" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txt_product_id" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_product_name" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="err_name" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="txt_product_name" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="err_quantity" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="err_color" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="cbb_product_color" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="err_decryption" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="cbb_product_line" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="err_import_price" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -342,7 +338,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btn_insert" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -350,30 +346,39 @@
                           <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="err_id">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="M&#xe3; S&#x1ea3;n Ph&#x1ea9;m"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="err_name">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="T&#xea;n S&#x1ea3;n Ph&#x1ea9;m"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="err_color">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
@@ -382,6 +387,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
@@ -390,46 +398,64 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nh&#xe0; S&#x1ea3;n Xu&#x1ea5;t"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="err_size">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Size"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JLabel" name="err_quantity">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; L&#x1b0;&#x1ee3;ng"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel9">
+            <Component class="javax.swing.JLabel" name="err_decryption">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="M&#xf4; T&#x1ea3;"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel10">
+            <Component class="javax.swing.JLabel" name="err_import_price">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gi&#xe1; Nh&#x1ead;p"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel11">
+            <Component class="javax.swing.JLabel" name="err_export_price">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
