@@ -69,6 +69,7 @@ public class ProductRepository extends Repository<Product> {
         
     }
     
+    
     public ArrayList<Product> getByName(String n) {
         
         var name = e().equal(root().get("name"), n);

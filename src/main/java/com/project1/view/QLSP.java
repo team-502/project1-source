@@ -110,9 +110,9 @@ public class QLSP extends javax.swing.JFrame {
         txt_product_export_price = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btn_insert = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jComboBox4 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jTextField8 = new javax.swing.JTextField();
@@ -261,11 +261,16 @@ public class QLSP extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Xoá");
-
         jButton5.setText("Sắp Xếp");
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton2.setText("clear form");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -303,17 +308,16 @@ public class QLSP extends javax.swing.JFrame {
                             .addComponent(txt_product_quantity, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_product_decript, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_product_size, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_product_export_price))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txt_product_export_price)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(90, 90, 90)
-                        .addComponent(jButton3)
-                        .addGap(76, 76, 76)
+                        .addGap(238, 238, 238)
                         .addComponent(jButton5)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(149, 149, 149))))
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton2)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,9 +366,9 @@ public class QLSP extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_insert)
                     .addComponent(jButton1)
-                    .addComponent(jButton3)
                     .addComponent(jButton5)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
                 .addGap(15, 15, 15))
         );
 
@@ -440,41 +444,33 @@ public class QLSP extends javax.swing.JFrame {
         var pl = pl_service.getByName(cbb_product_line.getSelectedItem().toString());
         
         if (p_repo.findByIdProduct(txt_product_id.getText().trim())) {
-            JOptionPane.showMessageDialog(this, "ma san pham da ton tai");
-        } else {
-            if (p_repo.findByNameAndIdProduct(
-                    txt_product_name.getText().trim(),
-                    txt_product_id.getText().trim()) ) {
-                pd.setProduct(p_repo
-                        .getByIdProductAndName(
-                        txt_product_id.getText().trim(), txt_product_name.getText().trim())
+            pd.setProduct(p_repo
+                        .getByIdProduct(
+                        txt_product_id.getText().trim())
                         .get(0));
-            } else {
-                var temp_product = new Product();
-                temp_product.setIdProduct(txt_product_id.getText().trim());
-                temp_product.setName(txt_product_name.getText().trim());
-                p_repo.insert(temp_product);
-
-                pd.setProduct(temp_product);
-                System.out.println("add new product");
-            }
-
-            if (!c.isEmpty()) {
-                pd.setColor(c.get(0));
-            }
-            if (!pcr.isEmpty()) {
-                pd.setProducer(pcr.get(0));
-            }
-            if (!pl.isEmpty()) {
-                pd.setProductLine(pl.get(0));
-            }
-
-            pd.setSize(Integer.valueOf(txt_product_size.getText()));
-            pd.setQuantity(Integer.valueOf(txt_product_quantity.getText()));
-            pd.setDecription(txt_product_decript.getText());
-            pd.setImportPrice(new BigInteger(txt_product_import_price.getText()));
-            pd.setExportPrice(new BigInteger(txt_product_export_price.getText()));
+        } else {
+            var temp_product = new Product();
+            temp_product.setIdProduct(txt_product_id.getText().trim());
+            temp_product.setName(txt_product_name.getText().trim());
+            p_repo.insert(temp_product);
+            pd.setProduct(temp_product);
         }
+
+        if (!c.isEmpty()) {
+            pd.setColor(c.get(0));
+        }
+        if (!pcr.isEmpty()) {
+            pd.setProducer(pcr.get(0));
+        }
+        if (!pl.isEmpty()) {
+            pd.setProductLine(pl.get(0));
+        }
+
+        pd.setSize(Integer.valueOf(txt_product_size.getText()));
+        pd.setQuantity(Integer.valueOf(txt_product_quantity.getText()));
+        pd.setDecription(txt_product_decript.getText());
+        pd.setImportPrice(new BigInteger(txt_product_import_price.getText()));
+        pd.setExportPrice(new BigInteger(txt_product_export_price.getText()));
         return pd;
     }
     
@@ -510,6 +506,19 @@ public class QLSP extends javax.swing.JFrame {
         
         return result;
         
+    }
+    
+    public void clearForm() {
+        txt_product_id.setText("");
+        txt_product_name.setText("");
+        cbb_product_color.setSelectedIndex(0);
+        cbb_product_line.setSelectedIndex(0);
+        cbb_producer.setSelectedIndex(0);
+        txt_product_size.setText("");
+        txt_product_quantity.setText("");
+        txt_product_decript.setText("");
+        txt_product_import_price.setText("");
+        txt_product_export_price.setText("");
     }
     
     private void cbb_product_colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_product_colorActionPerformed
@@ -580,6 +589,10 @@ public class QLSP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        clearForm();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_insert;
@@ -596,7 +609,7 @@ public class QLSP extends javax.swing.JFrame {
     private javax.swing.JLabel err_quantity;
     private javax.swing.JLabel err_size;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox4;

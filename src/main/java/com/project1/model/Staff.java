@@ -7,6 +7,7 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  *
@@ -32,6 +33,8 @@ public class Staff implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
+    @GeneratedValue
+    @UuidGenerator
     private String id;
     @Basic(optional = false)
     @Column(name = "id_staff")

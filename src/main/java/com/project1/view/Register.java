@@ -5,6 +5,7 @@
 package com.project1.view;
 import java.util.*;
 import com.project1.model.Staff;
+import com.project1.model_adapter.StaffAdapter;
 import com.project1.service.implement.RegisterService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,7 @@ public class Register extends javax.swing.JFrame {
      */
     public Register() {
         initComponents();
+        tbl_data.setModel(new StaffAdapter().model());
     }
     
     
@@ -82,6 +84,11 @@ public class Register extends javax.swing.JFrame {
         jLabel8.setText("SĐT:");
 
         jButton1.setText("Đăng Ký");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tbl_data.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,6 +226,20 @@ public class Register extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnDKActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        RegisterService rsv = new RegisterService();
+        try {
+            if(rsv.insert(toStaff()).isPresent()){
+                JOptionPane.showMessageDialog(this, "Thêm tài khoản thành công");
+            }else{
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tbl_data.setModel(new StaffAdapter().model());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
