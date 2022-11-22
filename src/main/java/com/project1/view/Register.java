@@ -210,6 +210,7 @@ public class Register extends javax.swing.JFrame {
         st.setAddress(txt_staff_address.getText());
         st.setPhoneNumber(txt_staff_phone_number.getText());
         st.setPassword(new String(txt_staff_password.getPassword()));
+        st.setState(1);
         return st;
     }
     private void btnDKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDKActionPerformed

@@ -28,6 +28,7 @@ public class Project1 {
         if (login.toStaff().isPresent()) {
             new Main_FR(login.toStaff().get()).setVisible(true);
         }
+        System.out.println("\n ccccc\n");
     }
 }
 

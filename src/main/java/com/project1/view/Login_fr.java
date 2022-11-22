@@ -20,6 +20,7 @@ public class Login_fr extends javax.swing.JFrame {
      */
     public Login_fr() {
         initComponents();
+        this.setVisible(true);
     }
 
     /**
@@ -171,10 +172,10 @@ public class Login_fr extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public Optional<Staff> toStaff() {
-        if (new StaffRepository().getByIdStaffAndPassword(
+        if (!new StaffRepository().getByIdStaffAndPassword(
                 txt_staff_id.getText().trim(),
                 new String(txt_staff_password.getPassword()).trim()
-        ).size() > 0) {
+        ).isEmpty()) {
             return Optional.of(staff);
         }
         return Optional.empty();
