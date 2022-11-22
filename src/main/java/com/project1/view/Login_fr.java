@@ -6,6 +6,7 @@ package com.project1.view;
 
 import com.project1.model.Staff;
 import com.project1.repository.implement.StaffRepository;
+import java.util.Optional;
 
 /**
  *
@@ -169,6 +170,16 @@ public class Login_fr extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public Optional<Staff> toStaff() {
+        if (new StaffRepository().getByIdStaffAndPassword(
+                txt_staff_id.getText().trim(),
+                new String(txt_staff_password.getPassword()).trim()
+        ).size() > 0) {
+            return Optional.of(staff);
+        }
+        return Optional.empty();
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed

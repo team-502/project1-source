@@ -4,6 +4,7 @@
  */
 package com.project1.view;
 
+import com.project1.model.Staff;
 import com.project1.utility.view.Renderer;
 import java.util.HashMap;
 import javax.swing.JButton;
@@ -19,14 +20,15 @@ public class Main_FR extends javax.swing.JFrame {
     /**
      * Creates new form Main_FR
      */
-    
+    private Staff staff;
     private QLSP qlsp;
     private KhachHang khach_hang;
     private BanHang_fr ban_hang;
     private HashMap<JButton, JPanel> panels;
     
-    public Main_FR() {
+    public Main_FR(Staff staff) {
         initComponents();
+        this.staff = staff;
         qlsp = new QLSP();
         khach_hang = new KhachHang();
         ban_hang = new BanHang_fr();
