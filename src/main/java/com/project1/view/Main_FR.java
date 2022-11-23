@@ -30,9 +30,9 @@ public class Main_FR extends javax.swing.JFrame {
     public Main_FR() {
         initComponents();
         
-        var login = new LoginDialog(this, true);
-        login.setVisible(true);
-        staff = login.toStaff();
+//        var login = new LoginDialog(this, true);
+//        login.setVisible(true);
+//        staff = login.toStaff();
         
         qlsp = new QLSP();
         khach_hang = new KhachHang();

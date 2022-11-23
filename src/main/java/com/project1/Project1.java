@@ -22,6 +22,7 @@ public class Project1 {
         }
         
         var main_form = new Main_FR();
+        main_form.setVisible(true);
     }
 }
 

@@ -10,7 +10,6 @@ import java.util.Optional;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 /**
  *
