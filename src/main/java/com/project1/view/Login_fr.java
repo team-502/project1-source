@@ -20,7 +20,6 @@ public class Login_fr extends javax.swing.JFrame {
      */
     public Login_fr() {
         initComponents();
-        this.setVisible(true);
     }
 
     /**
@@ -167,6 +166,8 @@ public class Login_fr extends javax.swing.JFrame {
         );
         if (!s.isEmpty()) {
             this.staff = s.get(0);
+            System.out.println("\n" + staff.getFullName() +  "\n");
+            new Main_FR(staff).setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -176,8 +177,9 @@ public class Login_fr extends javax.swing.JFrame {
                 txt_staff_id.getText().trim(),
                 new String(txt_staff_password.getPassword()).trim()
         ).isEmpty()) {
-            return Optional.of(staff);
+            return Optional.of(this.staff);
         }
+        
         return Optional.empty();
     }
     
