@@ -21,11 +21,9 @@ import com.project1.view.dialog.ProductColorForm;
 import com.project1.view.dialog.ProductLineForm;
 import java.awt.Color;
 import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**

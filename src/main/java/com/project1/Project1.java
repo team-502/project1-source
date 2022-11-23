@@ -6,10 +6,7 @@
 package com.project1;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.project1.repository.implement.ProductLineRepository;
-import com.project1.view.Login_fr;
 import com.project1.view.Main_FR;
-import com.project1.view.Register;
 import javax.swing.UIManager;
 /**
  *
@@ -24,10 +21,7 @@ public class Project1 {
             e.printStackTrace();
         }
         
-        var login = new Login_fr();
-        login.setVisible(true);
-        
-        System.out.println("\n ccccc\n");
+        var main_form = new Main_FR();
     }
 }
 
