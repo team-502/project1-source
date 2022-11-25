@@ -31,33 +31,39 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txt_staff_email" alignment="0" pref="221" max="32767" attributes="0"/>
-                          <Component id="txt_staff_name" alignment="0" pref="221" max="32767" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
-                          <Component id="txt_staff_id" alignment="0" pref="221" max="32767" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" min="-2" pref="62" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="rb_male" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txt_staff_email" alignment="0" pref="221" max="32767" attributes="0"/>
+                              <Component id="txt_staff_name" alignment="0" pref="221" max="32767" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="txt_staff_id" alignment="0" pref="221" max="32767" attributes="0"/>
+                              <Component id="jLabel5" alignment="0" min="-2" pref="62" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="rb_male" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rb_female" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel4" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel4" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txt_staff_birth" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel6" min="-2" pref="62" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel6" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="txt_staff_birth" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel8" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="txt_staff_address" alignment="0" pref="221" max="32767" attributes="0"/>
+                              <Component id="jLabel7" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
+                              <Component id="txt_staff_password" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txt_staff_phone_number" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jLabel8" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="txt_staff_address" alignment="0" pref="221" max="32767" attributes="0"/>
-                          <Component id="jLabel7" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
-                          <Component id="txt_staff_password" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txt_staff_phone_number" max="32767" attributes="0"/>
+                          <Component id="jLabel9" min="-2" pref="64" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" pref="592" max="32767" attributes="0"/>
@@ -81,7 +87,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane2" min="-2" pref="446" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -101,7 +107,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="rb_male" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rb_female" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_staff_birth" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -116,11 +122,13 @@
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txt_staff_phone_number" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
                       <Component id="txt_staff_password" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
@@ -165,7 +173,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tu&#x1ed5;i:"/>
+        <Property name="text" type="java.lang.String" value="Ng&#xe0;y sinh:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_staff_birth">
@@ -208,6 +216,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_dataMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -219,7 +230,7 @@
         <Property name="text" type="java.lang.String" value="nam"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+    <Component class="javax.swing.JRadioButton" name="rb_female">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
@@ -228,11 +239,13 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txt_staff_password">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_staff_phone_number">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u: "/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

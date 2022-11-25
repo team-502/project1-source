@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.project1.view;
+package com.project1.view.dialog;
+
 import java.util.*;
 import com.project1.model.Staff;
 import com.project1.model_adapter.StaffAdapter;
+import com.project1.repository.implement.StaffRepository;
 import com.project1.service.implement.RegisterService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author vanng
  */
-public class Register extends javax.swing.JFrame {
+public class RegisterDialog extends javax.swing.JFrame {
     private Staff staff;
     ArrayList<Staff> list = new ArrayList<Staff>();
 
@@ -25,13 +27,11 @@ public class Register extends javax.swing.JFrame {
     /**
      * Creates new form DangKy_fr
      */
-    public Register() {
+    public RegisterDialog() {
         initComponents();
         tbl_data.setModel(new StaffAdapter().model());
     }
     
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,9 +59,10 @@ public class Register extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_data = new javax.swing.JTable();
         rb_male = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rb_female = new javax.swing.JRadioButton();
         txt_staff_password = new javax.swing.JPasswordField();
         txt_staff_phone_number = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,7 +78,7 @@ public class Register extends javax.swing.JFrame {
 
         jLabel5.setText("Email:");
 
-        jLabel6.setText("Tuổi:");
+        jLabel6.setText("Ngày sinh:");
 
         jLabel7.setText("Địa Chỉ:");
 
@@ -101,15 +102,20 @@ public class Register extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_dataMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbl_data);
 
         buttonGroup1.add(rb_male);
         rb_male.setText("nam");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("nu");
+        buttonGroup1.add(rb_female);
+        rb_female.setText("nu");
 
-        txt_staff_password.setText("jPasswordField1");
+        jLabel9.setText("Mật khẩu: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,29 +125,33 @@ public class Register extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_staff_email, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                            .addComponent(txt_staff_name, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_staff_id, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rb_male)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton2))
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_staff_birth)))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_staff_address, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_staff_password)
-                            .addComponent(txt_staff_phone_number))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_staff_email, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                .addComponent(txt_staff_name, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_staff_id, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(rb_male)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rb_female))
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txt_staff_birth)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_staff_address, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_staff_password)
+                                .addComponent(txt_staff_phone_number))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -158,7 +168,7 @@ public class Register extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -177,7 +187,7 @@ public class Register extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rb_male)
-                            .addComponent(jRadioButton2)
+                            .addComponent(rb_female)
                             .addComponent(txt_staff_birth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
@@ -191,9 +201,11 @@ public class Register extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_staff_phone_number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                         .addComponent(txt_staff_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
                 .addComponent(jButton1)
                 .addGap(24, 24, 24))
         );
@@ -223,7 +235,7 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại");
             }
         } catch (ParseException ex) {
-            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegisterDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDKActionPerformed
 
@@ -236,10 +248,31 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại");
             }
         } catch (ParseException ex) {
-            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegisterDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         tbl_data.setModel(new StaffAdapter().model());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tbl_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_dataMouseClicked
+        // TODO add your handling code here:
+        if (tbl_data.getSelectedRowCount() == 1) {
+            var s = new StaffRepository().getAll().get(tbl_data.getSelectedRow());
+            txt_staff_id.setText(s.getIdStaff());
+            txt_staff_name.setText(s.getFullName());
+            if (s.getGender()) {
+                rb_male.setSelected(true);
+            } else {
+                rb_female.setSelected(true);
+            }
+            txt_staff_email.setText(s.getEmai());
+            txt_staff_birth.setText(s.getBirth() + "");
+            txt_staff_address.setText(s.getAddress());
+            txt_staff_phone_number.setText(s.getPhoneNumber());
+            txt_staff_password.setText(s.getPassword());
+            
+            
+        }
+    }//GEN-LAST:event_tbl_dataMouseClicked
 
     /**
      * @param args the command line arguments
@@ -288,8 +321,9 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JRadioButton rb_female;
     private javax.swing.JRadioButton rb_male;
     private javax.swing.JTable tbl_data;
     private javax.swing.JTextField txt_staff_address;

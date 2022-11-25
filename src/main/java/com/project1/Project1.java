@@ -5,7 +5,7 @@
 
 package com.project1;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.project1.view.Main_FR;
 import javax.swing.UIManager;
 /**
@@ -16,13 +16,12 @@ public class Project1 {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatDarculaLaf());
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        var main_form = new Main_FR();
-        main_form.setVisible(true);
+        new Main_FR();
+        System.out.println("\n ccccc\n");
     }
 }
 

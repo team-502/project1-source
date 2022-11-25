@@ -17,7 +17,7 @@ public class StaffRepository extends Repository<Staff>{
         super(Staff.class);
     }
     
-    public ArrayList<Staff> getByIdStaffAndPassword(String id_staff, String password) {
+    public ArrayList<Staff> getByIdAndPassword(String id_staff, String password) {
         
         var is = e().equal(root().get("idStaff"), id_staff);
         var pass = e().equal(root().get("password"), password);

@@ -540,7 +540,7 @@ public class BanHang_fr extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         var dialog = new CustomerChoicerDialog(this, true);
-        this.customer = dialog.toCustomer();
+        this.customer = dialog.getCustomer();
         txt_customer_id.setText(customer.getIdCustomer());
         txt_customer_name.setText(customer.getFullName());
     }//GEN-LAST:event_jButton3ActionPerformed
