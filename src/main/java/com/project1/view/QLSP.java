@@ -51,6 +51,7 @@ public class QLSP extends javax.swing.JFrame {
      */
     public QLSP() {
         initComponents();
+        tbl_data.setAutoCreateRowSorter(true);
         c_adapter = new ColorAdapter();
         c_service = new ColorService();
         c_repo = new ColorRepository();
@@ -478,7 +479,7 @@ public class QLSP extends javax.swing.JFrame {
         
         var err_map = new HashMap<JLabel, Boolean>() {{
             put (err_id,
-                    Pattern.matches("^[a-zA-Z0-9]+$", txt_product_id.getText().trim()));
+                    Pattern.matches("^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]$", txt_product_id.getText().trim()));
             put (err_name,
                     Pattern.matches("^[a-zA-Z0-9 ]+$", txt_product_name.getText().trim()));
             put (err_size,
@@ -525,7 +526,7 @@ public class QLSP extends javax.swing.JFrame {
         if (cbb_product_color.getSelectedItem().toString().compareTo("...") == 0) {
             var color = new ProductColorForm(this, true);
             color.setVisible(true);
-            var value = color.toColor();
+            var value = color.getColor();
             if (value.isPresent()) {
                 c_service.insert(value.get());
                 cbb_product_color.setModel(c_adapter.model());
@@ -538,7 +539,7 @@ public class QLSP extends javax.swing.JFrame {
         if (cbb_producer.getSelectedItem().toString().compareTo("...") == 0) {
             var pcr = new ProducerForm(this, true);
             pcr.setVisible(true);
-            var value = pcr.toProducer();
+            var value = pcr.getProducer();
             if (value.isPresent()) {
                 if (pcr_service.insert(value.get()).isPresent()) {
                     System.out.println("added");
@@ -553,7 +554,7 @@ public class QLSP extends javax.swing.JFrame {
         if (cbb_product_line.getSelectedItem().toString().compareTo("...") == 0) {
             var pl = new ProductLineForm(this, true);
             pl.setVisible(true);
-            var value = pl.toProductLine();
+            var value = pl.getProductLine();
             if (value.isPresent()) {
                 if (pl_service.insert(value.get()).isPresent()) {
                     

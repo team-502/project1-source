@@ -25,7 +25,7 @@ public class ProducerForm extends javax.swing.JDialog {
         initComponents();
     }
 
-    public Optional<Producer> toProducer() {
+    public Optional<Producer> getProducer() {
         if (valid()) {
             var pcr = new Producer();
             pcr.setIdProducer(txt_producer_id.getText().trim());
@@ -40,7 +40,7 @@ public class ProducerForm extends javax.swing.JDialog {
         var err_map = new HashMap<JLabel, Boolean>() {
             {
                 put(err_producer_id, Pattern.matches(
-                        "^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]$",
+                        "^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]+$",
                          txt_producer_id.getText().trim()));
                 put(err_producer_name, Pattern.matches(
                         "^[a-zA-Z ]+$",

@@ -24,7 +24,7 @@ public class ProductColorForm extends javax.swing.JDialog {
         initComponents();
     }
 
-    public Optional<Color> toColor() {
+    public Optional<Color> getColor() {
         if (valid()) {
             var color = new Color();
             color.setIdColor(txt_product_color_id.getText().trim());
@@ -39,7 +39,7 @@ public class ProductColorForm extends javax.swing.JDialog {
         var err_map = new HashMap<JLabel, Boolean>() {
             {
                 put(err_product_color_id, Pattern.matches(
-                        "^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]$",
+                        "^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]+$",
                          txt_product_color_id.getText().trim()));
                 put(err_product_color_name, Pattern.matches("^[a-zA-Z ]+$",
                          txt_product_color_name.getText().trim()));

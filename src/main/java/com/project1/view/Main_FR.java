@@ -6,9 +6,9 @@ package com.project1.view;
 
 import com.project1.model.Staff;
 import com.project1.utility.view.Renderer;
+import com.project1.view.dialog.LoginDialog;
 import java.util.HashMap;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -26,9 +26,15 @@ public class Main_FR extends javax.swing.JFrame {
     private BanHang_fr ban_hang;
     private HashMap<JButton, JPanel> panels;
     
-    public Main_FR(Staff staff) {
+    public Main_FR() {
         initComponents();
-        this.staff = staff;
+        
+        var login = new LoginDialog(this, true);
+        if (login.getStaff().isPresent()) {
+            this.staff = login.getStaff().get();
+        }
+        this.setVisible(true);
+        
         qlsp = new QLSP();
         khach_hang = new KhachHang();
         ban_hang = new BanHang_fr();
