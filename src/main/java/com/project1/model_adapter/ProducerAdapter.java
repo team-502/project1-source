@@ -24,4 +24,16 @@ public class ProducerAdapter {
         m.addElement("...");
         return m;
     }
+    
+    public DefaultComboBoxModel searchModel() {
+        var m = new DefaultComboBoxModel(
+                new ProducerRepository()
+                        .getAll()
+                        .stream()
+                        .map((o ) -> (o.getName()))
+                        .toArray(String[]::new)
+        );
+        m.addElement("");
+        return m;
+    }
 }

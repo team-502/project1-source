@@ -414,7 +414,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Size"/>
+                <Property name="text" type="java.lang.String" value="kich co"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="err_quantity">
@@ -584,6 +584,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="T&#xec;m Ki&#x1ebf;m"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField8">
         </Component>

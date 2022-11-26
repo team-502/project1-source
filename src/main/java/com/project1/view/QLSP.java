@@ -19,6 +19,7 @@ import com.project1.service.implement.ProductLineService;
 import com.project1.view.dialog.ProducerForm;
 import com.project1.view.dialog.ProductColorForm;
 import com.project1.view.dialog.ProductLineForm;
+import com.project1.view.dialog.ProductSearchDialog;
 import java.awt.Color;
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -207,7 +208,7 @@ public class QLSP extends javax.swing.JFrame {
 
         err_size.setBackground(new java.awt.Color(255, 255, 255));
         err_size.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        err_size.setText("Size");
+        err_size.setText("kich co");
 
         err_quantity.setBackground(new java.awt.Color(255, 255, 255));
         err_quantity.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
@@ -374,6 +375,11 @@ public class QLSP extends javax.swing.JFrame {
         jLabel2.setText("Thiết Lập Thông Tin Sản Phẩm");
 
         jButton4.setText("Tìm Kiếm");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout content_panelLayout = new javax.swing.GroupLayout(content_panel);
         content_panel.setLayout(content_panelLayout);
@@ -591,6 +597,12 @@ public class QLSP extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         clearForm();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        var pds = new ProductSearchDialog(this, true);
+        pds.setVisible(true);
+        tbl_data.setModel(new ProductDetailAdapter().searchModel(pds.getSearchREsult()));
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -8,6 +8,8 @@ import com.project1.repository.implement.ProductDetailReposytory;
 import javax.swing.table.DefaultTableModel;
 import com.project1.model.*;
 import com.project1.repository.implement.ColorRepository;
+import com.project1.repository.implement.ProductSearchRepository;
+import java.util.ArrayList;
 /**
  *
  * @author thinhorigami-rio
@@ -45,6 +47,18 @@ public class ProductDetailAdapter {
             pd.getImportPrice() + "",
             pd.getExportPrice() + ""
         };
+    }
+    
+    public DefaultTableModel searchModel(ArrayList<ProductDetail> ap) {
+        var result = new DefaultTableModel(
+                tableTitle(),
+                0
+        );
+        
+        for (var i: ap) {
+            result.addRow(toStrings(i));
+        }
+        return result;
     }
     
     public DefaultTableModel model() {
