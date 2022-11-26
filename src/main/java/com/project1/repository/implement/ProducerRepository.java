@@ -6,6 +6,7 @@ package com.project1.repository.implement;
 
 import com.project1.model.Producer;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  *
@@ -26,6 +27,17 @@ public class ProducerRepository extends Repository<Producer>{
                                          name
                                 )
                 )
+        );
+    }
+    
+    public Optional<Producer> getByIdAndName(String id, String name) {
+        
+        var ex_id = e().equal(root().get("idProducer"), id);
+        var ex_name = e().equal(root().get("name"), name);
+        
+        return single(query()
+                .select(root())
+                .where(e().and(ex_id, ex_name))
         );
     }
 }

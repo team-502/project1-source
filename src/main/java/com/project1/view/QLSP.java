@@ -16,7 +16,7 @@ import com.project1.repository.implement.ProductRepository;
 import com.project1.service.implement.ColorService;
 import com.project1.service.implement.ProducerService;
 import com.project1.service.implement.ProductLineService;
-import com.project1.view.dialog.ProducerForm;
+import com.project1.view.dialog.ProducerDialog;
 import com.project1.view.dialog.ProductColorForm;
 import com.project1.view.dialog.ProductLineForm;
 import com.project1.view.dialog.ProductSearchDialog;
@@ -541,7 +541,7 @@ public class QLSP extends javax.swing.JFrame {
     private void cbb_producerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_producerActionPerformed
         
         if (cbb_producer.getSelectedItem().toString().compareTo("...") == 0) {
-            var pcr = new ProducerForm(this, true);
+            var pcr = new ProducerDialog(this, true);
             pcr.setVisible(true);
             var value = pcr.getProducer();
             if (value.isPresent()) {

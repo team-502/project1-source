@@ -5,10 +5,14 @@
 package com.project1.view.dialog;
 
 import com.project1.model.Color;
+import com.project1.model_adapter.ColorAdapter;
+import com.project1.service.implement.ColorService;
+import com.project1.service.implement.ProducerService;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,22 +20,22 @@ import javax.swing.JLabel;
  */
 public class ProductColorForm extends javax.swing.JDialog {
 
+    private Optional<Color> color;
     /**
      * Creates new form ProductColor
      */
     public ProductColorForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        refresh();
     }
 
     public Optional<Color> getColor() {
-        if (valid()) {
-            var color = new Color();
-            color.setIdColor(txt_product_color_id.getText().trim());
-            color.setName(txt_product_color_name.getText().trim());
-            return Optional.of(color);            
-        }
-        return Optional.empty();
+        return this.color;
+    }
+    
+    public void refresh() {
+        tbl_data.setModel(new ColorAdapter().tableModel());
     }
     
     public boolean valid() {
@@ -40,9 +44,9 @@ public class ProductColorForm extends javax.swing.JDialog {
             {
                 put(err_product_color_id, Pattern.matches(
                         "^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]+$",
-                         txt_product_color_id.getText().trim()));
+                         txt_id.getText().trim()));
                 put(err_product_color_name, Pattern.matches("^[a-zA-Z ]+$",
-                         txt_product_color_name.getText().trim()));
+                         txt_name.getText().trim()));
             }
         };
 
@@ -70,11 +74,14 @@ public class ProductColorForm extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_product_color_name = new javax.swing.JTextField();
-        txt_product_color_id = new javax.swing.JTextField();
+        txt_name = new javax.swing.JTextField();
+        txt_id = new javax.swing.JTextField();
         err_product_color_name = new javax.swing.JLabel();
         err_product_color_id = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_data = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,9 +89,9 @@ public class ProductColorForm extends javax.swing.JDialog {
 
         jLabel2.setText("ten mau");
 
-        txt_product_color_name.addActionListener(new java.awt.event.ActionListener() {
+        txt_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_product_color_nameActionPerformed(evt);
+                txt_nameActionPerformed(evt);
             }
         });
 
@@ -92,10 +99,35 @@ public class ProductColorForm extends javax.swing.JDialog {
 
         err_product_color_id.setText("ma mau chi duoc chua cac ki tu [a-z,A-Z,0-9]");
 
-        jButton1.setText("Next");
+        jButton1.setText("theme");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        tbl_data.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl_data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_dataMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_data);
+
+        jButton2.setText("sua");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -104,28 +136,33 @@ public class ProductColorForm extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(err_product_color_name)
-                                .addGap(0, 223, Short.MAX_VALUE))
-                            .addComponent(txt_product_color_name)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(err_product_color_name)
+                                        .addGap(0, 223, Short.MAX_VALUE))
+                                    .addComponent(txt_name)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(err_product_color_id)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txt_product_color_id))))
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(err_product_color_id)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txt_id)))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(234, 234, 234)
+                .addGap(172, 172, 172)
                 .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -136,81 +173,71 @@ public class ProductColorForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txt_product_color_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(err_product_color_name)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_product_color_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_product_color_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_product_color_nameActionPerformed
+    private void txt_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_product_color_nameActionPerformed
+    }//GEN-LAST:event_txt_nameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (valid()) {
-            this.dispose();
+            var c = new Color();
+            c.setIdColor(txt_id.getText().trim());
+            c.setName(txt_name.getText().trim());
+            if (new ColorService().insert(c).isPresent()) {
+                this.color = Optional.of(c);
+                refresh();
+                JOptionPane.showMessageDialog(this, "them thanh cong");
+            } else JOptionPane.showMessageDialog(this, "them that bai");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ProductColorForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ProductColorForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ProductColorForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ProductColorForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                ProductColorForm dialog = new ProductColorForm(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
+    private void tbl_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_dataMouseClicked
+        if (tbl_data.getSelectedRowCount() == 1) {
+            this.color = Optional.of(new ColorService()
+                    .getAll()
+                    .get(tbl_data.getSelectedRow())
+            );
+            txt_id.setText(this.color.get().getIdColor());
+            txt_name.setText(this.color.get().getName());
+        }
+    }//GEN-LAST:event_tbl_dataMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (new ColorService().update(this.color.get()).isPresent()) {
+            refresh();
+            JOptionPane.showMessageDialog(this, "sua thanh xong");
+        } else 
+            JOptionPane.showMessageDialog(this, "sua that bai");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel err_product_color_id;
     private javax.swing.JLabel err_product_color_name;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txt_product_color_id;
-    private javax.swing.JTextField txt_product_color_name;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbl_data;
+    private javax.swing.JTextField txt_id;
+    private javax.swing.JTextField txt_name;
     // End of variables declaration//GEN-END:variables
 }

@@ -45,4 +45,8 @@ public class ProducerService implements IService<Producer>{
     public ArrayList<Producer> getByName(String name) {
         return repo.getByName(name);
     }
+    
+    public Optional<Producer> getByIdAndName(String id, String name) {
+        return repo.getByIdAndName(id, name);
+    }
 }

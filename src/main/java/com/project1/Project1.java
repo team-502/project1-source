@@ -7,6 +7,7 @@ package com.project1;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.project1.view.Main_FR;
+import com.project1.view.dialog.DateChoicedialog;
 import javax.swing.UIManager;
 /**
  *

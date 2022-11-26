@@ -4,11 +4,16 @@
  */
 package com.project1.view.dialog;
 
+import com.project1.model.Color;
 import com.project1.model.ProductLine;
+import com.project1.model_adapter.ProductLineAdapter;
+import com.project1.service.implement.ColorService;
+import com.project1.service.implement.ProductLineService;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,34 +21,39 @@ import javax.swing.JLabel;
  */
 public class ProductLineForm extends javax.swing.JDialog {
 
+    public Optional<ProductLine> product_line;
     /**
      * Creates new form ProductLineForm
      */
     public ProductLineForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        refresh();
     }
     
     
     public Optional<ProductLine> getProductLine() {
         if (valid()) {
             var pl = new ProductLine();
-            pl.setIdProductLine(txt_product_line_id.getText().trim());
-            pl.setName(txt_product_line_name.getText().trim());
+            pl.setIdProductLine(txt_id.getText().trim());
+            pl.setName(txt_name.getText().trim());
             return Optional.of(pl);
         }
         return Optional.empty();
     }
     
+    public void refresh() {
+        tbl_data.setModel(new ProductLineAdapter().tableModel());
+    }
     
     public boolean valid() {
 
         var err_map = new HashMap<JLabel, Boolean>() {{
                 put(err_product_line_id, Pattern.matches(
                         "^[a-zA-Z0-9]+[-]?[a-zA-Z0-9]+$",
-                         txt_product_line_id.getText().trim()));
+                         txt_id.getText().trim()));
                 put(err_product_line_name, Pattern.matches("^[a-zA-Z ]+$",
-                         txt_product_line_name.getText().trim()));
+                         txt_name.getText().trim()));
         }};
 
         boolean result = true;
@@ -70,11 +80,14 @@ public class ProductLineForm extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_product_line_name = new javax.swing.JTextField();
-        txt_product_line_id = new javax.swing.JTextField();
+        txt_name = new javax.swing.JTextField();
+        txt_id = new javax.swing.JTextField();
         err_product_line_name = new javax.swing.JLabel();
         err_product_line_id = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_data = new javax.swing.JTable();
+        sua = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -86,10 +99,35 @@ public class ProductLineForm extends javax.swing.JDialog {
 
         err_product_line_id.setText("ma dong san pham chi chua cac ki tu [a-z,A-Z,0-9]");
 
-        jButton1.setText("Next");
+        jButton1.setText("them");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        tbl_data.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl_data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_dataMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_data);
+
+        sua.setText("sua");
+        sua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suaActionPerformed(evt);
             }
         });
 
@@ -98,29 +136,34 @@ public class ProductLineForm extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_product_line_name)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(err_product_line_name)
-                                .addGap(0, 112, Short.MAX_VALUE))))
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_name)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(err_product_line_name)
+                                        .addGap(0, 112, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(err_product_line_id)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txt_id)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGap(203, 203, 203)
+                        .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(err_product_line_id)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txt_product_line_id))))
+                        .addComponent(sua)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(259, 259, 259)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,16 +173,20 @@ public class ProductLineForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txt_product_line_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(err_product_line_name)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_product_line_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(sua))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,51 +194,35 @@ public class ProductLineForm extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (valid()) {
-            this.dispose();
+            var c = new ProductLine();
+            c.setIdProductLine(txt_id.getText().trim());
+            c.setName(txt_name.getText().trim());
+            if (new ProductLineService().insert(c).isPresent()) {
+                this.product_line = Optional.of(c);
+                refresh();
+                JOptionPane.showMessageDialog(this, "them thanh cong");
+            } else JOptionPane.showMessageDialog(this, "them that bai");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ProductLineForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ProductLineForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ProductLineForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ProductLineForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                ProductLineForm dialog = new ProductLineForm(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
+    private void tbl_dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_dataMouseClicked
+        if (tbl_data.getSelectedRowCount() == 1) {
+            this.product_line = Optional.of(new ProductLineService()
+                    .getAll()
+                    .get(tbl_data.getSelectedRow())
+            );
+            txt_id.setText(this.product_line.get().getIdProductLine());
+            txt_name.setText(this.product_line.get().getName());
+        }
+    }//GEN-LAST:event_tbl_dataMouseClicked
+
+    private void suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaActionPerformed
+        if (new ProductLineService().update(this.product_line.get()).isPresent()) {
+            refresh();
+            JOptionPane.showMessageDialog(this, "sua thanh xong");
+        } else 
+            JOptionPane.showMessageDialog(this, "sua that bai");
+    }//GEN-LAST:event_suaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel err_product_line_id;
@@ -199,7 +230,10 @@ public class ProductLineForm extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txt_product_line_id;
-    private javax.swing.JTextField txt_product_line_name;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton sua;
+    private javax.swing.JTable tbl_data;
+    private javax.swing.JTextField txt_id;
+    private javax.swing.JTextField txt_name;
     // End of variables declaration//GEN-END:variables
 }

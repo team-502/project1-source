@@ -5,9 +5,16 @@
 package com.project1.view.dialog;
 
 import com.project1.utility.DateTimeUtil;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Optional;
+import javax.swing.DefaultComboBoxModel;
+import org.hibernate.bytecode.enhance.spi.DefaultEnhancementContext;
 
 /**
  *
@@ -20,7 +27,7 @@ public class DateChoicedialog extends javax.swing.JDialog {
     /**
      * Creates new form DateChoicedialog
      */
-    public DateChoicedialog(java.awt.Frame parent, boolean modal) {
+    public DateChoicedialog(java.awt.Frame parent, boolean modal, int fy, int ly) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -28,10 +35,8 @@ public class DateChoicedialog extends javax.swing.JDialog {
         var local_date = LocalDate.now();
         this.year = local_date.getYear();
         
-        // default
-        // from 18 - 30 year old (register feature)
-        this.first_year = year - 30;
-        this.last_year = year - 19;
+        this.first_year = fy;
+        this.last_year = ly;
         
         this.month = local_date.getMonth().getValue();
         this.day = local_date.getDayOfMonth();
@@ -41,10 +46,28 @@ public class DateChoicedialog extends javax.swing.JDialog {
         }
         
         for (int i = 1; i <= 12; ++i) {
-            cbb_year.addItem(i + "");
+            cbb_month.addItem(i + "");
         }
+        
+        this.setVisible(true);
     }
 
+    public Date getDate() throws ParseException {
+        return new SimpleDateFormat("dd-MM-yyyy")
+                .parse(this.day + "" + this.month + "" +this.year);
+    }
+    
+    public void setDay() {
+        
+        cbb_day.setModel(new DefaultComboBoxModel<>());
+        
+        var ym = YearMonth.of(this.year, this.month);
+        
+        for (int i  =1; i <= ym.lengthOfMonth(); i++) {
+            cbb_day.addItem(i + "");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,8 +83,27 @@ public class DateChoicedialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        cbb_day.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_dayActionPerformed(evt);
+            }
+        });
+
+        cbb_year.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_yearActionPerformed(evt);
+            }
+        });
+
+        cbb_month.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_monthActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("ngay");
 
@@ -69,29 +111,39 @@ public class DateChoicedialog extends javax.swing.JDialog {
 
         jLabel3.setText("nam");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbb_day, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbb_month, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(cbb_year, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62))
+                .addContainerGap(66, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbb_day, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbb_month, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(cbb_year, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(63, 63, 63))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -101,17 +153,38 @@ public class DateChoicedialog extends javax.swing.JDialog {
                     .addComponent(cbb_day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbb_month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbb_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(100, 100, 100))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbb_monthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_monthActionPerformed
+        this.month = Integer.parseInt(cbb_month.getSelectedItem().toString());
+        setDay();
+    }//GEN-LAST:event_cbb_monthActionPerformed
+
+    private void cbb_yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_yearActionPerformed
+        this.year = Integer.parseInt(cbb_year.getSelectedItem().toString());
+        setDay();
+    }//GEN-LAST:event_cbb_yearActionPerformed
+
+    private void cbb_dayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_dayActionPerformed
+        this.day = Integer.parseInt(cbb_day.getSelectedItem().toString());
+    }//GEN-LAST:event_cbb_dayActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbb_day;
     private javax.swing.JComboBox<String> cbb_month;
     private javax.swing.JComboBox<String> cbb_year;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

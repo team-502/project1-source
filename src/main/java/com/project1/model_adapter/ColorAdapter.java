@@ -4,8 +4,13 @@
  */
 package com.project1.model_adapter;
 
+import com.project1.model.Color;
+import com.project1.model.Producer;
 import com.project1.repository.implement.ColorRepository;
+import com.project1.service.implement.ColorService;
+import com.project1.service.implement.ProducerService;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,6 +39,32 @@ public class ColorAdapter {
                 .toArray(String[]::new)
         );
         m.addElement("");
+        return m;
+    }
+    
+        public String[] toStrings(Color p) {
+        return new String[] {
+            p.getIdColor()
+            , p.getName()
+        };
+    }
+    
+    public String[] title() {
+        return new String[] {
+            "ma mau"
+            , "ten mau"
+        };
+    }
+    
+    public DefaultTableModel tableModel() {
+        var m = new DefaultTableModel(
+                title()
+                , 0
+        );
+        
+        for (var i: new ColorService().getAll()) {
+            m.addRow(toStrings(i));
+        }
         return m;
     }
 }

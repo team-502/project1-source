@@ -25,5 +25,6 @@ public interface IRepository<T> {
     public Optional<T> update(T value);
     public Optional<T> delete(T value);
     public Session session();
+    public Optional<T> single(CriteriaQuery<T> query);
     public ArrayList<T> list(CriteriaQuery<T> query);
 }

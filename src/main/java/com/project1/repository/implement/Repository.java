@@ -42,6 +42,16 @@ public class Repository<T> implements IRepository<T>{
     }
 
     @Override
+    public Optional<T> single(CriteriaQuery<T> query) {
+        try {
+            return Optional.of(session.createQuery(query).getSingleResult());
+        } catch (Exception e) {
+//            return Optional.empty();
+        }
+        return Optional.empty();
+    }
+    
+    @Override
     public ArrayList<T> list(CriteriaQuery<T> query) {
         return new ArrayList<T>(
                 session

@@ -29,12 +29,6 @@ public class Main_FR extends javax.swing.JFrame {
     public Main_FR() {
         initComponents();
         
-        var login = new LoginDialog(this, true);
-        if (login.getStaff().isPresent()) {
-            this.staff = login.getStaff().get();
-        }
-        this.setVisible(true);
-        
         qlsp = new QLSP();
         khach_hang = new KhachHang();
         ban_hang = new BanHang_fr();
@@ -58,7 +52,12 @@ public class Main_FR extends javax.swing.JFrame {
             i.getValue().setVisible(false);
         }
         reRender();
-        panels.get(product_manager).setVisible(true);
+
+//        var login = new LoginDialog(this, true);
+//        if (login.getStaff().isPresent()) {
+//            this.staff = login.getStaff().get();
+//        }
+        this.setVisible(true);
     }
     
     public void reRender() {

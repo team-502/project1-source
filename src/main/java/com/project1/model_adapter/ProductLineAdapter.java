@@ -4,8 +4,13 @@
  */
 package com.project1.model_adapter;
 
+import com.project1.model.Producer;
+import com.project1.model.ProductLine;
 import com.project1.repository.implement.ProductLineRepository;
+import com.project1.service.implement.ProducerService;
+import com.project1.service.implement.ProductLineService;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -38,6 +43,32 @@ public class ProductLineAdapter {
                         .toArray(String[]::new)
         );
         m.addElement("");
+        return m;
+    }
+    
+    public String[] toStrings(ProductLine p) {
+        return new String[] {
+            p.getIdProductLine()
+            , p.getName()
+        };
+    }
+    
+    public String[] title() {
+        return new String[] {
+            "ma dong san pham"
+            , "ten dong san pham"
+        };
+    }
+    
+    public DefaultTableModel tableModel() {
+        var m = new DefaultTableModel(
+                title()
+                , 0
+        );
+        
+        for (var i: new ProductLineService().getAll()) {
+            m.addRow(toStrings(i));
+        }
         return m;
     }
 }
