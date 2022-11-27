@@ -5,7 +5,10 @@
 package com.project1.model_adapter;
 
 import com.project1.model.Customer;
+import com.project1.repository.implement.CustomerRepository;
+import com.project1.repository.implement.ProducerRepository;
 import com.project1.service.implement.CustomerService;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -49,5 +52,18 @@ public class CustomerAdapter {
         }
         return result;
     }
+    public DefaultComboBoxModel model1() {
+        var m = new DefaultComboBoxModel(
+                new CustomerRepository()
+                        .getAll()
+                        .stream()
+                        .map((o ) -> (o.getGender()))
+                        .toArray(String[]::new)
+        );
+        
+        return m;
+    }
+    
+    
     
 }
