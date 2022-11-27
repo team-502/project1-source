@@ -5,9 +5,11 @@
 package com.project1.view.dialog;
 
 import com.project1.model.Color;
+import com.project1.model.ProductLine;
 import com.project1.model_adapter.ColorAdapter;
 import com.project1.service.implement.ColorService;
 import com.project1.service.implement.ProducerService;
+import com.project1.service.implement.ProductLineService;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -27,7 +29,8 @@ public class ProductColorForm extends javax.swing.JDialog {
     public ProductColorForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        refresh();
+        this.color = Optional.empty();
+        this.refresh();
     }
 
     public Optional<Color> getColor() {
@@ -197,6 +200,7 @@ public class ProductColorForm extends javax.swing.JDialog {
     }//GEN-LAST:event_txt_nameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         if (valid()) {
             var c = new Color();
             c.setIdColor(txt_id.getText().trim());

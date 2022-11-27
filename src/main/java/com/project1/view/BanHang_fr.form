@@ -240,13 +240,13 @@
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jTextField6" min="-2" pref="173" max="-2" attributes="0"/>
-                                                  <Component id="jTextField7" min="-2" pref="173" max="-2" attributes="0"/>
-                                                  <Component id="jTextField8" min="-2" pref="173" max="-2" attributes="0"/>
-                                                  <Component id="jTextField9" min="-2" pref="173" max="-2" attributes="0"/>
-                                                  <Component id="jTextField10" min="-2" pref="173" max="-2" attributes="0"/>
+                                                  <Component id="txt_tongtien" min="-2" pref="173" max="-2" attributes="0"/>
+                                                  <Component id="txt_giamgia" min="-2" pref="173" max="-2" attributes="0"/>
+                                                  <Component id="txt_thanhtoan" min="-2" pref="173" max="-2" attributes="0"/>
+                                                  <Component id="txt_tienkhachdua" min="-2" pref="173" max="-2" attributes="0"/>
+                                                  <Component id="txt_tienthua" min="-2" pref="173" max="-2" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jTextField5" min="-2" pref="102" max="-2" attributes="0"/>
+                                                      <Component id="txt_mahd" min="-2" pref="102" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                       <Component id="jButton7" min="-2" pref="58" max="-2" attributes="0"/>
                                                   </Group>
@@ -286,33 +286,33 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel8" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt_mahd" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel9" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt_tongtien" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel10" min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jTextField7" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_giamgia" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel11" min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jTextField8" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_thanhtoan" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel12" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="jTextField9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_tienkhachdua" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel13" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="jTextField10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_tienthua" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -476,7 +476,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea1">
+                <Component class="javax.swing.JTextArea" name="txt_ghichu">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
@@ -505,18 +505,21 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Thanh To&#xe1;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField5">
+            <Component class="javax.swing.JTextField" name="txt_mahd">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField6">
+            <Component class="javax.swing.JTextField" name="txt_tongtien">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField7">
+            <Component class="javax.swing.JTextField" name="txt_giamgia">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField8">
+            <Component class="javax.swing.JTextField" name="txt_thanhtoan">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField9">
+            <Component class="javax.swing.JTextField" name="txt_tienkhachdua">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField10">
+            <Component class="javax.swing.JTextField" name="txt_tienthua">
             </Component>
             <Component class="javax.swing.JButton" name="jButton7">
               <Properties>
@@ -797,6 +800,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Th&#xea;m S&#x1ea3;n Ph&#x1ea9;m"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

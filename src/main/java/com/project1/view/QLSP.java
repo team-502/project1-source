@@ -381,6 +381,12 @@ public class QLSP extends javax.swing.JFrame {
             }
         });
 
+        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout content_panelLayout = new javax.swing.GroupLayout(content_panel);
         content_panel.setLayout(content_panelLayout);
         content_panelLayout.setHorizontalGroup(
@@ -603,6 +609,10 @@ public class QLSP extends javax.swing.JFrame {
         pds.setVisible(true);
         tbl_data.setModel(new ProductDetailAdapter().searchModel(pds.getSearchREsult()));
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField8ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

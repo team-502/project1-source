@@ -37,7 +37,7 @@ public class StaffService implements IService<Staff> {
     }
 
     @Override
-    public ArrayList getAll() {
+    public ArrayList<Staff> getAll() {
         return repo.getAll();
     }
     

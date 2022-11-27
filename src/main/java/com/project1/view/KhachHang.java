@@ -6,6 +6,7 @@ package com.project1.view;
 
 import com.project1.model.Customer;
 import com.project1.model_adapter.CustomerAdapter;
+import com.project1.repository.implement.CustomerFindRepo;
 import com.project1.repository.implement.CustomerRepository;
 import com.project1.service.implement.CustomerService;
 import java.util.HashMap;
@@ -100,12 +101,12 @@ public class KhachHang extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_data = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txt_find = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbb_gt = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbb_tt = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -302,15 +303,31 @@ public class KhachHang extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setText("Tìm Kiếm");
 
+        txt_find.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_findKeyReleased(evt);
+            }
+        });
+
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel12.setText("Giới Tính");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_gt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Chọn Giới Tính --", "Nữ", "Nam", " " }));
+        cbb_gt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_gtActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel13.setText("Trạng Thái");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_tt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Chọn --", "Không Hoat Động", "Đang Hoạt Động" }));
+        cbb_tt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_ttActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -319,13 +336,13 @@ public class KhachHang extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbb_gt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 81, Short.MAX_VALUE))
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbb_tt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -334,11 +351,11 @@ public class KhachHang extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbb_gt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbb_tt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(94, Short.MAX_VALUE))
         );
 
@@ -355,7 +372,7 @@ public class KhachHang extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4)))
+                        .addComponent(txt_find)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -370,7 +387,7 @@ public class KhachHang extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_find, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -522,6 +539,38 @@ public class KhachHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void cbb_gtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_gtActionPerformed
+        // TODO add your handling code here:
+        
+        if(cbb_gt.getSelectedItem().toString().equals("-- Chọn Giới Tính --")){
+            tbl_data.setModel(new CustomerAdapter().model());
+        }else{
+        var gt = cbb_gt.getSelectedItem().toString().equals("Nam");
+        var repo = new CustomerFindRepo();
+        repo.setGender(gt);
+        tbl_data.setModel(new CustomerAdapter().searchModel(repo.getResult()));
+        }
+        
+    }//GEN-LAST:event_cbb_gtActionPerformed
+
+    private void cbb_ttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_ttActionPerformed
+        // TODO add your handling code here:
+        if(cbb_tt.getSelectedItem().toString().equals("-- Chọn --")){
+            tbl_data.setModel(new CustomerAdapter().model());
+        }else{
+        var tt = cbb_tt.getSelectedItem().toString().equals("Đang Hoạt Động");
+        var repo = new CustomerFindRepo();
+        repo.setState(tt);
+         tbl_data.setModel(new CustomerAdapter().searchModel(repo.getResult()));
+        }
+    }//GEN-LAST:event_cbb_ttActionPerformed
+
+    private void txt_findKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_findKeyReleased
+        // TODO add your handling code here:
+         var repo = new CustomerFindRepo().getAllResult(txt_find.getText().trim());
+        tbl_data.setModel(new CustomerAdapter().searchModel(repo));
+    }//GEN-LAST:event_txt_findKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -560,12 +609,12 @@ public class KhachHang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JComboBox<String> cbb_gt;
+    private javax.swing.JComboBox<String> cbb_tt;
     private javax.swing.JPanel content_panel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -590,7 +639,6 @@ public class KhachHang extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JRadioButton rb_female;
     private javax.swing.JRadioButton rb_male;
     private javax.swing.JRadioButton rb_state;
@@ -601,5 +649,6 @@ public class KhachHang extends javax.swing.JFrame {
     private javax.swing.JTextField txt_customer_id;
     private javax.swing.JTextField txt_customer_name;
     private javax.swing.JTextField txt_customer_phone_number;
+    private javax.swing.JTextField txt_find;
     // End of variables declaration//GEN-END:variables
 }

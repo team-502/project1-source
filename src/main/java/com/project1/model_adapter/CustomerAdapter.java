@@ -5,7 +5,9 @@
 package com.project1.model_adapter;
 
 import com.project1.model.Customer;
+import com.project1.model.ProductDetail;
 import com.project1.service.implement.CustomerService;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -49,5 +51,16 @@ public class CustomerAdapter {
         }
         return result;
     }
-    
+     
+    public DefaultTableModel searchModel(ArrayList<Customer> ap) {
+        var result = new DefaultTableModel(
+                title(),
+                0
+        );
+        
+        for (var i: ap) {
+            result.addRow(toStrings(i));
+        }
+        return result;
+    }
 }
