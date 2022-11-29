@@ -46,7 +46,6 @@ public class BanHang_fr extends javax.swing.JFrame {
      */
     public BanHang_fr() {
         initComponents();
-        staff = new StaffService().getAll().get(0);
        
         invoice = new Invoice();
         invoiceDetail = new InvoiceDetail();

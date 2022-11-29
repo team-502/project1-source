@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import org.hibernate.bytecode.enhance.spi.DefaultEnhancementContext;
 
 /**
@@ -23,11 +24,10 @@ import org.hibernate.bytecode.enhance.spi.DefaultEnhancementContext;
 public class DateChoicedialog extends javax.swing.JDialog {
 
     private int day, month, first_year, last_year, year;
-    private DateTimeUtil date_util;
     /**
      * Creates new form DateChoicedialog
      */
-    public DateChoicedialog(java.awt.Frame parent, boolean modal, int fy, int ly) {
+    public DateChoicedialog(java.awt.Dialog parent, boolean modal, int fy, int ly) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -39,7 +39,11 @@ public class DateChoicedialog extends javax.swing.JDialog {
         this.last_year = ly;
         
         this.month = local_date.getMonth().getValue();
-        this.day = local_date.getDayOfMonth();
+        this.day = YearMonth.of(year, month).lengthOfMonth();
+        
+        for (int i = 1; i <= this.day; i++) {
+            cbb_day.addItem(i + "");
+        }
         
         for (int i = last_year; i >= first_year; --i) {
             cbb_year.addItem(i + "");
@@ -48,23 +52,27 @@ public class DateChoicedialog extends javax.swing.JDialog {
         for (int i = 1; i <= 12; ++i) {
             cbb_month.addItem(i + "");
         }
-        
         this.setVisible(true);
     }
 
     public Date getDate() throws ParseException {
         return new SimpleDateFormat("dd-MM-yyyy")
-                .parse(this.day + "" + this.month + "" +this.year);
+                .parse(this.day + "-" + this.month + "-" +this.year);
+    }
+    
+    public String getDateAsString() throws ParseException {
+        return new SimpleDateFormat("dd-MM-yyyy")
+                .format(this.getDate());
     }
     
     public void setDay() {
-        
-        cbb_day.setModel(new DefaultComboBoxModel<>());
-        
         var ym = YearMonth.of(this.year, this.month);
         
-        for (int i  =1; i <= ym.lengthOfMonth(); i++) {
-            cbb_day.addItem(i + "");
+        if (this.day > ym.lengthOfMonth()) {
+            cbb_day.setModel(new DefaultComboBoxModel<>());
+        }
+        for (int i =1; i <= ym.lengthOfMonth(); i++) {
+                cbb_day.addItem(i + "");
         }
     }
     

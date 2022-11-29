@@ -53,10 +53,10 @@ public class Main_FR extends javax.swing.JFrame {
         }
         reRender();
 
-//        var login = new LoginDialog(this, true);
-//        if (login.getStaff().isPresent()) {
-//            this.staff = login.getStaff().get();
-//        }
+        var login = new LoginDialog(this, true);
+        if (login.getStaff().isPresent()) {
+            this.staff = login.getStaff().get();
+        }
         this.setVisible(true);
     }
     
