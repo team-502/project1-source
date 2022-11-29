@@ -12,7 +12,7 @@ import com.project1.model.ProductDetail;
 import com.project1.model.Staff;
 import com.project1.view.dialog.CustomerChoicerDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.text.Document;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -24,6 +24,7 @@ import com.project1.service.implement.StaffService;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -34,12 +35,10 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
  * @author nguyenvanviet
  */
 public class BanHang_fr extends javax.swing.JFrame {
-
+    
     private Customer customer;
     private Staff staff;
-    private Invoice invoice;
-    private InvoiceDetail invoiceDetail;
-    private ProductDetail product;
+    private ArrayList<Invoice> invoices;
 
     /**
      * Creates new form BanHang_fr
@@ -47,14 +46,13 @@ public class BanHang_fr extends javax.swing.JFrame {
     public BanHang_fr() {
         initComponents();
        
-        invoice = new Invoice();
-        invoiceDetail = new InvoiceDetail();
-        product = new ProductDetail();
+        invoices = new ArrayList<Invoice>();
+//        invoiceDetail = new InvoiceDetail();
+//        product = new ProductDetail();
     }
 
     public JPanel getPanel() {
         return content_panel;
-        
     }
 
     /**
@@ -129,8 +127,6 @@ public class BanHang_fr extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -172,8 +168,6 @@ public class BanHang_fr extends javax.swing.JFrame {
 
         jLabel1.setText("Hoá Đơn Chờ");
 
-        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jLabel5.setText("Mã Khách Hàng");
 
         jLabel6.setText("Tên Khách Hàng");
@@ -186,6 +180,11 @@ public class BanHang_fr extends javax.swing.JFrame {
         });
 
         jButton4.setText("a");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -270,7 +269,7 @@ public class BanHang_fr extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "tien mat", "the tin dung" }));
 
         jButton8.setText("Huỷ Hoá Đơn");
 
@@ -284,7 +283,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -365,12 +364,10 @@ public class BanHang_fr extends javax.swing.JFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -419,21 +416,18 @@ public class BanHang_fr extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
+                .addGap(12, 12, 12)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel2.setText("Giỏ Hàng");
-
-        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tbl_list_product.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -479,7 +473,7 @@ public class BanHang_fr extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -515,18 +509,21 @@ public class BanHang_fr extends javax.swing.JFrame {
         content_panelLayout.setHorizontalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(content_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
+                .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(content_panelLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addContainerGap()
+                        .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addGroup(content_panelLayout.createSequentialGroup()
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                                .addComponent(jLabel1))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
                 .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -548,11 +545,11 @@ public class BanHang_fr extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -585,98 +582,98 @@ public class BanHang_fr extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        int chon = JOptionPane.showConfirmDialog(this, "Ban muon xuat hoa don?", "Xac Nhan", JOptionPane.YES_NO_OPTION);
-        if (chon == 0) {
-
-            // Create Blank document
-            XWPFDocument document = new XWPFDocument();
-
-            // Create new Paragraph
-            XWPFParagraph paragraph2 = document.createParagraph();
-            XWPFParagraph paragraph = document.createParagraph();
-            XWPFRun run = paragraph.createRun();
-            XWPFRun run2 = paragraph2.createRun();
-            run2.setText("Hoá Đơn Bán Hàng");
-            run2.addBreak();
-
-            //
-            paragraph2.setAlignment(ParagraphAlignment.CENTER);
-            run2.setBold(true);
-            //run2.setColor(rgbStr);
-            run2.setFontSize(36);
-            run.setFontSize(20);
-            paragraph.setAlignment(ParagraphAlignment.LEFT);
-
-            //
-            run.setText("Mã HĐ:                          " + txt_mahd.getText());
-            run.addBreak();
-            run.addBreak();
-            run.setText("Tên Khách Hàng:                 " + txt_customer_id.getText());
-            run.addBreak();
-            run.addBreak();
-            run.setText("Ma NV:                          " + staff.getFullName());
-            run.addBreak();
-            run.addBreak();
-            run.setText("Ngày Lập:                       " + invoice.getCreatedDate() + "");
-            run.addBreak();
-            //
-            XWPFTable table = document.createTable();
-            //
-
-            XWPFTableRow tableRowOne = table.getRow(0);
-            //tableRowOne.getCell(0).setParagraph(paragraph.setFontAlignment(HEIGHT));
-            tableRowOne.getCell(0).setText("Ma SP                              ");
-            tableRowOne.addNewTableCell().setText("Ten SP                      ");
-            tableRowOne.addNewTableCell().setText("So Luong                    ");
-            tableRowOne.addNewTableCell().setText("Tong Tien                   ");
-
-            //create second row
-            XWPFTableRow tableRowTwo = table.createRow();
-            tableRowTwo.getCell(0).setText("                      " + product.getProduct().getIdProduct());
-            tableRowTwo.getCell(1).setText("                      " + product.getProduct().getName());
-            tableRowTwo.getCell(2).setText("                      " + invoiceDetail.getQuantity());
-            tableRowTwo.getCell(3).setText("                      " + txt_tongtien.getText());
-
-            //create third row
-//        XWPFTableRow tableRowThree = table.createRow();
-//        tableRowThree.getCell(0).setText("col one, row three");
-//        tableRowThree.getCell(1).setText("col two, row three");
-//        tableRowThree.getCell(2).setText("col three, row three");
-            XWPFParagraph paragraph1 = document.createParagraph();
-            XWPFRun run1 = paragraph1.createRun();
-            run1.setFontSize(20);
-            run1.addBreak();
-            run1.addBreak();
-            run1.setText("Tiền Giảm:                      " + txt_giamgia.getText());
-            run1.addBreak();
-            run1.addBreak();
-            run1.setText("Thành tiền                      " + txt_thanhtoan.getText());
-            run1.addBreak();
-            run1.addBreak();
-            run1.setText("Tiền Khách Đưa:                 " + txt_tienkhachdua.getText());
-            run1.addBreak();
-            run1.addBreak();
-            run1.setText("Tiền Thừa:                      " + txt_tienthua.getText());
-            run1.addBreak();
-            run1.addBreak();
-            run1.setText("Ghi Chú:                        " + txt_ghichu.getText());
-            run1.addBreak();
-            run1.addBreak();
-            run1.setText("");
-
-            try {
-                FileOutputStream out = new FileOutputStream(new File("demo-apache-apoi-word.docx"));
-                document.write(out);
-                out.close();
-                document.close();
-            } catch (IOException ex) {
-                Logger.getLogger(BanHang_fr.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//        // TODO add your handling code here:
+//        int chon = JOptionPane.showConfirmDialog(this, "Ban muon xuat hoa don?", "Xac Nhan", JOptionPane.YES_NO_OPTION);
+//        if (chon == 0) {
+//
+//            // Create Blank document
+//            XWPFDocument document = new XWPFDocument();
+//
+//            // Create new Paragraph
+//            XWPFParagraph paragraph2 = document.createParagraph();
+//            XWPFParagraph paragraph = document.createParagraph();
+//            XWPFRun run = paragraph.createRun();
+//            XWPFRun run2 = paragraph2.createRun();
+//            run2.setText("Hoá Đơn Bán Hàng");
+//            run2.addBreak();
+//
+//            //
+//            paragraph2.setAlignment(ParagraphAlignment.CENTER);
+//            run2.setBold(true);
+//            //run2.setColor(rgbStr);
+//            run2.setFontSize(36);
+//            run.setFontSize(20);
+//            paragraph.setAlignment(ParagraphAlignment.LEFT);
+//
+//            //
+//            run.setText("Mã HĐ:                          " + txt_mahd.getText());
+//            run.addBreak();
+//            run.addBreak();
+//            run.setText("Tên Khách Hàng:                 " + txt_customer_id.getText());
+//            run.addBreak();
+//            run.addBreak();
+//            run.setText("Ma NV:                          " + staff.getFullName());
+//            run.addBreak();
+//            run.addBreak();
+//            run.setText("Ngày Lập:                       " + invoice.getCreatedDate() + "");
+//            run.addBreak();
+//            //
+//            XWPFTable table = document.createTable();
+//            //
+//
+//            XWPFTableRow tableRowOne = table.getRow(0);
+//            //tableRowOne.getCell(0).setParagraph(paragraph.setFontAlignment(HEIGHT));
+//            tableRowOne.getCell(0).setText("Ma SP                              ");
+//            tableRowOne.addNewTableCell().setText("Ten SP                      ");
+//            tableRowOne.addNewTableCell().setText("So Luong                    ");
+//            tableRowOne.addNewTableCell().setText("Tong Tien                   ");
+//
+//            //create second row
+//            XWPFTableRow tableRowTwo = table.createRow();
+//            tableRowTwo.getCell(0).setText("                      " + product.getProduct().getIdProduct());
+//            tableRowTwo.getCell(1).setText("                      " + product.getProduct().getName());
+//            tableRowTwo.getCell(2).setText("                      " + invoiceDetail.getQuantity());
+//            tableRowTwo.getCell(3).setText("                      " + txt_tongtien.getText());
+//
+//            //create third row
+////        XWPFTableRow tableRowThree = table.createRow();
+////        tableRowThree.getCell(0).setText("col one, row three");
+////        tableRowThree.getCell(1).setText("col two, row three");
+////        tableRowThree.getCell(2).setText("col three, row three");
+//            XWPFParagraph paragraph1 = document.createParagraph();
+//            XWPFRun run1 = paragraph1.createRun();
+//            run1.setFontSize(20);
+//            run1.addBreak();
+//            run1.addBreak();
+//            run1.setText("Tiền Giảm:                      " + txt_giamgia.getText());
+//            run1.addBreak();
+//            run1.addBreak();
+//            run1.setText("Thành tiền                      " + txt_thanhtoan.getText());
+//            run1.addBreak();
+//            run1.addBreak();
+//            run1.setText("Tiền Khách Đưa:                 " + txt_tienkhachdua.getText());
+//            run1.addBreak();
+//            run1.addBreak();
+//            run1.setText("Tiền Thừa:                      " + txt_tienthua.getText());
+//            run1.addBreak();
+//            run1.addBreak();
+//            run1.setText("Ghi Chú:                        " + txt_ghichu.getText());
+//            run1.addBreak();
+//            run1.addBreak();
+//            run1.setText("");
+//
+//            try {
+//                FileOutputStream out = new FileOutputStream(new File("demo-apache-apoi-word.docx"));
+//                document.write(out);
+//                out.close();
+//                document.close();
+//            } catch (IOException ex) {
+//                Logger.getLogger(BanHang_fr.class.getName()).log(Level.SEVERE, null, ex);
+//            }
 
             System.out.println("successully");
 //        XWPFParagraph paragraph2 = document.createParagraph();
@@ -690,13 +687,17 @@ public class BanHang_fr extends javax.swing.JFrame {
 //            } catch (Exception ex) {
 //                ex.printStackTrace();
 //            }
-        }
+//        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         product = new ProductDetailReposytory().getAll().get(0);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
