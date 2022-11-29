@@ -7,9 +7,6 @@ package com.project1;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.project1.view.Main_FR;
-import com.project1.view.dialog.DateChoicedialog;
-import com.project1.view.dialog.RegisterDialog;
-import com.project1.view.dialog.r;
 import javax.swing.UIManager;
 /**
  *
@@ -23,7 +20,6 @@ public class Project1 {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new RegisterDialog(null, true).setVisible(true);
         new Main_FR();
         System.out.println("\n ccccc\n");
     }
