@@ -46,9 +46,9 @@ public class Repository<T> implements IRepository<T>{
         try {
             return Optional.of(session.createQuery(query).getSingleResult());
         } catch (Exception e) {
-//            return Optional.empty();
+            e.printStackTrace();
+            return Optional.empty();
         }
-        return Optional.empty();
     }
     
     @Override
@@ -86,12 +86,12 @@ public class Repository<T> implements IRepository<T>{
         try {
             session.persist(value);
             t.commit();
+            return Optional.of(value);
         } catch (Exception e) {
             e.printStackTrace();
             t.rollback();
             return Optional.empty();
         }
-        return Optional.of(value);
     }
 
     @Override

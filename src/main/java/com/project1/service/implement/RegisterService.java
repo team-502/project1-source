@@ -38,6 +38,6 @@ public class RegisterService implements IService<Staff>{
 
     @Override
     public ArrayList<Staff> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return staffrepo.getAll();
     }
 }

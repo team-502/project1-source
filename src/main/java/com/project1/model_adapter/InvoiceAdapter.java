@@ -43,7 +43,7 @@ public class InvoiceAdapter {
         );
         
         for (var i: invoices) {
-            invoiceQueueToStrings(i);
+            m.addRow(invoiceQueueToStrings(i));
         }
         
         return m;

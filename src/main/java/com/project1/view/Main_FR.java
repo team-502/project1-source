@@ -31,11 +31,9 @@ public class Main_FR extends javax.swing.JFrame {
         initComponents();
         
         var login = new LoginDialog(this, true);
-        
+
         if (login.getStaff().isPresent()) {
-//            this.staff = login.getStaff().get();
-        } else {
-//            JOptionPane.showMessageDialog(this, login.getStaff().get().getFullName());
+            this.staff = login.getStaff().get();
         }
         
         qlsp = new QLSP();
@@ -146,14 +144,14 @@ public class Main_FR extends javax.swing.JFrame {
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout content_panelLayout = new javax.swing.GroupLayout(content_panel);
         content_panel.setLayout(content_panelLayout);
         content_panelLayout.setHorizontalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 991, Short.MAX_VALUE)
+            .addGap(0, 1157, Short.MAX_VALUE)
         );
         content_panelLayout.setVerticalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

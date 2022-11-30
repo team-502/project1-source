@@ -5,8 +5,8 @@
 package com.project1.view.dialog;
 
 import com.project1.model.Staff;
+import com.project1.repository.implement.StaffRepository;
 import com.project1.service.implement.StaffService;
-import java.awt.Frame;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 
@@ -25,8 +25,8 @@ public class LoginDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
         this.opt_staff = Optional.empty();
+        this.setVisible(true);
     }
 
     /**
@@ -108,19 +108,16 @@ public class LoginDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        var current_staff = new StaffService().login(
+        this.opt_staff = new StaffRepository().getByIdAndPassword(
                 txt_staff_id.getText().trim(),
-                 new String(txt_staff_password.getPassword()).trim()
+                new String(txt_staff_password.getPassword()).trim()
         );
-        if (current_staff.isPresent()) {
-            this.opt_staff = current_staff;
-                        System.out.println(getStaff().get().getIdStaff()
-                    + "\n" + getStaff().get().getPassword());
+        if (this.opt_staff.isPresent()) {
             JOptionPane.showMessageDialog(this, "dang nhap thanh cong");
             this.dispose();
         } else {
             this.opt_staff = Optional.empty();
-            JOptionPane.showMessageDialog(this, "dang nhap that bai");
+            JOptionPane.showMessageDialog(this, new StaffService().getAll().get(0).getFullName());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -130,12 +127,7 @@ public class LoginDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public Optional<Staff> getStaff() {
-        if (this.opt_staff.isPresent()) {
-            System.out.println("\nERROR!\n");
-            return opt_staff;
-        }
-        System.out.println("\nSUCCESS!\n");
-        return Optional.empty();
+        return this.opt_staff;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
