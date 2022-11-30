@@ -113,10 +113,13 @@ public class LoginDialog extends javax.swing.JDialog {
                  new String(txt_staff_password.getPassword()).trim()
         );
         if (current_staff.isPresent()) {
+            this.opt_staff = current_staff;
+                        System.out.println(getStaff().get().getIdStaff()
+                    + "\n" + getStaff().get().getPassword());
             JOptionPane.showMessageDialog(this, "dang nhap thanh cong");
             this.dispose();
-            opt_staff = current_staff;
         } else {
+            this.opt_staff = Optional.empty();
             JOptionPane.showMessageDialog(this, "dang nhap that bai");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -127,7 +130,12 @@ public class LoginDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public Optional<Staff> getStaff() {
-        return opt_staff;
+        if (this.opt_staff.isPresent()) {
+            System.out.println("\nERROR!\n");
+            return opt_staff;
+        }
+        System.out.println("\nSUCCESS!\n");
+        return Optional.empty();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

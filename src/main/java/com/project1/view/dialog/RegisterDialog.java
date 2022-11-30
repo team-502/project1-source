@@ -29,14 +29,14 @@ public class RegisterDialog extends javax.swing.JDialog {
     
     public Staff getStaff() throws ParseException {
         Staff staff = new Staff();
-        staff.setIdStaff(txt_id.getText());
-        staff.setFullName(txt_name.getText());
+        staff.setIdStaff(txt_id.getText().trim());
+        staff.setFullName(txt_name.getText().trim());
         staff.setGender(rb_male.isSelected());
-        staff.setEmai(txt_email.getText());
+        staff.setEmai(txt_email.getText().trim());
         staff.setBirth(new SimpleDateFormat("dd-MM-yyyy").parse(txt_birth.getText().trim()));
-        staff.setAddress(txt_address.getText());
-        staff.setPhoneNumber(txt_phone_number.getText());
-        staff.setPassword(new String(txt_password.getPassword()));
+        staff.setAddress(txt_address.getText().trim());
+        staff.setPhoneNumber(txt_phone_number.getText().trim());
+        staff.setPassword(new String(txt_password.getPassword()).trim());
         staff.setState(1);
         return staff;
     }

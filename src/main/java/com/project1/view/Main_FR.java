@@ -9,6 +9,7 @@ import com.project1.utility.view.Renderer;
 import com.project1.view.dialog.LoginDialog;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -29,10 +30,17 @@ public class Main_FR extends javax.swing.JFrame {
     public Main_FR() {
         initComponents();
         
+        var login = new LoginDialog(this, true);
+        
+        if (login.getStaff().isPresent()) {
+//            this.staff = login.getStaff().get();
+        } else {
+//            JOptionPane.showMessageDialog(this, login.getStaff().get().getFullName());
+        }
+        
         qlsp = new QLSP();
         khach_hang = new KhachHang();
-        ban_hang = new BanHang_fr();
-        ban_hang = new BanHang_fr();
+        ban_hang = new BanHang_fr(this.staff);
         panels = new HashMap<JButton, JPanel>() {{
             put (
                     product_manager
@@ -52,11 +60,6 @@ public class Main_FR extends javax.swing.JFrame {
             i.getValue().setVisible(false);
         }
         reRender();
-
-        var login = new LoginDialog(this, true);
-        if (login.getStaff().isPresent()) {
-            this.staff = login.getStaff().get();
-        }
         this.setVisible(true);
     }
     

@@ -42,9 +42,6 @@ public class StaffService implements IService<Staff> {
     }
     
     public Optional<Staff> login(String id_staff, String password) {
-        var result = repo.getByIdAndPassword(id_staff, password);
-        if (!result.isEmpty())
-            return Optional.of(result.get(0));
-        return Optional.empty();
+        return repo.getByIdAndPassword(id_staff, password);
     }
 }

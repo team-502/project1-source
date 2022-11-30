@@ -6,6 +6,7 @@ package com.project1.view;
 
 import com.project1.model.Product;
 import com.project1.model.ProductDetail;
+import com.project1.model.Staff;
 import com.project1.model_adapter.ColorAdapter;
 import com.project1.model_adapter.ProducerAdapter;
 import com.project1.model_adapter.ProductDetailAdapter;
@@ -33,7 +34,7 @@ import javax.swing.JPanel;
  */
 public class QLSP extends javax.swing.JFrame {
 
-    
+    private Staff staff;
     private ColorAdapter c_adapter;
     private ColorService c_service;
     private ColorRepository c_repo;

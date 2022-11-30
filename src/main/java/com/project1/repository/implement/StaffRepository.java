@@ -6,6 +6,7 @@ package com.project1.repository.implement;
 
 import com.project1.model.Staff;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  *
@@ -17,13 +18,13 @@ public class StaffRepository extends Repository<Staff>{
         super(Staff.class);
     }
     
-    public ArrayList<Staff> getByIdAndPassword(String id_staff, String password) {
+    public Optional<Staff> getByIdAndPassword(String id_staff, String password) {
         
         var is = e().equal(root().get("idStaff"), id_staff);
         var pass = e().equal(root().get("password"), password);
         var and = e().and(is, pass);
         
-        return list(query()
+        return single(query()
                 .select(root())
                 .where(and));
     }
