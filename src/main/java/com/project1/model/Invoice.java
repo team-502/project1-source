@@ -7,8 +7,9 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import org.hibernate.annotations.UuidGenerator;
-
+import java.util.Collection;
 /**
  *
  * @author thinhorigami-rio
@@ -59,12 +60,17 @@ public class Invoice implements Serializable {
     @JoinColumn(name = "staff", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private Staff staff;
-
+    @OneToMany(mappedBy = "invoice1")
+    private ArrayList <InvoiceDetail> invoiceDetail;
+            
+            
+            
     public Invoice() {
     }
 
     public Invoice(String id) {
         this.id = id;
+        this.invoiceDetail = new ArrayList<>();
     }
 
     public Invoice(String id, Date createdDate, Date paymentDate, Date receivedDate, int state, int paymentMethod) {
@@ -155,6 +161,15 @@ public class Invoice implements Serializable {
         return hash;
     }
 
+    public ArrayList<InvoiceDetail> getInvoiceDetail() {
+        return invoiceDetail;
+    }
+
+    public void setInvoiceDetail(ArrayList<InvoiceDetail> invoiceDetail) {
+        this.invoiceDetail =  invoiceDetail;
+    }
+
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set

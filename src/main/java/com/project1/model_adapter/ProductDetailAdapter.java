@@ -49,6 +49,7 @@ public class ProductDetailAdapter {
         };
     }
     
+    
     public DefaultTableModel searchModel(ArrayList<ProductDetail> ap) {
         var result = new DefaultTableModel(
                 tableTitle(),
@@ -66,6 +67,47 @@ public class ProductDetailAdapter {
         
         var result = new DefaultTableModel(
                 tableTitle(),
+                0
+        );
+        
+        for (var i: list) {
+            result.addRow(toStrings(i));
+        }
+        return result;
+    }
+    
+     public String[] tableTitle_1() {
+        return new String[] {
+            "ma san pham",
+            "ten san pham",
+            "mau sac",
+            "dong san pham",
+            "nha san xuat",
+            "kich co",
+            "so luong",
+            "mo ta",
+            "gia ban"
+        };
+    }
+    
+    public String[] toStrings_1(ProductDetail pd) {
+        return new String[] {
+            pd.getProduct().getIdProduct(),
+            pd.getProduct().getName(),
+            pd.getColor().getName(),
+            pd.getProductLine().getName(),
+            pd.getProducer().getName(),
+            pd.getSize() + "",
+            pd.getQuantity() + "",
+            pd.getDecription(),
+            pd.getExportPrice() + ""
+        };
+    }
+    public DefaultTableModel model_1() {
+        var list = new ProductDetailReposytory().getAll();
+        
+        var result = new DefaultTableModel(
+                tableTitle_1(),
                 0
         );
         

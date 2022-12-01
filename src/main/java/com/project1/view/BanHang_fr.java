@@ -19,8 +19,12 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import com.aspose.words.*;
+import com.project1.model_adapter.GioHangAdater;
 import com.project1.model_adapter.InvoiceAdapter;
+import com.project1.model_adapter.ProductDetailAdapter;
 import com.project1.repository.implement.ProductDetailReposytory;
+import com.project1.repository.implement.ProductRepository;
+import com.project1.service.implement.ProductService;
 import com.project1.service.implement.StaffService;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,6 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import com.aspose.words.*;
 
 /**
  *
@@ -43,9 +48,12 @@ public class BanHang_fr extends javax.swing.JFrame {
     private Customer customer;
     private Staff staff;
     private ArrayList<Invoice> invoices;
+    private ArrayList<ProductDetail> productDe;
+
 
     /**
      * Creates new form BanHang_fr
+     *
      * @param s
      */
     public BanHang_fr(Staff s) {
@@ -53,8 +61,9 @@ public class BanHang_fr extends javax.swing.JFrame {
         this.staff = s;
 //        JOptionPane.showMessageDialog(this, staff.getFullName());
         invoices = new ArrayList<>();
-//        invoiceDetail = new InvoiceDetail();
-//        product = new ProductDetail();
+        productDe = new ProductDetailReposytory().getAll();
+        tbl_list_product.setModel(new ProductDetailAdapter().model_1());
+
     }
 
     public JPanel getPanel() {
@@ -106,7 +115,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbl_cart = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -145,6 +154,11 @@ public class BanHang_fr extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_invoice_queue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_invoice_queueMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tbl_invoice_queue);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -262,6 +276,12 @@ public class BanHang_fr extends javax.swing.JFrame {
             }
         });
 
+        txt_tienthua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_tienthuaActionPerformed(evt);
+            }
+        });
+
         jButton7.setText("tao hoa don");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,7 +310,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                                         .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jComboBox1, 0, 238, Short.MAX_VALUE))
                                 .addGroup(jPanel4Layout.createSequentialGroup()
                                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -369,7 +389,7 @@ public class BanHang_fr extends javax.swing.JFrame {
 
         jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_cart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -388,12 +408,12 @@ public class BanHang_fr extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane2.setViewportView(tbl_cart);
+        if (tbl_cart.getColumnModel().getColumnCount() > 0) {
+            tbl_cart.getColumnModel().getColumn(0).setResizable(false);
+            tbl_cart.getColumnModel().getColumn(1).setResizable(false);
+            tbl_cart.getColumnModel().getColumn(2).setResizable(false);
+            tbl_cart.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jButton1.setText("Xoá Sản Phẩm");
@@ -593,100 +613,108 @@ public class BanHang_fr extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-//        // TODO add your handling code here:
-//        int chon = JOptionPane.showConfirmDialog(this, "Ban muon xuat hoa don?", "Xac Nhan", JOptionPane.YES_NO_OPTION);
-//        if (chon == 0) {
-//
-//            // Create Blank document
-//            XWPFDocument document = new XWPFDocument();
-//
-//            // Create new Paragraph
-//            XWPFParagraph paragraph2 = document.createParagraph();
-//            XWPFParagraph paragraph = document.createParagraph();
-//            XWPFRun run = paragraph.createRun();
-//            XWPFRun run2 = paragraph2.createRun();
-//            run2.setText("Hoá Đơn Bán Hàng");
-//            run2.addBreak();
-//
-//            //
-//            paragraph2.setAlignment(ParagraphAlignment.CENTER);
-//            run2.setBold(true);
-//            //run2.setColor(rgbStr);
-//            run2.setFontSize(36);
-//            run.setFontSize(20);
-//            paragraph.setAlignment(ParagraphAlignment.LEFT);
-//
-//            //
-//            run.setText("Mã HĐ:                          " + txt_mahd.getText());
-//            run.addBreak();
-//            run.addBreak();
-//            run.setText("Tên Khách Hàng:                 " + txt_customer_id.getText());
-//            run.addBreak();
-//            run.addBreak();
-//            run.setText("Ma NV:                          " + staff.getFullName());
-//            run.addBreak();
-//            run.addBreak();
-//            run.setText("Ngày Lập:                       " + invoice.getCreatedDate() + "");
-//            run.addBreak();
-//            //
-//            XWPFTable table = document.createTable();
-//            //
-//
-//            XWPFTableRow tableRowOne = table.getRow(0);
-//            //tableRowOne.getCell(0).setParagraph(paragraph.setFontAlignment(HEIGHT));
-//            tableRowOne.getCell(0).setText("Ma SP                              ");
-//            tableRowOne.addNewTableCell().setText("Ten SP                      ");
-//            tableRowOne.addNewTableCell().setText("So Luong                    ");
-//            tableRowOne.addNewTableCell().setText("Tong Tien                   ");
-//
-//            //create second row
-//            XWPFTableRow tableRowTwo = table.createRow();
-//            tableRowTwo.getCell(0).setText("                      " + product.getProduct().getIdProduct());
-//            tableRowTwo.getCell(1).setText("                      " + product.getProduct().getName());
-//            tableRowTwo.getCell(2).setText("                      " + invoiceDetail.getQuantity());
-//            tableRowTwo.getCell(3).setText("                      " + txt_tongtien.getText());
-//
-//            //create third row
-////        XWPFTableRow tableRowThree = table.createRow();
-////        tableRowThree.getCell(0).setText("col one, row three");
-////        tableRowThree.getCell(1).setText("col two, row three");
-////        tableRowThree.getCell(2).setText("col three, row three");
-//            XWPFParagraph paragraph1 = document.createParagraph();
-//            XWPFRun run1 = paragraph1.createRun();
-//            run1.setFontSize(20);
-//            run1.addBreak();
-//            run1.addBreak();
-//            run1.setText("Tiền Giảm:                      " + txt_giamgia.getText());
-//            run1.addBreak();
-//            run1.addBreak();
-//            run1.setText("Thành tiền                      " + txt_thanhtoan.getText());
-//            run1.addBreak();
-//            run1.addBreak();
-//            run1.setText("Tiền Khách Đưa:                 " + txt_tienkhachdua.getText());
-//            run1.addBreak();
-//            run1.addBreak();
-//            run1.setText("Tiền Thừa:                      " + txt_tienthua.getText());
-//            run1.addBreak();
-//            run1.addBreak();
-//            run1.setText("Ghi Chú:                        " + txt_ghichu.getText());
-//            run1.addBreak();
-//            run1.addBreak();
-//            run1.setText("");
-//
-//            try {
-//                FileOutputStream out = new FileOutputStream(new File("demo-apache-apoi-word.docx"));
-//                document.write(out);
-//                out.close();
-//                document.close();
-//            } catch (IOException ex) {
-//                Logger.getLogger(BanHang_fr.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+//        // TODO add your handling code here
+        int chon = JOptionPane.showConfirmDialog(this, "Ban muon xuat hoa don?", "Xac Nhan", JOptionPane.YES_NO_OPTION);
+        if (chon == 0) {
+            var invoice1 = invoices.get(tbl_invoice_queue.getSelectedRow());
+            // Create Blank document
+            XWPFDocument document = new XWPFDocument();
 
-        System.out.println("successully");
+            // Create new Paragraph
+            XWPFParagraph paragraph2 = document.createParagraph();
+            XWPFParagraph paragraph = document.createParagraph();
+            XWPFRun run = paragraph.createRun();
+            XWPFRun run2 = paragraph2.createRun();
+            run2.setText("Hoá Đơn Bán Hàng");
+            run2.addBreak();
+
+            //
+            paragraph2.setAlignment(ParagraphAlignment.CENTER);
+            run2.setBold(true);
+            //run2.setColor(rgbStr);
+            run2.setFontSize(36);
+            run.setFontSize(20);
+            paragraph.setAlignment(ParagraphAlignment.LEFT);
+
+            //
+            run.setText("Mã HĐ:                          " + txt_mahd.getText());
+            run.addBreak();
+            run.addBreak();
+            run.setText("Tên Khách Hàng:                 " + txt_customer_id.getText());
+            run.addBreak();
+            run.addBreak();
+            run.setText("Ma NV:                          " + staff.getFullName());
+            run.addBreak();
+            run.addBreak();
+            run.setText("Ngày Lập:                       " + invoice1.getCreatedDate() + "");
+            run.addBreak();
+            //
+            XWPFTable table = document.createTable();
+            //
+            XWPFTableRow tableRowOne = table.getRow(0);
+
+            tableRowOne.getCell(0).setText("Ma SP                              ");
+            tableRowOne.addNewTableCell().setText("Ten SP                      ");
+            tableRowOne.addNewTableCell().setText("So Luong                    ");
+            tableRowOne.addNewTableCell().setText("Tong Tien                   ");
+
+            for (var i : invoice1.getInvoiceDetail()) {
+                //create second row
+              
+                
+                XWPFTableRow tableRowTwo = table.createRow();
+                tableRowTwo.setHeight(20);
+                tableRowTwo.getCell(0).setText("                      " + i.getProductDetail1().getProduct().getIdProduct());
+                tableRowTwo.getCell(1).setText("                      " + i.getProductDetail1().getProduct().getName());
+                tableRowTwo.getCell(2).setText("                      " + i.getQuantity());
+                tableRowTwo.getCell(3).setText("                      " + txt_tongtien.getText());
+            }
+            
+            
+            //create third row
+//        XWPFTableRow tableRowThree = table.createRow();
+//        tableRowThree.getCell(0).setText("col one, row three");
+//        tableRowThree.getCell(1).setText("col two, row three");
+//        tableRowThree.getCell(2).setText("col three, row three");
+            XWPFParagraph paragraph1 = document.createParagraph();
+            XWPFRun run1 = paragraph1.createRun();
+            run1.setFontSize(20);
+            run1.addBreak();
+            run1.addBreak();
+            run1.setText("Tiền Giảm:                      " + txt_giamgia.getText());
+            run1.addBreak();
+            run1.addBreak();
+            run1.setText("Thành tiền                      " + txt_thanhtoan.getText());
+            run1.addBreak();
+            run1.addBreak();
+            run1.setText("Tiền Khách Đưa:                 " + txt_tienkhachdua.getText());
+            run1.addBreak();
+            run1.addBreak();
+            run1.setText("Tiền Thừa:                      " + txt_tienthua.getText());
+            run1.addBreak();
+            run1.addBreak();
+            run1.setText("Ghi Chú:                        " + txt_ghichu.getText());
+            run1.addBreak();
+            run1.addBreak();
+            run1.setText("");
+
+            try {
+                FileOutputStream out = new FileOutputStream(new File(invoice1.getIdInvoice() + ".docx"));
+//                Document doc = new Document("Input.docx");
+//                doc.save("Output.pdf");
+                document.write(out);
+
+                out.close();
+                document.close();
+            } catch (IOException ex) {
+                Logger.getLogger(BanHang_fr.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            System.out.println("successully");
 //        XWPFParagraph paragraph2 = document.createParagraph();
 //        run = paragraph2.createRun();
 //        run.setText("Paragraph 2: demo read/write file MS-Word");
-        // Write the Document in file system
+            // Write the Document in file system
 
 //            try {
 //              Document doc = new Document("Input.docx");
@@ -694,19 +722,39 @@ public class BanHang_fr extends javax.swing.JFrame {
 //            } catch (Exception ex) {
 //                ex.printStackTrace();
 //            }
-//        }
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
 //        product = new ProductDetailReposytory().getAll().get(0);
+        String index = "Vui Lòng nhập sô lượng sản phẩm";
+        JOptionPane.showInputDialog(index);
+        InvoiceDetail invoiceDetail = new InvoiceDetail();
+        invoiceDetail.setProductDetail1(productDe.get(tbl_list_product.getSelectedRow()));
+        invoiceDetail.setQuantity(1);
+        invoices.get(tbl_invoice_queue.getSelectedRow()).getInvoiceDetail().add(invoiceDetail);
+        // invoices.get
+        tbl_cart.setModel(new GioHangAdater().model(invoices.get(tbl_invoice_queue.getSelectedRow())));
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       tbl_invoice_queue
+        tbl_invoice_queue
                 .setModel(new InvoiceAdapter()
                         .invoiceQueueModel(invoices));
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txt_tienthuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tienthuaActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txt_tienthuaActionPerformed
+
+    private void tbl_invoice_queueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_invoice_queueMouseClicked
+        // TODO add your handling code here:
+        if (tbl_invoice_queue.getSelectedRowCount() == 1) {
+
+        }
+    }//GEN-LAST:event_tbl_invoice_queueMouseClicked
 
     /**
      * @param args the command line arguments
@@ -779,8 +827,8 @@ public class BanHang_fr extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tbl_cart;
     private javax.swing.JTable tbl_invoice_queue;
     private javax.swing.JTable tbl_list_product;
     private javax.swing.JTextField txt_customer_id;
