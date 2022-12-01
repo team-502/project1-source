@@ -14,17 +14,6 @@ import org.hibernate.annotations.UuidGenerator;
  */
 @Entity
 @Table(name = "Customer")
-//@NamedQueries({
-//    @NamedQuery(name = "Customer_1.findAll", query = "SELECT c FROM Customer_1 c"),
-//    @NamedQuery(name = "Customer_1.findById", query = "SELECT c FROM Customer_1 c WHERE c.id = :id"),
-//    @NamedQuery(name = "Customer_1.findByIdCustomer", query = "SELECT c FROM Customer_1 c WHERE c.idCustomer = :idCustomer"),
-//    @NamedQuery(name = "Customer_1.findByFullName", query = "SELECT c FROM Customer_1 c WHERE c.fullName = :fullName"),
-//    @NamedQuery(name = "Customer_1.findByEmail", query = "SELECT c FROM Customer_1 c WHERE c.email = :email"),
-//    @NamedQuery(name = "Customer_1.findByGender", query = "SELECT c FROM Customer_1 c WHERE c.gender = :gender"),
-//    @NamedQuery(name = "Customer_1.findByPhoneNumber", query = "SELECT c FROM Customer_1 c WHERE c.phoneNumber = :phoneNumber"),
-//    @NamedQuery(name = "Customer_1.findByAddress", query = "SELECT c FROM Customer_1 c WHERE c.address = :address"),
-//    @NamedQuery(name = "Customer_1.findByCountry", query = "SELECT c FROM Customer_1 c WHERE c.country = :country"),
-//    @NamedQuery(name = "Customer_1.findByState", query = "SELECT c FROM Customer_1 c WHERE c.state = :state")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;

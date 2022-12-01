@@ -7,29 +7,21 @@ package com.project1.view;
 import com.project1.model.Customer;
 import com.project1.model.Invoice;
 import com.project1.model.InvoiceDetail;
-import com.project1.model.Producer;
 import com.project1.model.ProductDetail;
 import com.project1.model.Staff;
 import com.project1.view.dialog.CustomerChoicerDialog;
 import javax.swing.JOptionPane;
 import javax.swing.*;
-import javax.swing.text.Document;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import com.aspose.words.*;
 import com.project1.model_adapter.GioHangAdater;
 import com.project1.model_adapter.InvoiceAdapter;
-import com.project1.model_adapter.ProductDetailAdapter;
 import com.project1.repository.implement.ProductDetailReposytory;
-import com.project1.repository.implement.ProductRepository;
-import com.project1.service.implement.ProductService;
-import com.project1.service.implement.StaffService;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -37,7 +29,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-import com.aspose.words.*;
 
 /**
  *
@@ -49,7 +40,7 @@ public class BanHang_fr extends javax.swing.JFrame {
     private Staff staff;
     private ArrayList<Invoice> invoices;
     private ArrayList<ProductDetail> productDe;
-
+    private Invoice current_invoice;
 
     /**
      * Creates new form BanHang_fr
@@ -62,12 +53,18 @@ public class BanHang_fr extends javax.swing.JFrame {
 //        JOptionPane.showMessageDialog(this, staff.getFullName());
         invoices = new ArrayList<>();
         productDe = new ProductDetailReposytory().getAll();
-        tbl_list_product.setModel(new ProductDetailAdapter().model_1());
-
+        reLoadProduct();
     }
 
     public JPanel getPanel() {
         return content_panel;
+    }
+    
+    public void reLoadProduct() {
+        tbl_list_product
+                .setModel(new InvoiceAdapter()
+                .listProductModel(productDe,
+                    current_invoice.getInvoiceDetail()));
     }
 
     /**
@@ -165,7 +162,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5)
                 .addContainerGap())
@@ -210,14 +207,14 @@ public class BanHang_fr extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_customer_id, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                    .addComponent(txt_customer_name))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                    .addComponent(txt_customer_id)
+                    .addComponent(txt_customer_name))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,8 +423,8 @@ public class BanHang_fr extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -496,7 +493,7 @@ public class BanHang_fr extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -530,21 +527,22 @@ public class BanHang_fr extends javax.swing.JFrame {
         content_panelLayout.setHorizontalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(content_panelLayout.createSequentialGroup()
-                .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap()
+                .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel3)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(content_panelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(content_panelLayout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 334, Short.MAX_VALUE))
+                        .addGap(0, 382, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -617,6 +615,9 @@ public class BanHang_fr extends javax.swing.JFrame {
         int chon = JOptionPane.showConfirmDialog(this, "Ban muon xuat hoa don?", "Xac Nhan", JOptionPane.YES_NO_OPTION);
         if (chon == 0) {
             var invoice1 = invoices.get(tbl_invoice_queue.getSelectedRow());
+//            if (new InvoiceRepository().insert(invoice1).isPresent()) {
+//                JOptionPane.showMessageDialog(this, "them thanh cong");
+//            }
             // Create Blank document
             XWPFDocument document = new XWPFDocument();
 
@@ -752,7 +753,7 @@ public class BanHang_fr extends javax.swing.JFrame {
     private void tbl_invoice_queueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_invoice_queueMouseClicked
         // TODO add your handling code here:
         if (tbl_invoice_queue.getSelectedRowCount() == 1) {
-
+            this.current_invoice = invoices.get(tbl_invoice_queue.getSelectedRow());
         }
     }//GEN-LAST:event_tbl_invoice_queueMouseClicked
 

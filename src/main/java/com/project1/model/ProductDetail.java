@@ -16,47 +16,50 @@ import org.hibernate.annotations.UuidGenerator;
  */
 @Entity
 @Table(name = "ProductDetail")
-@NamedQueries({
-    @NamedQuery(name = "ProductDetail.findAll", query = "SELECT p FROM ProductDetail p"),
-    @NamedQuery(name = "ProductDetail.findById", query = "SELECT p FROM ProductDetail p WHERE p.id = :id"),
-    @NamedQuery(name = "ProductDetail.findBySize", query = "SELECT p FROM ProductDetail p WHERE p.size = :size"),
-    @NamedQuery(name = "ProductDetail.findByQuantity", query = "SELECT p FROM ProductDetail p WHERE p.quantity = :quantity"),
-    @NamedQuery(name = "ProductDetail.findByDecription", query = "SELECT p FROM ProductDetail p WHERE p.decription = :decription"),
-    @NamedQuery(name = "ProductDetail.findByImportPrice", query = "SELECT p FROM ProductDetail p WHERE p.importPrice = :importPrice"),
-    @NamedQuery(name = "ProductDetail.findByExportPrice", query = "SELECT p FROM ProductDetail p WHERE p.exportPrice = :exportPrice")})
 public class ProductDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
     @GeneratedValue
     @UuidGenerator
     private String id;
+    
     @Column(name = "Size")
     private Integer size;
+    
     @Column(name = "quantity")
     private Integer quantity;
+    
     @Column(name = "decription")
     private String decription;
+    
     @Column(name = "import_price")
     private BigInteger importPrice;
+    
     @Column(name = "export_price")
     private BigInteger exportPrice;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetail1")
     private Collection<InvoiceDetail> invoiceDetailCollection;
+    
     @JoinColumn(name = "color", referencedColumnName = "Id")
     @ManyToOne
     private Color color;
-    @JoinColumn(name = "producer", referencedColumnName = "Id")
-    @ManyToOne
+    
+    @JoinColumn(name = "producer", referencedColumnName = "Id")@ManyToOne
     private Producer producer;
+    
     @JoinColumn(name = "product", referencedColumnName = "Id")
     @ManyToOne
     private Product product;
+    
     @JoinColumn(name = "product_line", referencedColumnName = "Id")
     @ManyToOne
     private ProductLine productLine;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetail")
     private Collection<PromotionDetail> promotionDetailCollection;
 

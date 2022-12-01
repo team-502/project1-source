@@ -21,15 +21,13 @@
         </property>
       
         <property name = "hibernate.connection.password">
-            123456aA@$
+            R00T@r00t
         </property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
     </session-factory>
 </hibernate-configuration>
-
-Cannot get a connection as the driver manager is not properly initialized
 
 
 

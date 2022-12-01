@@ -5,6 +5,8 @@
 package com.project1.model_adapter;
 
 import com.project1.model.Invoice;
+import com.project1.model.InvoiceDetail;
+import com.project1.model.ProductDetail;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,4 +51,42 @@ public class InvoiceAdapter {
         return m;
     }
     
+    public String[] listProductTitle() {
+        return new String[] {
+            "ma san pham",
+            "ten san pham",
+            "mau sac",
+            "dong san pham",
+            "nha san xuat",
+            "kich co",
+            "so luong",
+            "mo ta",
+            "gia ban"
+        };
+    }
+    
+    public String[] listProductToStrings(ProductDetail pd, ArrayList<InvoiceDetail> cart) {
+        return new String[] {
+            pd.getProduct().getIdProduct(),
+            pd.getProduct().getName(),
+            pd.getColor().getName(),
+            pd.getProductLine().getName(),
+            pd.getProducer().getName(),
+            pd.getSize() + "",
+            pd.getQuantity() - cart.stream().findFirst().get().getQuantity() + "",
+            pd.getDecription(),
+            pd.getExportPrice() + ""
+        };
+    }
+    
+    public DefaultTableModel listProductModel(ArrayList<ProductDetail> products
+            , ArrayList<InvoiceDetail> cart) {
+        var m = new DefaultTableModel(listProductTitle(), 0);
+        
+        for (var i: products) {
+            m.addRow(listProductToStrings(i, cart));
+        }
+        
+        return m;
+    }
 }
