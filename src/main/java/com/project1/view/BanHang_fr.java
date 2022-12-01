@@ -18,10 +18,12 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import com.project1.model_adapter.GioHangAdater;
 import com.project1.model_adapter.InvoiceAdapter;
+import com.project1.model_adapter.ProductDetailAdapter;
 import com.project1.repository.implement.ProductDetailReposytory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -53,18 +55,27 @@ public class BanHang_fr extends javax.swing.JFrame {
 //        JOptionPane.showMessageDialog(this, staff.getFullName());
         invoices = new ArrayList<>();
         productDe = new ProductDetailReposytory().getAll();
-        reLoadProduct();
+        tbl_list_product
+                .setModel(new ProductDetailAdapter().model_1());
     }
 
     public JPanel getPanel() {
         return content_panel;
     }
     
+    public BigInteger totalPrice() {
+        var r = new BigInteger("0");
+        
+        for (var i: current_invoice.getInvoiceDetail()) {
+            r = r.add(new BigInteger(i.getProductDetail1().getExportPrice().toString())
+                .multiply(new BigInteger(i.getQuantity() + "")));
+        }
+        return r;
+    }
+    
     public void reLoadProduct() {
         tbl_list_product
-                .setModel(new InvoiceAdapter()
-                .listProductModel(productDe,
-                    current_invoice.getInvoiceDetail()));
+                .setModel(new ProductDetailAdapter().model_1());
     }
 
     /**
@@ -102,7 +113,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         txt_mahd = new javax.swing.JTextField();
-        txt_tongtien = new javax.swing.JTextField();
+        txt_total_price = new javax.swing.JTextField();
         txt_giamgia = new javax.swing.JTextField();
         txt_thanhtoan = new javax.swing.JTextField();
         txt_tienkhachdua = new javax.swing.JTextField();
@@ -322,7 +333,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                                             .addComponent(txt_mahd, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jButton7))
-                                        .addComponent(txt_tongtien)
+                                        .addComponent(txt_total_price)
                                         .addComponent(txt_giamgia)
                                         .addComponent(txt_thanhtoan)
                                         .addComponent(txt_tienthua)
@@ -354,7 +365,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_tongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_total_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txt_giamgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -661,14 +672,12 @@ public class BanHang_fr extends javax.swing.JFrame {
 
             for (var i : invoice1.getInvoiceDetail()) {
                 //create second row
-              
-                
                 XWPFTableRow tableRowTwo = table.createRow();
                 tableRowTwo.setHeight(20);
                 tableRowTwo.getCell(0).setText("                      " + i.getProductDetail1().getProduct().getIdProduct());
                 tableRowTwo.getCell(1).setText("                      " + i.getProductDetail1().getProduct().getName());
                 tableRowTwo.getCell(2).setText("                      " + i.getQuantity());
-                tableRowTwo.getCell(3).setText("                      " + txt_tongtien.getText());
+                tableRowTwo.getCell(3).setText("                      " + txt_total_price.getText());
             }
             
             
@@ -736,6 +745,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         invoiceDetail.setQuantity(1);
         invoices.get(tbl_invoice_queue.getSelectedRow()).getInvoiceDetail().add(invoiceDetail);
         // invoices.get
+        totalPrice();
         tbl_cart.setModel(new GioHangAdater().model(invoices.get(tbl_invoice_queue.getSelectedRow())));
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -754,43 +764,10 @@ public class BanHang_fr extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (tbl_invoice_queue.getSelectedRowCount() == 1) {
             this.current_invoice = invoices.get(tbl_invoice_queue.getSelectedRow());
+            txt_total_price.setText(totalPrice().toString());
         }
     }//GEN-LAST:event_tbl_invoice_queueMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(BanHang_fr.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(BanHang_fr.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(BanHang_fr.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(BanHang_fr.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new BanHang_fr().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content_panel;
@@ -840,6 +817,6 @@ public class BanHang_fr extends javax.swing.JFrame {
     private javax.swing.JTextField txt_thanhtoan;
     private javax.swing.JTextField txt_tienkhachdua;
     private javax.swing.JTextField txt_tienthua;
-    private javax.swing.JTextField txt_tongtien;
+    private javax.swing.JTextField txt_total_price;
     // End of variables declaration//GEN-END:variables
 }

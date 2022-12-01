@@ -222,7 +222,7 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton7" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="txt_tongtien" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txt_total_price" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_giamgia" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_thanhtoan" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_tienthua" alignment="0" max="32767" attributes="0"/>
@@ -267,7 +267,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel9" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="txt_tongtien" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt_total_price" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel10" min="-2" pref="26" max="-2" attributes="0"/>
@@ -489,7 +489,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txt_mahd">
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_tongtien">
+            <Component class="javax.swing.JTextField" name="txt_total_price">
             </Component>
             <Component class="javax.swing.JTextField" name="txt_giamgia">
             </Component>

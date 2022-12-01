@@ -9,22 +9,12 @@ import java.util.Date;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import org.hibernate.annotations.UuidGenerator;
-import java.util.Collection;
 /**
  *
  * @author thinhorigami-rio
  */
 @Entity
 @Table(name = "Invoice")
-//@NamedQueries({
-//    @NamedQuery(name = "Invoice_1.findAll", query = "SELECT i FROM Invoice_1 i"),
-//    @NamedQuery(name = "Invoice_1.findById", query = "SELECT i FROM Invoice_1 i WHERE i.id = :id"),
-//    @NamedQuery(name = "Invoice_1.findByIdInvoice", query = "SELECT i FROM Invoice_1 i WHERE i.idInvoice = :idInvoice"),
-//    @NamedQuery(name = "Invoice_1.findByCreatedDate", query = "SELECT i FROM Invoice_1 i WHERE i.createdDate = :createdDate"),
-//    @NamedQuery(name = "Invoice_1.findByPaymentDate", query = "SELECT i FROM Invoice_1 i WHERE i.paymentDate = :paymentDate"),
-//    @NamedQuery(name = "Invoice_1.findByReceivedDate", query = "SELECT i FROM Invoice_1 i WHERE i.receivedDate = :receivedDate"),
-//    @NamedQuery(name = "Invoice_1.findByState", query = "SELECT i FROM Invoice_1 i WHERE i.state = :state"),
-//    @NamedQuery(name = "Invoice_1.findByPaymentMethod", query = "SELECT i FROM Invoice_1 i WHERE i.paymentMethod = :paymentMethod")})
 public class Invoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
