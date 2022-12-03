@@ -768,16 +768,17 @@ public class BanHang_fr extends javax.swing.JFrame {
             invoiceDetail.setProductDetail1(product_detail);
             current_invoice.getInvoiceDetail().add(invoiceDetail);
             // invoices.get
-            totalPrice();
-            tbl_cart
-                .setModel(new GioHangAdater()
-                .model(invoices
-                .get(tbl_invoice_queue
-                .getSelectedRow())));
-            tbl_list_product
-                .setModel(new InvoiceAdapter()
-                .listProductModel(invoices));
+
         }
+        totalPrice();
+        tbl_cart
+            .setModel(new GioHangAdater()
+            .model(invoices
+            .get(tbl_invoice_queue
+            .getSelectedRow())));
+        tbl_list_product
+            .setModel(new InvoiceAdapter()
+            .listProductModel(invoices));
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
