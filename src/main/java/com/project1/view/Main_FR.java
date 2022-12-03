@@ -191,7 +191,7 @@ public class Main_FR extends javax.swing.JFrame {
 
     private void btn_paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paymentActionPerformed
         reRender();
-        ban_hang.reLoadProduct();
+        ban_hang.reLoad();
         panels.get(btn_payment).setVisible(true);
     }//GEN-LAST:event_btn_paymentActionPerformed
 

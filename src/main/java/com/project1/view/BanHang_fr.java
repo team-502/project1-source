@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +46,7 @@ public class BanHang_fr extends javax.swing.JFrame {
     private Staff staff;
     private ArrayList<Invoice> invoices;
     private ArrayList<ProductDetail> productDe;
-    private Invoice current_invoice;
+    private Optional<Invoice> current_invoice;
 
     /**
      * Creates new form BanHang_fr
@@ -54,6 +55,7 @@ public class BanHang_fr extends javax.swing.JFrame {
      */
     public BanHang_fr(Staff s) {
         initComponents();
+        current_invoice = Optional.empty();
         service = new InvoiceService();
         this.staff = s;
 //        JOptionPane.showMessageDialog(this, staff.getFullName());
@@ -68,18 +70,20 @@ public class BanHang_fr extends javax.swing.JFrame {
     }
     
     public BigInteger totalPrice() {
-        var r = new BigInteger("0");
-        
-        for (var i: current_invoice.getInvoiceDetail()) {
-            r = r.add(new BigInteger(i.getProductDetail1().getExportPrice().toString())
-                .multiply(new BigInteger(i.getQuantity() + "")));
-        }
-        return r;
+        return service.gettotalPrice(current_invoice.get());
     }
     
-    public void reLoadProduct() {
+    public void reLoad() {
+        if (current_invoice.isPresent()) {
+            tbl_cart
+                .setModel(new GioHangAdater()
+                .model(invoices
+                .get(tbl_invoice_queue.getSelectedRow())));
+            txt_total_price.setText(totalPrice() + "");
+        }
         tbl_list_product
-                .setModel(new ProductDetailAdapter().model_1());
+            .setModel(new InvoiceAdapter()
+            .listProductModel(invoices));
     }
 
     /**
@@ -129,7 +133,6 @@ public class BanHang_fr extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_cart = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -429,8 +432,11 @@ public class BanHang_fr extends javax.swing.JFrame {
         }
 
         jButton1.setText("Xoá Sản Phẩm");
-
-        jButton2.setText("Xoá ALL");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -440,9 +446,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButton1)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -451,9 +455,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -745,40 +747,35 @@ public class BanHang_fr extends javax.swing.JFrame {
 //        String index = "Vui Lòng nhập sô lượng sản phẩm";
 //        JOptionPane.showInputDialog(index);
 
+        if (!current_invoice.isPresent()) {
+            JOptionPane.showMessageDialog(this, "hay chon 1 hoa don");
+            return;
+        }
+
         var product_detail = new ProductDetailReposytory()
             .getAll()
             .get(tbl_list_product
             .getSelectedRow());
         
-        var quantity = new InputNumberDialog(this, true)
+        var quantity = new InputNumberDialog(this, true, product_detail.getQuantity())
             .getValue();
         
         var find  = false;
-        for (var i: current_invoice.getInvoiceDetail()) {
+        for (var i: current_invoice.get().getInvoiceDetail()) {
             if (i.getProductDetail1().equals(product_detail)) {
                 find = true;
                 i.setQuantity(i.getQuantity() + quantity.get());
             }
         }
         
-        
-        if (!find) {
+        if (!find && quantity.isPresent()) {
             InvoiceDetail invoiceDetail = new InvoiceDetail();
             invoiceDetail.setQuantity(quantity.get());
             invoiceDetail.setProductDetail1(product_detail);
-            current_invoice.getInvoiceDetail().add(invoiceDetail);
-            // invoices.get
-
+            current_invoice.get().getInvoiceDetail().add(invoiceDetail);
         }
-        totalPrice();
-        tbl_cart
-            .setModel(new GioHangAdater()
-            .model(invoices
-            .get(tbl_invoice_queue
-            .getSelectedRow())));
-        tbl_list_product
-            .setModel(new InvoiceAdapter()
-            .listProductModel(invoices));
+        
+        reLoad();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -788,23 +785,37 @@ public class BanHang_fr extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txt_tienthuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tienthuaActionPerformed
-        // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_txt_tienthuaActionPerformed
 
     private void tbl_invoice_queueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_invoice_queueMouseClicked
         // TODO add your handling code here:
         if (tbl_invoice_queue.getSelectedRowCount() == 1) {
-            this.current_invoice = invoices.get(tbl_invoice_queue.getSelectedRow());
-            txt_total_price.setText(totalPrice().toString());
+            this.current_invoice = Optional.of(invoices.get(tbl_invoice_queue.getSelectedRow()));
+            reLoad();
         }
     }//GEN-LAST:event_tbl_invoice_queueMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        var index = tbl_cart.getSelectedRow();
+        if (tbl_cart.getSelectedRowCount() == 1) {
+            var quantity = new InputNumberDialog(this, true, current_invoice
+                    .get().getInvoiceDetail()
+                    .get(index).getQuantity())
+                    .getValue();
+            if (quantity.isPresent()) {
+                current_invoice.get().getInvoiceDetail().get(index).setQuantity(
+                        current_invoice.get().getInvoiceDetail().get(index).getQuantity() -  quantity.get()
+                );
+            }
+        }
+        reLoad();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content_panel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

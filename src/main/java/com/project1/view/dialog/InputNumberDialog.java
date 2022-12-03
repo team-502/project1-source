@@ -15,12 +15,14 @@ import javax.swing.JOptionPane;
 public class InputNumberDialog extends javax.swing.JDialog {
 
     private Optional<Integer> value;
+    private int max_value;
     /**
      * Creates new form InputNumberDialog
      */
-    public InputNumberDialog(java.awt.Frame parent, boolean modal) {
+    public InputNumberDialog(java.awt.Frame parent, boolean modal, int v) {
         super(parent, modal);
         initComponents();
+        this.max_value = v;
         this.value = Optional.empty();
         this.txt_input.setText("1");
         
@@ -93,8 +95,12 @@ public class InputNumberDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        if (Pattern.matches("^[1-9]([0.9]+)?$", txt_input.getText().trim())) {
+        if (Pattern.matches("^[1-9]([0-9]+)?$", txt_input.getText().trim())) {
             this.value = Optional.of(Integer.valueOf(txt_input.getText().trim()));
+            if (this.value.get() > this.max_value) {
+                JOptionPane.showMessageDialog(this, "gia tri ban nhap qua lon");
+                this.value = Optional.empty();
+            }
             this.dispose();
         } else {
             this.value = Optional.empty();

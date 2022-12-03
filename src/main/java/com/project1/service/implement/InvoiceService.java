@@ -9,6 +9,7 @@ import com.project1.model.ProductDetail;
 import com.project1.repository.implement.InvoiceRepository;
 import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.service.IService;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
@@ -43,6 +44,16 @@ public class InvoiceService implements IService<Invoice> {
     @Override
     public ArrayList<Invoice> getAll() {
         return repo.getAll();
+    }
+    
+    public BigInteger gettotalPrice(Invoice invoice) {
+        var r = new BigInteger("0");
+        
+        for (var i: invoice.getInvoiceDetail()) {
+            r = r.add(new BigInteger(i.getProductDetail1().getExportPrice().toString())
+                .multiply(new BigInteger(i.getQuantity() + "")));
+        }
+        return r;
     }
     
     public ArrayList<ProductDetail> geProdctsState(ArrayList<Invoice> cart) {
