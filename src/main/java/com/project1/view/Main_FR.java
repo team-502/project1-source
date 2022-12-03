@@ -42,14 +42,14 @@ public class Main_FR extends javax.swing.JFrame {
         panels = new HashMap<JButton, JPanel>() {{
             put (
                     product_manager
-                    , new Renderer<JPanel>(qlsp.getPanel())
+                    , new Renderer<>(qlsp.getPanel())
                             .getDefault(content_panel));
             put (
                     btn_customer
-                    , new Renderer<JPanel>( khach_hang.getPanel())
+                    , new Renderer<>( khach_hang.getPanel())
                             .getDefault(content_panel));
             put (btn_payment
-                    , new Renderer<JPanel>(ban_hang.getPanel())
+                    , new Renderer<>(ban_hang.getPanel())
                             .getDefault(content_panel));
         }};
         
@@ -57,6 +57,8 @@ public class Main_FR extends javax.swing.JFrame {
             content_panel.add(i.getValue());
             i.getValue().setVisible(false);
         }
+        
+        
         reRender();
         this.setVisible(true);
     }

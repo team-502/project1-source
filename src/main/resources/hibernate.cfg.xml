@@ -15,7 +15,9 @@
         <property name = "hibernate.connection.url">
             jdbc:sqlserver://0.0.0.0:1433;DatabaseName=PhanMem_BanGiay_Limited;TrustServerCertificate=true
         </property>
-      
+        
+        <!--<database name="PhanMem_BanGiay_Limited">-->
+        
         <property name = "hibernate.connection.username">
             sa
         </property>

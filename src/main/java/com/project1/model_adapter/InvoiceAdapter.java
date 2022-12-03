@@ -5,9 +5,11 @@
 package com.project1.model_adapter;
 
 import com.project1.model.Invoice;
-import com.project1.model.InvoiceDetail;
 import com.project1.model.ProductDetail;
+import com.project1.repository.implement.ProductDetailReposytory;
+import com.project1.service.implement.InvoiceService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -65,7 +67,7 @@ public class InvoiceAdapter {
         };
     }
     
-    public String[] listProductToStrings(ProductDetail pd, ArrayList<InvoiceDetail> cart) {
+    public String[] listProductToStrings(ProductDetail pd) {
         return new String[] {
             pd.getProduct().getIdProduct(),
             pd.getProduct().getName(),
@@ -73,18 +75,19 @@ public class InvoiceAdapter {
             pd.getProductLine().getName(),
             pd.getProducer().getName(),
             pd.getSize() + "",
-            pd.getQuantity() - cart.stream().findFirst().get().getQuantity() + "",
+            pd.getQuantity() + "",
             pd.getDecription(),
             pd.getExportPrice() + ""
         };
     }
     
-    public DefaultTableModel listProductModel(ArrayList<ProductDetail> products
-            , ArrayList<InvoiceDetail> cart) {
+    public DefaultTableModel listProductModel(ArrayList<Invoice> cart) {
         var m = new DefaultTableModel(listProductTitle(), 0);
         
-        for (var i: products) {
-            m.addRow(listProductToStrings(i, cart));
+        var service = new InvoiceService();
+        
+        for (var i: service.geProdctsState(cart)) {
+            m.addRow(listProductToStrings(i));
         }
         
         return m;

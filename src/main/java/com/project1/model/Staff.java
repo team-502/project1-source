@@ -15,30 +15,21 @@ import org.hibernate.annotations.UuidGenerator;
  */
 @Entity
 @Table(name = "staff")
-//@NamedQueries({
-//    @NamedQuery(name = "Staff_1.findAll", query = "SELECT s FROM Staff_1 s"),
-//    @NamedQuery(name = "Staff_1.findById", query = "SELECT s FROM Staff_1 s WHERE s.id = :id"),
-//    @NamedQuery(name = "Staff_1.findByIdStaff", query = "SELECT s FROM Staff_1 s WHERE s.idStaff = :idStaff"),
-//    @NamedQuery(name = "Staff_1.findByFullName", query = "SELECT s FROM Staff_1 s WHERE s.fullName = :fullName"),
-//    @NamedQuery(name = "Staff_1.findByGender", query = "SELECT s FROM Staff_1 s WHERE s.gender = :gender"),
-//    @NamedQuery(name = "Staff_1.findByEmai", query = "SELECT s FROM Staff_1 s WHERE s.emai = :emai"),
-//    @NamedQuery(name = "Staff_1.findByBirth", query = "SELECT s FROM Staff_1 s WHERE s.birth = :birth"),
-//    @NamedQuery(name = "Staff_1.findByAddress", query = "SELECT s FROM Staff_1 s WHERE s.address = :address"),
-//    @NamedQuery(name = "Staff_1.findByPassword", query = "SELECT s FROM Staff_1 s WHERE s.password = :password"),
-//    @NamedQuery(name = "Staff_1.findByPhoneNumber", query = "SELECT s FROM Staff_1 s WHERE s.phoneNumber = :phoneNumber"),
-//    @NamedQuery(name = "Staff_1.findByState", query = "SELECT s FROM Staff_1 s WHERE s.state = :state")})
 public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @Column(name = "Id")
+    @Basic(optional = false)@Column(name = "Id")
     @GeneratedValue
     @UuidGenerator
     private String id;
+    
+    
     @Basic(optional = false)
-    @Column(name = "id_staff")
+    @Column(name = "id_staff", unique = true) 
     private String idStaff;
+    
     @Basic(optional = false)
     @Column(name = "full_name")
     private String fullName;

@@ -46,6 +46,11 @@ public class LoginDialog extends javax.swing.JDialog {
         txt_staff_password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("ma nhan vien");
 
@@ -64,6 +69,7 @@ public class LoginDialog extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,6 +131,12 @@ public class LoginDialog extends javax.swing.JDialog {
         var register = new RegisterDialog(this, true);
         register.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if (!this.opt_staff.isPresent()) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     public Optional<Staff> getStaff() {
         return this.opt_staff;

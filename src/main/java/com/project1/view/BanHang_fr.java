@@ -20,6 +20,8 @@ import com.project1.model_adapter.GioHangAdater;
 import com.project1.model_adapter.InvoiceAdapter;
 import com.project1.model_adapter.ProductDetailAdapter;
 import com.project1.repository.implement.ProductDetailReposytory;
+import com.project1.service.implement.InvoiceService;
+import com.project1.view.dialog.InputNumberDialog;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,6 +41,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 public class BanHang_fr extends javax.swing.JFrame {
 
     private Customer customer;
+    private InvoiceService service;
     private Staff staff;
     private ArrayList<Invoice> invoices;
     private ArrayList<ProductDetail> productDe;
@@ -51,6 +54,7 @@ public class BanHang_fr extends javax.swing.JFrame {
      */
     public BanHang_fr(Staff s) {
         initComponents();
+        service = new InvoiceService();
         this.staff = s;
 //        JOptionPane.showMessageDialog(this, staff.getFullName());
         invoices = new ArrayList<>();
@@ -738,21 +742,48 @@ public class BanHang_fr extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
 //        product = new ProductDetailReposytory().getAll().get(0);
-        String index = "Vui Lòng nhập sô lượng sản phẩm";
-        JOptionPane.showInputDialog(index);
-        InvoiceDetail invoiceDetail = new InvoiceDetail();
-        invoiceDetail.setProductDetail1(productDe.get(tbl_list_product.getSelectedRow()));
-        invoiceDetail.setQuantity(1);
-        invoices.get(tbl_invoice_queue.getSelectedRow()).getInvoiceDetail().add(invoiceDetail);
-        // invoices.get
-        totalPrice();
-        tbl_cart.setModel(new GioHangAdater().model(invoices.get(tbl_invoice_queue.getSelectedRow())));
+//        String index = "Vui Lòng nhập sô lượng sản phẩm";
+//        JOptionPane.showInputDialog(index);
+
+        var product_detail = new ProductDetailReposytory()
+            .getAll()
+            .get(tbl_list_product
+            .getSelectedRow());
+        
+        var quantity = new InputNumberDialog(this, true)
+            .getValue();
+        
+        var find  = false;
+        for (var i: current_invoice.getInvoiceDetail()) {
+            if (i.getProductDetail1().equals(product_detail)) {
+                find = true;
+                i.setQuantity(i.getQuantity() + quantity.get());
+            }
+        }
+        
+        
+        if (!find) {
+            InvoiceDetail invoiceDetail = new InvoiceDetail();
+            invoiceDetail.setQuantity(quantity.get());
+            invoiceDetail.setProductDetail1(product_detail);
+            current_invoice.getInvoiceDetail().add(invoiceDetail);
+            // invoices.get
+            totalPrice();
+            tbl_cart
+                .setModel(new GioHangAdater()
+                .model(invoices
+                .get(tbl_invoice_queue
+                .getSelectedRow())));
+            tbl_list_product
+                .setModel(new InvoiceAdapter()
+                .listProductModel(invoices));
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         tbl_invoice_queue
-                .setModel(new InvoiceAdapter()
-                        .invoiceQueueModel(invoices));
+            .setModel(new InvoiceAdapter()
+            .invoiceQueueModel(invoices));
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txt_tienthuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tienthuaActionPerformed

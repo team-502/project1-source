@@ -5,16 +5,10 @@
 package com.project1.view.dialog;
 
 import com.project1.model.Staff;
-import com.project1.model_adapter.StaffAdapter;
-import com.project1.repository.implement.StaffRepository;
-import com.project1.service.implement.RegisterService;
 import com.project1.service.implement.StaffService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -230,6 +224,7 @@ public class RegisterDialog extends javax.swing.JDialog {
             var inserter = rsv.insert(getStaff());
             if(inserter.isPresent()){
                 this.clear();
+                JOptionPane.showMessageDialog(this, "dang ki thanh cong");
             }else{
                 JOptionPane.showMessageDialog(this, "dang ki that bai");
             }
