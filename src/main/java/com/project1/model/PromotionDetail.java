@@ -32,7 +32,18 @@ public class PromotionDetail implements Serializable {
     @JoinColumn(name = "Promotion", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Promotion promotion;
+    
+    @Column(name = "_state")
+    private boolean state;
 
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+    
     public PromotionDetail() {
     }
 

@@ -4,8 +4,14 @@
  */
 package com.project1.model_adapter;
 
+import com.project1.model.Customer;
+import com.project1.model.Product;
+import com.project1.model.ProductDetail;
+import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.repository.implement.ProductRepository;
+import com.project1.service.implement.CustomerService;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +24,36 @@ public class ProductAdapter {
         
     }
     
+    
+     public String[] title() {
+        return new String[] {
+            "Mã Sản Phẩm",
+            "Tên San Phẩm"        
+        };
+     }
+      public String[] toStrings(ProductDetail c) {
+        return new String[] {
+            
+            c.getProduct().getIdProduct(),
+            c.getProduct().getName()
+            
+        };
+    }
+      public DefaultTableModel model1() {
+        var result = new DefaultTableModel(
+                title(),
+                0
+        );
+        
+        for (var i: new ProductDetailReposytory().getAll()) {
+            if(i.getPromotionDetailCollection().size() == 0 ){
+                result.addRow(toStrings(i));
+            }
+            
+        }
+        return result;
+    }
+
     public DefaultComboBoxModel model() {
         var m = new DefaultComboBoxModel(
                 new ProductRepository().getAll().stream()

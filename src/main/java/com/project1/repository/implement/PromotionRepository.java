@@ -16,4 +16,5 @@ public class PromotionRepository extends Repository<Promotion> {
         super(Promotion.class);
     }
     
+    
 }
