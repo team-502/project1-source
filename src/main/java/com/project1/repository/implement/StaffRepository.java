@@ -4,6 +4,7 @@
  */
 package com.project1.repository.implement;
 
+import com.jogamp.graph.font.Font;
 import com.project1.model.Staff;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -16,6 +17,13 @@ public class StaffRepository extends Repository<Staff>{
     
     public StaffRepository() {
         super(Staff.class);
+    }
+    
+    public Optional<Staff> findByIdStaff(String id_staff) {
+        var i = e().equal(root().get("idStaff"), id_staff);
+        return single(query()
+            .select(root())
+            .where(i));
     }
     
     public Optional<Staff> getByIdAndPassword(String id_staff, String password) {

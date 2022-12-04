@@ -17,15 +17,6 @@ import org.hibernate.annotations.UuidGenerator;
  */
 @Entity
 @Table(name = "Promotion")
-@NamedQueries({
-    @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p"),
-    @NamedQuery(name = "Promotion.findById", query = "SELECT p FROM Promotion p WHERE p.id = :id"),
-    @NamedQuery(name = "Promotion.findByName", query = "SELECT p FROM Promotion p WHERE p.name = :name"),
-    @NamedQuery(name = "Promotion.findByStateDate", query = "SELECT p FROM Promotion p WHERE p.stateDate = :stateDate"),
-    @NamedQuery(name = "Promotion.findByEndDate", query = "SELECT p FROM Promotion p WHERE p.endDate = :endDate"),
-    @NamedQuery(name = "Promotion.findByPercent", query = "SELECT p FROM Promotion p WHERE p.percent = :percent"),
-    @NamedQuery(name = "Promotion.findByMoney", query = "SELECT p FROM Promotion p WHERE p.money = :money"),
-    @NamedQuery(name = "Promotion.findByType", query = "SELECT p FROM Promotion p WHERE p.type = :type")})
 public class Promotion implements Serializable {
 
     private static final long serialVersionUID = 1L;

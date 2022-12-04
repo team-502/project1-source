@@ -5,6 +5,7 @@
 
 package com.project1;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.project1.view.Main_FR;
 import com.project1.view.dialog.LoginDialog;
@@ -17,7 +18,7 @@ public class Project1 {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatIntelliJLaf());
+            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
             e.printStackTrace();
         }

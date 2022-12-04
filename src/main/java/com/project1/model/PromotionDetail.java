@@ -14,9 +14,6 @@ import org.hibernate.annotations.UuidGenerator;
  */
 @Entity
 @Table(name = "PromotionDetail")
-@NamedQueries({
-    @NamedQuery(name = "PromotionDetail.findAll", query = "SELECT p FROM PromotionDetail p"),
-    @NamedQuery(name = "PromotionDetail.findById", query = "SELECT p FROM PromotionDetail p WHERE p.id = :id")})
 public class PromotionDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -23,6 +23,9 @@ public class StaffService implements IService<Staff> {
     
     @Override
     public Optional<Staff> insert(Staff value) {
+        if (repo.findByIdStaff(value.getIdStaff()).isPresent()) {
+            return Optional.empty();
+        }
         return repo.insert(value);
     }
 

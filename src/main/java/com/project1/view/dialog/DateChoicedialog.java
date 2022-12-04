@@ -4,18 +4,15 @@
  */
 package com.project1.view.dialog;
 
-import com.project1.utility.DateTimeUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Optional;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import org.hibernate.bytecode.enhance.spi.DefaultEnhancementContext;
 
 /**
  *
@@ -24,6 +21,7 @@ import org.hibernate.bytecode.enhance.spi.DefaultEnhancementContext;
 public class DateChoicedialog extends javax.swing.JDialog {
 
     private int day, month, first_year, last_year, year;
+
     /**
      * Creates new form DateChoicedialog
      */
@@ -31,51 +29,73 @@ public class DateChoicedialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        
-        var local_date = LocalDate.now();
+
+        var local_date = LocalDate.now(ZoneId.of(ZoneId.SHORT_IDS.get("VST")));
         this.year = local_date.getYear();
-        
+
         this.first_year = fy;
         this.last_year = ly;
-        
+
         this.month = local_date.getMonth().getValue();
-        this.day = YearMonth.of(year, month).lengthOfMonth();
+        this.day = local_date.getDayOfMonth();
         
-        for (int i = 1; i <= this.day; i++) {
-            cbb_day.addItem(i + "");
-        }
         
-        for (int i = last_year; i >= first_year; --i) {
-            cbb_year.addItem(i + "");
-        }
-        
-        for (int i = 1; i <= 12; ++i) {
-            cbb_month.addItem(i + "");
-        }
+        JOptionPane.showMessageDialog(this, this.day + "-" + this.month + "-" + this.year);
+        init();
+
         this.setVisible(true);
     }
 
     public Date getDate() throws ParseException {
         return new SimpleDateFormat("dd-MM-yyyy")
-                .parse(this.day + "-" + this.month + "-" +this.year);
+                .parse(this.day + "-" + this.month + "-" + this.year);
     }
-    
+
     public String getDateAsString() throws ParseException {
         return new SimpleDateFormat("dd-MM-yyyy")
                 .format(this.getDate());
+    }
+
+    public void init() {
+        cbb_year.setModel(new DefaultComboBoxModel<>());
+        for (int i = this.year; i >= this.year - 10; --i) {
+            cbb_year.addItem(i + "");
+        }
+        cbb_year.setSelectedItem(this.year + "");
+        
+        cbb_month.setModel(new DefaultComboBoxModel<>());
+        for (int i = 1; i <= 12; ++i) {
+            cbb_month.addItem(i + "");
+        }
+        cbb_month.setSelectedItem(this.month + "");
+        
+        cbb_day.setModel(new DefaultComboBoxModel<>());
+        for (int i = 1; i < this.day; ++i) {
+            cbb_day.addItem(i + "");
+        }
+        cbb_day.setSelectedItem(this.day + "");
+        setDay();
+        JOptionPane.showMessageDialog(this, this.day + "-" + this.month + "-" + this.year);
     }
     
     public void setDay() {
         var ym = YearMonth.of(this.year, this.month);
         
-        if (this.day > ym.lengthOfMonth()) {
+        if (cbb_day.getItemCount() != ym.lengthOfMonth()) {
+            
+            if (this.day > ym.lengthOfMonth()) {
+                this.day = ym.lengthOfMonth();
+            }
+            
             cbb_day.setModel(new DefaultComboBoxModel<>());
-        }
-        for (int i =1; i <= ym.lengthOfMonth(); i++) {
+            for (int i = 1; i <= ym.lengthOfMonth(); ++i) {
                 cbb_day.addItem(i + "");
+            }
         }
+        
+        cbb_day.setSelectedIndex(this.day - 1);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,7 +139,7 @@ public class DateChoicedialog extends javax.swing.JDialog {
 
         jLabel3.setText("nam");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Ok");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -184,7 +204,7 @@ public class DateChoicedialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cbb_yearActionPerformed
 
     private void cbb_dayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_dayActionPerformed
-        this.day = Integer.parseInt(cbb_day.getSelectedItem().toString());
+        this.day = cbb_day.getSelectedIndex() + 1;
     }//GEN-LAST:event_cbb_dayActionPerformed
 
 

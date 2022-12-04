@@ -75,11 +75,11 @@
                           <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="382" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="388" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -196,7 +196,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jPanel7" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" alignment="0" pref="435" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -222,11 +222,11 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton7" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="txt_total_price" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txt_tienkhachdua" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_giamgia" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txt_total_price" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_thanhtoan" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_tienthua" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txt_tienkhachdua" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -253,31 +253,27 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel8" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="txt_mahd" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel9" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="txt_total_price" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel10" min="-2" pref="26" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txt_giamgia" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel11" min="-2" pref="26" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txt_thanhtoan" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel8" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="txt_mahd" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel9" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="txt_total_price" min="-2" pref="26" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel10" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="txt_giamgia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel11" pref="26" max="32767" attributes="0"/>
+                          <Component id="txt_thanhtoan" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -285,9 +281,9 @@
                           <Component id="txt_tienkhachdua" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel13" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="txt_tienthua" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel13" pref="26" max="32767" attributes="0"/>
+                          <Component id="txt_tienthua" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -488,19 +484,11 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_mahd">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txt_total_price">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txt_giamgia">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txt_thanhtoan">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_tienkhachdua">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txt_tienthua">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_tienthuaActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton7">
               <Properties>
@@ -527,6 +515,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Hu&#x1ef7; Ho&#xe1; &#x110;&#x1a1;n"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txt_giamgia">
+            </Component>
+            <Component class="javax.swing.JLabel" name="txt_total_price">
+            </Component>
+            <Component class="javax.swing.JLabel" name="txt_thanhtoan">
+            </Component>
+            <Component class="javax.swing.JLabel" name="txt_tienthua">
             </Component>
           </SubComponents>
         </Container>

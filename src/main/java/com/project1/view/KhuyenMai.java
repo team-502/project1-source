@@ -3,16 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.project1.view;
-
-
+;
 import com.project1.model.Promotion;
-import com.project1.model_adapter.ProductAdapter;
+import com.project1.model.PromotionDetail;
+import com.project1.model_adapter.ProductDetailAdapter;
 import com.project1.model_adapter.promotionAdater;
+import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.repository.implement.PromotionRepository;
+import java.util.ArrayList;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 /**
  *
  * @author nguyenvanviet
@@ -24,12 +25,16 @@ public class KhuyenMai extends javax.swing.JFrame {
      */
     public KhuyenMai() {
         initComponents();
-        tbl_km.setModel(new promotionAdater().model());
-        tbl_sp.setModel(new ProductAdapter().model1());
+        reLoad();
     }
     
     public JPanel getPanel() {
         return content_panel;
+    }
+    
+    public void reLoad() {
+        tbl_km.setModel(new promotionAdater().model());
+        tbl_sp.setModel(new ProductDetailAdapter().model());
     }
 
     /**
@@ -133,22 +138,25 @@ public class KhuyenMai extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1)
-                        .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txt_makm)
-                        .addComponent(jLabel3)
                         .addComponent(txt_tenkm)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
                                 .addComponent(cbb_ht, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(txt_mgiam))))
-                    .addComponent(ckb_slall))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(txt_mgiam)))
+                        .addComponent(ckb_slall)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +245,7 @@ public class KhuyenMai extends javax.swing.JFrame {
                                     .addComponent(txt_nbd, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel9))
-                                .addGap(0, 286, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(btn_luu, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,7 +253,7 @@ public class KhuyenMai extends javax.swing.JFrame {
                         .addComponent(btn_reset)
                         .addGap(18, 18, 18)
                         .addComponent(btn_sua, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 41, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -320,15 +328,14 @@ public class KhuyenMai extends javax.swing.JFrame {
                 .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(content_panelLayout.createSequentialGroup()
-                        .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(content_panelLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel1)
+                        .addGap(312, 312, 312)
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, content_panelLayout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         content_panelLayout.setVerticalGroup(
@@ -378,6 +385,17 @@ public class KhuyenMai extends javax.swing.JFrame {
             }else{
             promotion.setMoney(Integer.parseInt(txt_mgiam.getText().trim()));
             }
+            
+            
+            var pro = new PromotionDetail();
+            pro.setProductDetail(new ProductDetailReposytory()
+                .getAll()
+                .get(tbl_sp.getSelectedRow()));
+            pro.setPromotion(promotion);
+            
+            promotion
+                    .setPromotionDetailCollection(new ArrayList<PromotionDetail>());
+            promotion.getPromotionDetailCollection().add(pro);
             return Optional.of(promotion);
         }
         return Optional.empty();
@@ -392,7 +410,7 @@ public class KhuyenMai extends javax.swing.JFrame {
         if(p.isPresent()){
             if(new PromotionRepository().insert(p.get()).isPresent()){
                 JOptionPane.showMessageDialog(this, "Áp dụng mã giảm giá thành công");
-                tbl_km.setModel(new promotionAdater().model());
+                reLoad();
             }
         }
     }//GEN-LAST:event_btn_luuActionPerformed

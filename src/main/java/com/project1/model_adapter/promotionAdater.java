@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author nguyenvanviet
  */
 public class promotionAdater {
-      public String[] title() {
+    public String[] title() {
         return new String[] {
             "ma khuyen mai",
             "ten khuyen mai",
