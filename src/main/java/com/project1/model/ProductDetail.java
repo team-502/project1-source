@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
 import jakarta.persistence.*;
+import java.util.Optional;
 import org.hibernate.annotations.UuidGenerator;
 
 /**
@@ -60,8 +61,24 @@ public class ProductDetail implements Serializable {
     @ManyToOne
     private ProductLine productLine;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetail")
-    private Collection<PromotionDetail> promotionDetailCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "productDetail")
+    private PromotionDetail promotionDetail;
+
+    public Collection<InvoiceDetail> getInvoiceDetailCollection() {
+        return invoiceDetailCollection;
+    }
+
+    public void setInvoiceDetailCollection(Collection<InvoiceDetail> invoiceDetailCollection) {
+        this.invoiceDetailCollection = invoiceDetailCollection;
+    }
+
+    public Optional<PromotionDetail> getPromotionDetail() {
+        return Optional.ofNullable(promotionDetail);
+    }
+
+    public void setPromotionDetail(PromotionDetail promotionDetail) {
+        this.promotionDetail = promotionDetail;
+    }
 
     public ProductDetail() {
     }
@@ -118,13 +135,6 @@ public class ProductDetail implements Serializable {
         this.exportPrice = exportPrice;
     }
 
-    public Collection<InvoiceDetail> getInvoiceDetailCollection() {
-        return invoiceDetailCollection;
-    }
-
-    public void setInvoiceDetailCollection(Collection<InvoiceDetail> invoiceDetailCollection) {
-        this.invoiceDetailCollection = invoiceDetailCollection;
-    }
 
     public Color getColor() {
         return color;
@@ -156,14 +166,6 @@ public class ProductDetail implements Serializable {
 
     public void setProductLine(ProductLine productLine) {
         this.productLine = productLine;
-    }
-
-    public Collection<PromotionDetail> getPromotionDetailCollection() {
-        return promotionDetailCollection;
-    }
-
-    public void setPromotionDetailCollection(Collection<PromotionDetail> promotionDetailCollection) {
-        this.promotionDetailCollection = promotionDetailCollection;
     }
 
     @Override

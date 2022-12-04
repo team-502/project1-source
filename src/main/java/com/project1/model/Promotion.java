@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import jakarta.persistence.*;
+import java.math.BigInteger;
 import org.hibernate.annotations.UuidGenerator;
 
 /**
@@ -20,28 +21,42 @@ import org.hibernate.annotations.UuidGenerator;
 public class Promotion implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @Column(name = "id")
     @GeneratedValue
     @UuidGenerator
     private String id;
+    
     @Column(name = "_name")
     private String name;
+    
     @Basic(optional = false)
     @Column(name = "state_date")
     @Temporal(TemporalType.DATE)
     private Date stateDate;
+    
     @Basic(optional = false)
     @Column(name = "end_date")
     @Temporal(TemporalType.DATE)
     private Date endDate;
+    
     @Basic(optional = false)
     @Column(name = "_percent")
     private int percent;
+    
     @Basic(optional = false)
     @Column(name = "_money")
-    private long money;
+    private BigInteger money;
+
+    public BigInteger getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigInteger money) {
+        this.money = money;
+    }
     @Basic(optional = false)
     @Column(name = "_type")
     private boolean type;
@@ -53,15 +68,6 @@ public class Promotion implements Serializable {
 
     public Promotion(String id) {
         this.id = id;
-    }
-
-    public Promotion(String id, Date stateDate, Date endDate, int percent, long money, boolean type) {
-        this.id = id;
-        this.stateDate = stateDate;
-        this.endDate = endDate;
-        this.percent = percent;
-        this.money = money;
-        this.type = type;
     }
 
     public String getId() {
@@ -102,14 +108,6 @@ public class Promotion implements Serializable {
 
     public void setPercent(int percent) {
         this.percent = percent;
-    }
-
-    public long getMoney() {
-        return money;
-    }
-
-    public void setMoney(long money) {
-        this.money = money;
     }
 
     public boolean getType() {

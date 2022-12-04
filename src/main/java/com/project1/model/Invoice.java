@@ -7,6 +7,7 @@ package com.project1.model;
 import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import org.hibernate.annotations.UuidGenerator;
 /**
@@ -52,7 +53,17 @@ public class Invoice implements Serializable {
     private Staff staff;
     @OneToMany(mappedBy = "invoice1")
     private ArrayList <InvoiceDetail> invoiceDetail;
-            
+    
+    @Column(name = "payment")
+    private BigInteger payment;
+
+    public BigInteger getPayment() {
+        return payment;
+    }
+
+    public void setPayment(BigInteger payment) {
+        this.payment = payment;
+    }
             
             
     public Invoice() {

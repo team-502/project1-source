@@ -9,8 +9,10 @@ import com.project1.model.ProductDetail;
 import com.project1.repository.implement.InvoiceRepository;
 import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.service.IService;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -54,6 +56,47 @@ public class InvoiceService implements IService<Invoice> {
                 .multiply(new BigInteger(i.getQuantity() + "")));
         }
         return r;
+    }
+    
+    public BigInteger getPromotionPrice(Invoice invoice) {
+        var price = new BigInteger("0");
+        
+        for (var i: invoice.getInvoiceDetail()) {
+            var t = i.getProductDetail1().getPromotionDetail();
+            if (t.isPresent()) {
+                if (t.get().getPromotion().getEndDate().compareTo(new Date()) < 0) {
+                    break;
+                }
+                if (t.get().getPromotion().getType()) {
+                    price = price.add(i.getProductDetail1().getExportPrice()
+                            .multiply(BigInteger.valueOf(t.get().getPromotion().getPercent()))
+                            .divide(BigInteger.valueOf(100))
+                            .multiply(BigInteger.valueOf(i.getQuantity()))
+                    );
+                } else {
+                    price = price.add(
+                        t.get().getPromotion().getMoney()
+                        .multiply(BigInteger
+                        .valueOf(i.getQuantity()))
+                    );
+                }
+            }
+            System.out.println("\n" + price.toString() + "\n");
+        }
+        return price;
+    }
+    
+    public Optional<BigInteger> finalPrice(Invoice invoice) {
+        
+        var final_price = gettotalPrice(invoice).subtract(getPromotionPrice(invoice));
+        try {
+            if (invoice.getPayment().compareTo(final_price) < 0) {
+                return Optional.empty();
+            }
+            return Optional.of(invoice.getPayment().subtract(final_price));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
     
     public ArrayList<ProductDetail> geProdctsState(ArrayList<Invoice> cart) {

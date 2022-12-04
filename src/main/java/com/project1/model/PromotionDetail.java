@@ -17,17 +17,20 @@ import org.hibernate.annotations.UuidGenerator;
 public class PromotionDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @Column(name = "id")
     @GeneratedValue
     @UuidGenerator
     private String id;
+    
     @JoinColumn(name = "product_detail", referencedColumnName = "Id")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private ProductDetail productDetail;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Promotion", referencedColumnName = "id")
-    @ManyToOne(optional = false)
     private Promotion promotion;
     
     @Column(name = "_state")

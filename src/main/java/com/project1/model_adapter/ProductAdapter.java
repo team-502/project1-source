@@ -18,38 +18,36 @@ import javax.swing.table.DefaultTableModel;
  * @author thinhorigami-rio
  */
 public class ProductAdapter {
-    
-    
+
     public ProductAdapter() {
-        
+
     }
-    
-    
-     public String[] title() {
-        return new String[] {
+
+    public String[] title() {
+        return new String[]{
             "Mã Sản Phẩm",
-            "Tên San Phẩm"        
+            "Tên San Phẩm"
         };
-     }
-      public String[] toStrings(ProductDetail c) {
-        return new String[] {
-            
+    }
+
+    public String[] toStrings(ProductDetail c) {
+        return new String[]{
             c.getProduct().getIdProduct(),
             c.getProduct().getName()
-            
+
         };
     }
-      public DefaultTableModel model1() {
+
+    public DefaultTableModel model1() {
         var result = new DefaultTableModel(
                 title(),
                 0
         );
-        
-        for (var i: new ProductDetailReposytory().getAll()) {
-            if(i.getPromotionDetailCollection().size() == 0 ){
+
+        for (var i : new ProductDetailReposytory().getAll()) {
+            if (!i.getPromotionDetail().isPresent()) {
                 result.addRow(toStrings(i));
             }
-            
         }
         return result;
     }
@@ -57,8 +55,8 @@ public class ProductAdapter {
     public DefaultComboBoxModel model() {
         var m = new DefaultComboBoxModel(
                 new ProductRepository().getAll().stream()
-                .map((o ) -> (o.getName()))
-                .toArray(String[]::new)
+                        .map((o) -> (o.getName()))
+                        .toArray(String[]::new)
         );
         m.addElement("...");
         return m;

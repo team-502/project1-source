@@ -36,7 +36,7 @@ public class promotionAdater {
             c.getPromotion().getId(),
             c.getPromotion().getName(),
             c.getPromotion().getType() ? "Theo phần Trăm" : "Theo giá Tiền",
-            c.getPromotion().getType() ? c.getPromotion().getPercent() + "" : c.getPromotion().getMoney() + "",
+            c.getPromotion().getType() ? c.getPromotion().getPercent() + "%" : c.getPromotion().getMoney() + "",
             c.getProductDetail().getProduct().getName(),
             c.getPromotion().getStateDate().toString(),
             c.getPromotion().getEndDate().toString(),

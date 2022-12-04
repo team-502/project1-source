@@ -209,6 +209,7 @@ public class Main_FR extends javax.swing.JFrame {
     private void btn_promotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_promotionActionPerformed
         reRender();
         panels.get(btn_promotion).setVisible(true);
+        promotion.reLoad();
     }//GEN-LAST:event_btn_promotionActionPerformed
 
 

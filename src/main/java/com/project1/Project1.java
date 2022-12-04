@@ -6,9 +6,7 @@
 package com.project1;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.project1.view.Main_FR;
-import com.project1.view.dialog.LoginDialog;
 import javax.swing.UIManager;
 /**
  *
@@ -22,8 +20,7 @@ public class Project1 {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new Main_FR();
-        System.out.println("\n ccccc\n");
+        Main_FR m = new Main_FR();
     }
 }
 

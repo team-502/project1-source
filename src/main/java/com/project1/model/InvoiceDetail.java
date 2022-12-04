@@ -13,11 +13,6 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "InvoiceDetail")
-@NamedQueries({
-    @NamedQuery(name = "InvoiceDetail.findAll", query = "SELECT i FROM InvoiceDetail i"),
-    @NamedQuery(name = "InvoiceDetail.findByInvoice", query = "SELECT i FROM InvoiceDetail i WHERE i.invoiceDetailPK.invoice = :invoice"),
-    @NamedQuery(name = "InvoiceDetail.findByProductDetail", query = "SELECT i FROM InvoiceDetail i WHERE i.invoiceDetailPK.productDetail = :productDetail"),
-    @NamedQuery(name = "InvoiceDetail.findByQuantity", query = "SELECT i FROM InvoiceDetail i WHERE i.quantity = :quantity")})
 public class InvoiceDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -80,6 +80,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                 .model(invoices
                 .get(tbl_invoice_queue.getSelectedRow())));
             txt_total_price.setText(totalPrice() + "");
+            txt_giamgia.setText(service.getPromotionPrice(current_invoice.get()).toString());
         }
         tbl_list_product
             .setModel(new InvoiceAdapter()
@@ -614,6 +615,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         invoice.setStaff(this.staff);
         invoice.setCreatedDate(new Date());
         invoice.setCustomer(this.customer);
+        invoice.setPayment(new BigInteger("0"));
         
         this.invoices.add(invoice);
         System.out.println(invoices.size());

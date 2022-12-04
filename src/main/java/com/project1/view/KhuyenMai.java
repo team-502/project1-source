@@ -10,6 +10,17 @@ import com.project1.model_adapter.ProductDetailAdapter;
 import com.project1.model_adapter.promotionAdater;
 import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.repository.implement.PromotionRepository;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Optional;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import com.project1.model.Promotion;
+import com.project1.model.PromotionDetail;
+import com.project1.model_adapter.ProductDetailAdapter;
+import com.project1.model_adapter.promotionAdater;
+import com.project1.repository.implement.ProductDetailReposytory;
+import com.project1.repository.implement.PromotionRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 import javax.swing.JOptionPane;
@@ -379,13 +390,13 @@ public class KhuyenMai extends javax.swing.JFrame {
             promotion.setName(txt_tenkm.getText().trim());
             promotion.setStateDate(txt_nbd.getDate());
             promotion.setEndDate(txt_nkt.getDate());
-            promotion.setType(cbb_ht.getSelectedItem().toString().compareTo("Giảm Theo Phầm Trăm") == 0);
+            promotion.setType(cbb_ht.getSelectedItem().toString().compareTo("Giảm Theo Phần Trăm") == 0);
             if(promotion.getType()){
                 promotion.setPercent(Integer.parseInt(txt_mgiam.getText().trim()));
+                promotion.setMoney(BigInteger.valueOf(0));
             }else{
-            promotion.setMoney(Integer.parseInt(txt_mgiam.getText().trim()));
+                promotion.setMoney(new BigInteger(txt_tenkm.getText().trim()));
             }
-            
             
             var pro = new PromotionDetail();
             pro.setProductDetail(new ProductDetailReposytory()
