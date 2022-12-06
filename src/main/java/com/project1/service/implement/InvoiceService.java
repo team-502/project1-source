@@ -86,7 +86,7 @@ public class InvoiceService implements IService<Invoice> {
         return price;
     }
     
-    public Optional<BigInteger> finalPrice(Invoice invoice) {
+    public Optional<BigInteger> getFinalPrice(Invoice invoice) {
         
         var final_price = gettotalPrice(invoice).subtract(getPromotionPrice(invoice));
         try {

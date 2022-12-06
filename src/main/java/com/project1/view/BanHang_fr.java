@@ -662,9 +662,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         int chon = JOptionPane.showConfirmDialog(this, "Ban muon xuat hoa don?", "Xac Nhan", JOptionPane.YES_NO_OPTION);
         if (chon == 0) {
 
-            if (current_invoice.get()
-                    .getPayment().compareTo(service
-                            .gettotalPrice(current_invoice.get())) < 0) {
+            if (service.getFinalPrice(current_invoice.get()).isEmpty()) {
                 JOptionPane.showMessageDialog(this, "tien khach dua khong du");
                 return;
             }
@@ -838,9 +836,8 @@ public class BanHang_fr extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (tbl_invoice_queue.getSelectedRowCount() == 1) {
             this.current_invoice = Optional.of(
-                    service.getByIdInvoice(
-                            invoices.get(
-                                    tbl_invoice_queue.getSelectedRow()).getIdInvoice()).get());
+                    invoices.get(
+                                    tbl_invoice_queue.getSelectedRow()));
             reLoad();
         }
     }//GEN-LAST:event_tbl_invoice_queueMouseClicked

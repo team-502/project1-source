@@ -395,7 +395,7 @@ public class KhuyenMai extends javax.swing.JFrame {
                 promotion.setPercent(Integer.parseInt(txt_mgiam.getText().trim()));
                 promotion.setMoney(BigInteger.valueOf(0));
             }else{
-                promotion.setMoney(new BigInteger(txt_tenkm.getText().trim()));
+                promotion.setMoney(new BigInteger(txt_mgiam.getText().trim()));
             }
             
             var pro = new PromotionDetail();
