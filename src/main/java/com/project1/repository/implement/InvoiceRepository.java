@@ -5,6 +5,7 @@
 package com.project1.repository.implement;
 
 import com.project1.model.Invoice;
+import java.util.Optional;
 
 /**
  *
@@ -16,4 +17,10 @@ public class InvoiceRepository extends Repository<Invoice> {
         super(Invoice.class);
     }
     
+    public Optional<Invoice> getByIdInvoice(String id) {
+        var find = e().equal(root().get("idInvoice"), id);
+        return single(query()
+            .select(root())
+            .where(find));
+    }
 }

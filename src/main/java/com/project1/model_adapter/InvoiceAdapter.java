@@ -8,6 +8,7 @@ import com.project1.model.Invoice;
 import com.project1.model.ProductDetail;
 import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.service.implement.InvoiceService;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
@@ -48,6 +49,48 @@ public class InvoiceAdapter {
         
         for (var i: invoices) {
             m.addRow(invoiceQueueToStrings(i));
+        }
+        
+        return m;
+    }
+    
+    public String[] title() {
+        return new String[] {
+            "ma hoa don",
+            "ma nhan vien",
+            "ten nhan vien",
+            "ten khach hang",
+            "ngay tao",
+            "ngay thanh toan",
+            "hinh thuc thanh toan",
+            "tong tien",
+            "tien khach dua",
+            "tien thua"
+        };
+    }
+    
+    public String[] toStrings(Invoice i) {
+        return new String[] {
+            i.getIdInvoice().substring(0, 5) + " ... ",
+            i.getStaff().getIdStaff(),
+            i.getStaff().getFullName(),
+            i.getCustomer().getFullName(),
+            new SimpleDateFormat("dd-MM-yyyy").format(i.getPaymentDate()),
+            i.getPaymentMethod() == 1 ? "tien mat" : "the tin dung",
+            new InvoiceService().gettotalPrice(i) + "",
+            i.getPayment() + "",
+            new InvoiceService().gettotalPrice(i).subtract(i.getPayment()) + ""
+        };
+    }
+    
+    public DefaultTableModel model() {
+        var m = new DefaultTableModel(
+                title(),
+                0
+        );
+        
+        for (var i: new InvoiceService().getAll()) {
+            m.addRow(toStrings(i));
         }
         
         return m;

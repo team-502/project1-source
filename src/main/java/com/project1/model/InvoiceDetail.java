@@ -5,6 +5,9 @@
 package com.project1.model;
 
 import java.io.Serializable;
+
+import org.hibernate.annotations.UuidGenerator;
+
 import jakarta.persistence.*;
 
 /**
@@ -16,40 +19,34 @@ import jakarta.persistence.*;
 public class InvoiceDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected InvoiceDetailPK invoiceDetailPK;
+    
+    @Id
+    @GeneratedValue
+    @UuidGenerator
+    @Column(name = "id")
+    private String id;
+
     @Basic(optional = false)
     @Column(name = "quantity")
     private int quantity;
-    @JoinColumn(name = "invoice", referencedColumnName = "id", insertable = false, updatable = false)
+    
+    @JoinColumn(name = "invoice", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Invoice invoice1;
-    @JoinColumn(name = "product_detail", referencedColumnName = "Id", insertable = false, updatable = false)
+
+    @JoinColumn(name = "product_detail", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private ProductDetail productDetail1;
 
     public InvoiceDetail() {
     }
 
-    public InvoiceDetail(InvoiceDetailPK invoiceDetailPK) {
-        this.invoiceDetailPK = invoiceDetailPK;
+    public String getId() {
+        return this.id;
     }
 
-    public InvoiceDetail(InvoiceDetailPK invoiceDetailPK, int quantity) {
-        this.invoiceDetailPK = invoiceDetailPK;
-        this.quantity = quantity;
-    }
-
-    public InvoiceDetail(String invoice, String productDetail) {
-        this.invoiceDetailPK = new InvoiceDetailPK(invoice, productDetail);
-    }
-
-    public InvoiceDetailPK getInvoiceDetailPK() {
-        return invoiceDetailPK;
-    }
-
-    public void setInvoiceDetailPK(InvoiceDetailPK invoiceDetailPK) {
-        this.invoiceDetailPK = invoiceDetailPK;
+    public void setInvoiceDetailPK(String id) {
+        this.id = id;
     }
 
     public int getQuantity() {
@@ -79,7 +76,7 @@ public class InvoiceDetail implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (invoiceDetailPK != null ? invoiceDetailPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -90,7 +87,7 @@ public class InvoiceDetail implements Serializable {
             return false;
         }
         InvoiceDetail other = (InvoiceDetail) object;
-        if ((this.invoiceDetailPK == null && other.invoiceDetailPK != null) || (this.invoiceDetailPK != null && !this.invoiceDetailPK.equals(other.invoiceDetailPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -98,7 +95,7 @@ public class InvoiceDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "com.project1.model.InvoiceDetail[ invoiceDetailPK=" + invoiceDetailPK + " ]";
+        return "com.project1.model.InvoiceDetail[ invoiceDetailPK=" + id + " ]";
     }
     
 }

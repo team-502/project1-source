@@ -46,7 +46,7 @@ public class Repository<T> implements IRepository<T>{
         try {
             return Optional.of(session.createQuery(query).getSingleResult());
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return Optional.empty();
         }
     }

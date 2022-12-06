@@ -9,6 +9,7 @@ import java.util.Date;
 import jakarta.persistence.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.annotations.UuidGenerator;
 /**
  *
@@ -35,10 +36,7 @@ public class Invoice implements Serializable {
     @Column(name = "payment_date")
     @Temporal(TemporalType.DATE)
     private Date paymentDate;
-    @Basic(optional = false)
-    @Column(name = "received_date")
-    @Temporal(TemporalType.DATE)
-    private Date receivedDate;
+
     @Basic(optional = false)
     @Column(name = "_state")
     private int state;
@@ -52,7 +50,7 @@ public class Invoice implements Serializable {
     @ManyToOne(optional = false)
     private Staff staff;
     @OneToMany(mappedBy = "invoice1")
-    private ArrayList <InvoiceDetail> invoiceDetail;
+    private List<InvoiceDetail> invoiceDetail = new ArrayList<>();
     
     @Column(name = "payment")
     private BigInteger payment;
@@ -72,15 +70,6 @@ public class Invoice implements Serializable {
     public Invoice(String id) {
         this.id = id;
         this.invoiceDetail = new ArrayList<>();
-    }
-
-    public Invoice(String id, Date createdDate, Date paymentDate, Date receivedDate, int state, int paymentMethod) {
-        this.id = id;
-        this.createdDate = createdDate;
-        this.paymentDate = paymentDate;
-        this.receivedDate = receivedDate;
-        this.state = state;
-        this.paymentMethod = paymentMethod;
     }
 
     public String getId() {
@@ -113,14 +102,6 @@ public class Invoice implements Serializable {
 
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
-    }
-
-    public Date getReceivedDate() {
-        return receivedDate;
-    }
-
-    public void setReceivedDate(Date receivedDate) {
-        this.receivedDate = receivedDate;
     }
 
     public int getState() {
@@ -162,11 +143,11 @@ public class Invoice implements Serializable {
         return hash;
     }
 
-    public ArrayList<InvoiceDetail> getInvoiceDetail() {
+    public List<InvoiceDetail> getInvoiceDetail() {
         return invoiceDetail;
     }
 
-    public void setInvoiceDetail(ArrayList<InvoiceDetail> invoiceDetail) {
+    public void setInvoiceDetail(List<InvoiceDetail> invoiceDetail) {
         this.invoiceDetail =  invoiceDetail;
     }
 

@@ -19,6 +19,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import com.project1.model_adapter.GioHangAdater;
 import com.project1.model_adapter.InvoiceAdapter;
 import com.project1.model_adapter.ProductDetailAdapter;
+import com.project1.repository.implement.InvoicedetailRepository;
 import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.service.implement.InvoiceService;
 import com.project1.view.dialog.InputNumberDialog;
@@ -32,6 +33,10 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
@@ -55,6 +60,27 @@ public class BanHang_fr extends javax.swing.JFrame {
      */
     public BanHang_fr(Staff s) {
         initComponents();
+
+        txt_tienkhachdua.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void warn() {
+                if (Pattern.matches("^[0-9]+$", txt_tienkhachdua.getText().trim())) {
+                    current_invoice.get().setPayment(new BigInteger(txt_tienkhachdua.getText().trim()));
+                }
+            }
+        });
+
         current_invoice = Optional.empty();
         service = new InvoiceService();
         this.staff = s;
@@ -68,23 +94,23 @@ public class BanHang_fr extends javax.swing.JFrame {
     public JPanel getPanel() {
         return content_panel;
     }
-    
+
     public BigInteger totalPrice() {
         return service.gettotalPrice(current_invoice.get());
     }
-    
+
     public void reLoad() {
         if (current_invoice.isPresent()) {
             tbl_cart
-                .setModel(new GioHangAdater()
-                .model(invoices
-                .get(tbl_invoice_queue.getSelectedRow())));
+                    .setModel(new GioHangAdater()
+                            .model(current_invoice.get()));
             txt_total_price.setText(totalPrice() + "");
             txt_giamgia.setText(service.getPromotionPrice(current_invoice.get()).toString());
         }
+
         tbl_list_product
-            .setModel(new InvoiceAdapter()
-            .listProductModel(invoices));
+                .setModel(new InvoiceAdapter()
+                        .listProductModel(invoices));
     }
 
     /**
@@ -157,8 +183,6 @@ public class BanHang_fr extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         tbl_invoice_queue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -195,8 +219,6 @@ public class BanHang_fr extends javax.swing.JFrame {
         );
 
         jLabel1.setText("Hoá Đơn Chờ");
-
-        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel5.setText("Mã Khách Hàng");
 
@@ -294,6 +316,14 @@ public class BanHang_fr extends javax.swing.JFrame {
 
         txt_mahd.setEditable(false);
 
+        txt_tienkhachdua.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txt_tienkhachduaInputMethodTextChanged(evt);
+            }
+        });
+
         jButton7.setText("tao hoa don");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -337,11 +367,11 @@ public class BanHang_fr extends javax.swing.JFrame {
                                             .addComponent(txt_mahd, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jButton7))
-                                        .addComponent(txt_tienkhachdua)
                                         .addComponent(txt_giamgia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txt_total_price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txt_thanhtoan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txt_tienthua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .addComponent(txt_tienthua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txt_tienkhachdua)))))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -396,8 +426,6 @@ public class BanHang_fr extends javax.swing.JFrame {
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tbl_cart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -458,8 +486,6 @@ public class BanHang_fr extends javax.swing.JFrame {
         );
 
         jLabel2.setText("Giỏ Hàng");
-
-        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tbl_list_product.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -610,13 +636,20 @@ public class BanHang_fr extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        var invoice = new Invoice(UUID.randomUUID().toString());
-        invoice.setIdInvoice(invoice.getId());
+        var invoice = new Invoice();
+        invoice.setIdInvoice(UUID.randomUUID().toString());
         invoice.setStaff(this.staff);
         invoice.setCreatedDate(new Date());
         invoice.setCustomer(this.customer);
         invoice.setPayment(new BigInteger("0"));
-        
+        invoice.setPaymentDate(new Date());
+//        current_invoice = service.insert(invoice);
+//        if (current_invoice.isPresent()) {
+//            JOptionPane.showMessageDialog(this, "invoice: done");
+//        } else {
+//            System.exit(0);
+//        }
+        current_invoice = Optional.of(invoice);
         this.invoices.add(invoice);
         System.out.println(invoices.size());
         tbl_invoice_queue
@@ -628,10 +661,20 @@ public class BanHang_fr extends javax.swing.JFrame {
 //        // TODO add your handling code here
         int chon = JOptionPane.showConfirmDialog(this, "Ban muon xuat hoa don?", "Xac Nhan", JOptionPane.YES_NO_OPTION);
         if (chon == 0) {
-            var invoice1 = invoices.get(tbl_invoice_queue.getSelectedRow());
-//            if (new InvoiceRepository().insert(invoice1).isPresent()) {
-//                JOptionPane.showMessageDialog(this, "them thanh cong");
-//            }
+
+            if (current_invoice.get()
+                    .getPayment().compareTo(service
+                            .gettotalPrice(current_invoice.get())) < 0) {
+                JOptionPane.showMessageDialog(this, "tien khach dua khong du");
+                return;
+            }
+
+            if (service.insert(current_invoice.get()).isPresent()) {
+                JOptionPane.showMessageDialog(this, "thanh toan thanh cong");
+            } else {
+                return;
+            }
+
             // Create Blank document
             XWPFDocument document = new XWPFDocument();
 
@@ -652,16 +695,20 @@ public class BanHang_fr extends javax.swing.JFrame {
             paragraph.setAlignment(ParagraphAlignment.LEFT);
 
             //
-            run.setText("Mã HĐ:                          " + txt_mahd.getText());
+            run.setText("Mã HĐ:                          "
+                    + current_invoice.get().getIdInvoice().substring(0, 5) + " .... ");
             run.addBreak();
             run.addBreak();
-            run.setText("Tên Khách Hàng:                 " + txt_customer_id.getText());
+            run.setText("Tên Khách Hàng:                 "
+                    + current_invoice.get().getCustomer().getFullName());
             run.addBreak();
             run.addBreak();
-            run.setText("Ma NV:                          " + staff.getFullName());
+            run.setText("Ma NV:                          "
+                    + staff.getFullName());
             run.addBreak();
             run.addBreak();
-            run.setText("Ngày Lập:                       " + invoice1.getCreatedDate() + "");
+            run.setText("Ngày Lập:                       "
+                    + current_invoice.get().getCreatedDate() + "");
             run.addBreak();
             //
             XWPFTable table = document.createTable();
@@ -673,7 +720,7 @@ public class BanHang_fr extends javax.swing.JFrame {
             tableRowOne.addNewTableCell().setText("So Luong                    ");
             tableRowOne.addNewTableCell().setText("Tong Tien                   ");
 
-            for (var i : invoice1.getInvoiceDetail()) {
+            for (var i : current_invoice.get().getInvoiceDetail()) {
                 //create second row
                 XWPFTableRow tableRowTwo = table.createRow();
                 tableRowTwo.setHeight(20);
@@ -682,8 +729,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                 tableRowTwo.getCell(2).setText("                      " + i.getQuantity());
                 tableRowTwo.getCell(3).setText("                      " + txt_total_price.getText());
             }
-            
-            
+
             //create third row
 //        XWPFTableRow tableRowThree = table.createRow();
 //        tableRowThree.getCell(0).setText("col one, row three");
@@ -694,25 +740,31 @@ public class BanHang_fr extends javax.swing.JFrame {
             run1.setFontSize(20);
             run1.addBreak();
             run1.addBreak();
-            run1.setText("Tiền Giảm:                      " + txt_giamgia.getText());
+            run1.setText("Tiền Giảm:                      "
+                    + service.getPromotionPrice(current_invoice.get()));
             run1.addBreak();
             run1.addBreak();
-            run1.setText("Thành tiền                      " + txt_thanhtoan.getText());
+            run1.setText("Thành tiền                      "
+                    + service.gettotalPrice(current_invoice.get()));
             run1.addBreak();
             run1.addBreak();
-            run1.setText("Tiền Khách Đưa:                 " + txt_tienkhachdua.getText());
+            run1.setText("Tiền Khách Đưa:                 "
+                    + current_invoice.get().getPayment());
             run1.addBreak();
             run1.addBreak();
-            run1.setText("Tiền Thừa:                      " + txt_tienthua.getText());
+            run1.setText("Tiền Thừa:                      "
+                    + current_invoice.get().getPayment()
+                            .subtract(service.gettotalPrice(current_invoice.get())));
             run1.addBreak();
             run1.addBreak();
-            run1.setText("Ghi Chú:                        " + txt_ghichu.getText());
+            run1.setText("Ghi Chú:                        "
+                    + txt_ghichu.getText());
             run1.addBreak();
             run1.addBreak();
             run1.setText("");
 
             try {
-                FileOutputStream out = new FileOutputStream(new File(invoice1.getIdInvoice() + ".docx"));
+                FileOutputStream out = new FileOutputStream(new File(current_invoice.get().getIdInvoice() + ".docx"));
 //                Document doc = new Document("Input.docx");
 //                doc.save("Output.pdf");
                 document.write(out);
@@ -744,47 +796,51 @@ public class BanHang_fr extends javax.swing.JFrame {
 //        String index = "Vui Lòng nhập sô lượng sản phẩm";
 //        JOptionPane.showInputDialog(index);
 
-        if (!current_invoice.isPresent()) {
+        if (current_invoice.isEmpty()) {
             JOptionPane.showMessageDialog(this, "hay chon 1 hoa don");
             return;
         }
 
         var product_detail = new ProductDetailReposytory()
-            .getAll()
-            .get(tbl_list_product
-            .getSelectedRow());
-        
+                .getAll()
+                .get(tbl_list_product
+                        .getSelectedRow());
+
         var quantity = new InputNumberDialog(this, true, product_detail.getQuantity())
-            .getValue();
-        
-        var find  = false;
-        for (var i: current_invoice.get().getInvoiceDetail()) {
+                .getValue();
+
+        var find = false;
+        for (var i : current_invoice.get().getInvoiceDetail()) {
             if (i.getProductDetail1().equals(product_detail)) {
                 find = true;
                 i.setQuantity(i.getQuantity() + quantity.get());
             }
         }
-        
+
         if (!find && quantity.isPresent()) {
             InvoiceDetail invoiceDetail = new InvoiceDetail();
             invoiceDetail.setQuantity(quantity.get());
             invoiceDetail.setProductDetail1(product_detail);
+            invoiceDetail.setInvoice1(current_invoice.get());
             current_invoice.get().getInvoiceDetail().add(invoiceDetail);
         }
-        
+
         reLoad();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         tbl_invoice_queue
-            .setModel(new InvoiceAdapter()
-            .invoiceQueueModel(invoices));
+                .setModel(new InvoiceAdapter()
+                        .invoiceQueueModel(invoices));
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void tbl_invoice_queueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_invoice_queueMouseClicked
         // TODO add your handling code here:
         if (tbl_invoice_queue.getSelectedRowCount() == 1) {
-            this.current_invoice = Optional.of(invoices.get(tbl_invoice_queue.getSelectedRow()));
+            this.current_invoice = Optional.of(
+                    service.getByIdInvoice(
+                            invoices.get(
+                                    tbl_invoice_queue.getSelectedRow()).getIdInvoice()).get());
             reLoad();
         }
     }//GEN-LAST:event_tbl_invoice_queueMouseClicked
@@ -798,12 +854,16 @@ public class BanHang_fr extends javax.swing.JFrame {
                     .getValue();
             if (quantity.isPresent()) {
                 current_invoice.get().getInvoiceDetail().get(index).setQuantity(
-                        current_invoice.get().getInvoiceDetail().get(index).getQuantity() -  quantity.get()
+                        current_invoice.get().getInvoiceDetail().get(index).getQuantity() - quantity.get()
                 );
             }
         }
         reLoad();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txt_tienkhachduaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txt_tienkhachduaInputMethodTextChanged
+
+    }//GEN-LAST:event_txt_tienkhachduaInputMethodTextChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

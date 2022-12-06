@@ -4,12 +4,12 @@
  */
 package com.project1.view;
 
+import com.project1.model.Invoice;
 import com.project1.model.Staff;
 import com.project1.utility.view.Renderer;
 import com.project1.view.dialog.LoginDialog;
 import java.util.HashMap;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -21,6 +21,7 @@ public class Main_FR extends javax.swing.JFrame {
     /**
      * Creates new form Main_FR
      */
+    private HoaDon invoice_view;
     private Staff staff;
     private KhuyenMai promotion;
     private QLSP qlsp;
@@ -37,6 +38,7 @@ public class Main_FR extends javax.swing.JFrame {
             this.staff = login.getStaff().get();
         }
         
+        invoice_view = new HoaDon();
         promotion = new KhuyenMai();
         qlsp = new QLSP();
         khach_hang = new KhachHang();
@@ -56,6 +58,9 @@ public class Main_FR extends javax.swing.JFrame {
             
             put (btn_promotion
                 , new Renderer<>(promotion.getPanel())
+                        .getDefault(content_panel));
+            put (btn_invoice
+                , new Renderer<>(invoice_view.getPanel())
                         .getDefault(content_panel));
         }};
         
@@ -89,7 +94,7 @@ public class Main_FR extends javax.swing.JFrame {
         btn_customer = new javax.swing.JButton();
         btn_payment = new javax.swing.JButton();
         btn_promotion = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btn_invoice = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         content_panel = new javax.swing.JPanel();
 
@@ -123,7 +128,12 @@ public class Main_FR extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("jButton1");
+        btn_invoice.setText("hoa don");
+        btn_invoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_invoiceActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("jButton1");
 
@@ -135,7 +145,7 @@ public class Main_FR extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_invoice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_promotion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_payment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_customer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -154,7 +164,7 @@ public class Main_FR extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_promotion, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_invoice, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(170, Short.MAX_VALUE))
@@ -212,13 +222,19 @@ public class Main_FR extends javax.swing.JFrame {
         promotion.reLoad();
     }//GEN-LAST:event_btn_promotionActionPerformed
 
+    private void btn_invoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invoiceActionPerformed
+        reRender();
+        panels.get(btn_invoice).setVisible(true);
+        promotion.reLoad();
+    }//GEN-LAST:event_btn_invoiceActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_customer;
+    private javax.swing.JButton btn_invoice;
     private javax.swing.JButton btn_payment;
     private javax.swing.JButton btn_promotion;
     private javax.swing.JPanel content_panel;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton product_manager;

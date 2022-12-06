@@ -34,7 +34,6 @@ public class GioHangAdater {
             pd.getProductDetail1().getProduct().getName(),
             pd.getProductDetail1().getExportPrice() + "",
             pd.getQuantity() + "",
-            
         };
     }
     public DefaultTableModel model(Invoice ivoice) {
@@ -46,6 +45,7 @@ public class GioHangAdater {
         
         for (var i: ivoice.getInvoiceDetail()) {
             result.addRow(toStrings(i));
+            System.err.println(toStrings(i));
         }
         return result;
     }

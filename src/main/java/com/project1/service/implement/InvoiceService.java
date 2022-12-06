@@ -129,4 +129,8 @@ public class InvoiceService implements IService<Invoice> {
         return products;
     }
     
+    public Optional<Invoice> getByIdInvoice(String id) {
+        return repo.getByIdInvoice(id);
+    }
+    
 }

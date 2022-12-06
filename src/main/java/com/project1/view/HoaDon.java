@@ -4,17 +4,35 @@
  */
 package com.project1.view;
 
+import com.project1.model_adapter.InvoiceAdapter;
+import com.project1.model.Invoice;
+import com.project1.model_adapter.InvoiceDetailAdapter;
+import com.project1.service.implement.InvoiceService;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+
 /**
  *
  * @author nguyenvanviet
  */
 public class HoaDon extends javax.swing.JFrame {
 
+    public ArrayList<Invoice> cache;
     /**
      * Creates new form HoaDon
      */
     public HoaDon() {
         initComponents();
+        reLoad();
+    }
+    
+    public void reLoad() {
+        cache = new InvoiceService().getAll();
+        tbl_invoice.setModel(new InvoiceAdapter().model());
+    }
+    
+    public JPanel getPanel() {
+        return content_panel;
     }
 
     /**
@@ -28,10 +46,10 @@ public class HoaDon extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        content_panel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_invoice = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -43,11 +61,11 @@ public class HoaDon extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbl_invoice_detail = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        // setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -60,7 +78,7 @@ public class HoaDon extends javax.swing.JFrame {
             .addGap(0, 602, Short.MAX_VALUE)
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_invoice.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null}
             },
@@ -76,23 +94,26 @@ public class HoaDon extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
+        tbl_invoice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_invoiceMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_invoice);
+        if (tbl_invoice.getColumnModel().getColumnCount() > 0) {
+            tbl_invoice.getColumnModel().getColumn(0).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(1).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(2).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(3).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(4).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(5).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(6).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(7).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(8).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(9).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(10).setResizable(false);
+            tbl_invoice.getColumnModel().getColumn(11).setResizable(false);
         }
-
-        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel3.setText("Tìm Kiếm Hoá Đơn");
@@ -179,7 +200,7 @@ public class HoaDon extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_invoice_detail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -187,7 +208,7 @@ public class HoaDon extends javax.swing.JFrame {
                 "Mã Hoá Đơn Chi Tiết", "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "", "Thành Tiền"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tbl_invoice_detail);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -210,25 +231,25 @@ public class HoaDon extends javax.swing.JFrame {
 
         jLabel2.setText("Hoá Đơn");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout content_panelLayout = new javax.swing.GroupLayout(content_panel);
+        content_panel.setLayout(content_panelLayout);
+        content_panelLayout.setHorizontalGroup(
+            content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(content_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(content_panelLayout.createSequentialGroup()
+                        .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addGap(0, 748, Short.MAX_VALUE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        content_panelLayout.setVerticalGroup(
+            content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(content_panelLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -247,13 +268,13 @@ public class HoaDon extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(content_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(content_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -274,42 +295,16 @@ public class HoaDon extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HoaDon().setVisible(true);
-            }
-        });
-    }
+    private void tbl_invoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_invoiceMouseClicked
+        if (tbl_invoice.getSelectedRowCount() != 1) return;
+        
+        tbl_invoice_detail.setModel(new InvoiceDetailAdapter().model(
+            cache.get(tbl_invoice.getSelectedRow())
+        ));
+    }//GEN-LAST:event_tbl_invoiceMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel content_panel;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -321,14 +316,13 @@ public class HoaDon extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tbl_invoice;
+    private javax.swing.JTable tbl_invoice_detail;
     // End of variables declaration//GEN-END:variables
 }

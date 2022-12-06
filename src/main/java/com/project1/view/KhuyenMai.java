@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.project1.view;
-;
+
 import com.project1.model.Promotion;
 import com.project1.model.PromotionDetail;
 import com.project1.model_adapter.ProductDetailAdapter;

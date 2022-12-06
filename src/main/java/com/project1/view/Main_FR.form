@@ -48,7 +48,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jButton6" pref="226" max="32767" attributes="0"/>
-                      <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_invoice" alignment="0" max="32767" attributes="0"/>
                       <Component id="btn_promotion" alignment="0" max="32767" attributes="0"/>
                       <Component id="btn_payment" alignment="0" max="32767" attributes="0"/>
                       <Component id="btn_customer" alignment="0" max="32767" attributes="0"/>
@@ -70,7 +70,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_promotion" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton5" min="-2" pref="49" max="-2" attributes="0"/>
+                  <Component id="btn_invoice" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton6" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace pref="170" max="32767" attributes="0"/>
@@ -111,10 +111,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_promotionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="btn_invoice">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton1"/>
+            <Property name="text" type="java.lang.String" value="hoa don"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_invoiceActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton6">
           <Properties>

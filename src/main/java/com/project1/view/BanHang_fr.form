@@ -222,11 +222,11 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton7" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="txt_tienkhachdua" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_giamgia" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_total_price" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_thanhtoan" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txt_tienthua" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txt_tienkhachdua" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -489,6 +489,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_tienkhachdua">
+              <Events>
+                <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="txt_tienkhachduaInputMethodTextChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton7">
               <Properties>
