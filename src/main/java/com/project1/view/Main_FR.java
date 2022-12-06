@@ -8,7 +8,9 @@ import com.project1.model.Invoice;
 import com.project1.model.Staff;
 import com.project1.utility.view.Renderer;
 import com.project1.view.dialog.LoginDialog;
+import java.awt.Image;
 import java.util.HashMap;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -31,6 +33,7 @@ public class Main_FR extends javax.swing.JFrame {
     
     public Main_FR() {
         initComponents();
+        this.setIconImage(new ImageIcon("resource/app-store.png").getImage());
         
         var login = new LoginDialog(this, true);
 
