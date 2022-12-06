@@ -666,10 +666,20 @@ public class BanHang_fr extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "tien khach dua khong du");
                 return;
             }
+            var pdr = new ProductDetailReposytory();
+            for (var i : current_invoice.get().getInvoiceDetail()) {
+                var pd = pdr.getById(i.getProductDetail1().getId());
+                pd.get().setQuantity(pd.get().getQuantity() - i.getQuantity());
+                if (pdr.update(pd.get()).isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "thanh toan that bai");
+                    return;
+                }
+            }
 
             if (service.insert(current_invoice.get()).isPresent()) {
                 JOptionPane.showMessageDialog(this, "thanh toan thanh cong");
             } else {
+                JOptionPane.showMessageDialog(this, "thanh toan that bai");
                 return;
             }
 
@@ -837,7 +847,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         if (tbl_invoice_queue.getSelectedRowCount() == 1) {
             this.current_invoice = Optional.of(
                     invoices.get(
-                                    tbl_invoice_queue.getSelectedRow()));
+                            tbl_invoice_queue.getSelectedRow()));
             reLoad();
         }
     }//GEN-LAST:event_tbl_invoice_queueMouseClicked
