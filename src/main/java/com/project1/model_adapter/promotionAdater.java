@@ -40,7 +40,7 @@ public class promotionAdater {
             c.getProductDetail().getProduct().getName(),
             c.getPromotion().getStateDate().toString(),
             c.getPromotion().getEndDate().toString(),
-            c.isState() ? "Còn Thời Hạn" : "Đã Hết Hạn"
+            c.getPromotion().isState() ? "Còn Thời Hạn" : "Đã Hết Hạn"
             
         };
     }

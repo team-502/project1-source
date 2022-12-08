@@ -22,6 +22,7 @@ import com.project1.model_adapter.promotionAdater;
 import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.repository.implement.PromotionRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,8 +45,16 @@ public class KhuyenMai extends javax.swing.JFrame {
     }
     
     public void reLoad() {
+        for(var i: new PromotionRepository().getAll()){
+            if(i.getEndDate().equals(new Date())){
+                i.setState(false);
+                new PromotionRepository().update(i);
+            }
+            
+        }
         tbl_km.setModel(new promotionAdater().model());
         tbl_sp.setModel(new ProductDetailAdapter().model());
+        
     }
 
     /**
@@ -150,23 +159,21 @@ public class KhuyenMai extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txt_makm)
-                        .addComponent(txt_tenkm)
+                    .addComponent(txt_makm)
+                    .addComponent(txt_tenkm)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(cbb_ht, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(txt_mgiam)))
-                        .addComponent(ckb_slall)))
+                            .addComponent(jLabel4)
+                            .addComponent(cbb_ht, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txt_mgiam)))
+                    .addComponent(ckb_slall))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -176,7 +183,7 @@ public class KhuyenMai extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_makm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_tenkm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,6 +404,8 @@ public class KhuyenMai extends javax.swing.JFrame {
             }else{
                 promotion.setMoney(new BigInteger(txt_mgiam.getText().trim()));
             }
+            promotion.setState(promotion.getEndDate().compareTo(new Date()) > 0);
+            
             
             var pro = new PromotionDetail();
             pro.setProductDetail(new ProductDetailReposytory()
@@ -407,6 +416,8 @@ public class KhuyenMai extends javax.swing.JFrame {
             promotion
                     .setPromotionDetailCollection(new ArrayList<PromotionDetail>());
             promotion.getPromotionDetailCollection().add(pro);
+            
+            
             return Optional.of(promotion);
         }
         return Optional.empty();

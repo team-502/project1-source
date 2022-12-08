@@ -50,6 +50,9 @@ public class Promotion implements Serializable {
     @Column(name = "_money")
     private BigInteger money;
 
+    @Column(name = "_state", nullable = false)
+    private boolean state;
+    
     public BigInteger getMoney() {
         return money;
     }
@@ -116,6 +119,14 @@ public class Promotion implements Serializable {
 
     public void setType(boolean type) {
         this.type = type;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 
     public Collection<PromotionDetail> getPromotionDetailCollection() {

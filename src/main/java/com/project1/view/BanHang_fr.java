@@ -77,6 +77,15 @@ public class BanHang_fr extends javax.swing.JFrame {
             public void warn() {
                 if (Pattern.matches("^[0-9]+$", txt_tienkhachdua.getText().trim())) {
                     current_invoice.get().setPayment(new BigInteger(txt_tienkhachdua.getText().trim()));
+                    if (current_invoice.get().getPayment().compareTo(service.getFinalPrice(current_invoice.get()).get()) >= 0) {
+
+                        txt_tienthua.setText(
+                                current_invoice.get().getPayment().subtract(
+                                        service.getFinalPrice(
+                                                current_invoice.get()).get()).toString());
+
+                    }
+                    txt_tienkhachdua.setText(current_invoice.get().getPayment().toString());
                 }
             }
         });
@@ -837,7 +846,7 @@ public class BanHang_fr extends javax.swing.JFrame {
         if (tbl_invoice_queue.getSelectedRowCount() == 1) {
             this.current_invoice = Optional.of(
                     invoices.get(
-                                    tbl_invoice_queue.getSelectedRow()));
+                            tbl_invoice_queue.getSelectedRow()));
             reLoad();
         }
     }//GEN-LAST:event_tbl_invoice_queueMouseClicked
