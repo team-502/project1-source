@@ -156,6 +156,8 @@ public class BanHang_fr extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        content_panel.setBackground(new java.awt.Color(255, 204, 204));
+
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tbl_invoice_queue.setModel(new javax.swing.table.DefaultTableModel(
@@ -195,6 +197,7 @@ public class BanHang_fr extends javax.swing.JFrame {
 
         jLabel1.setText("Hoá Đơn Chờ");
 
+        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel5.setText("Mã Khách Hàng");
@@ -555,11 +558,11 @@ public class BanHang_fr extends javax.swing.JFrame {
                     .addGroup(content_panelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(content_panelLayout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 382, Short.MAX_VALUE))
+                        .addGap(0, 388, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );

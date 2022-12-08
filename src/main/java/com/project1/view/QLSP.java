@@ -129,6 +129,8 @@ public class QLSP extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        content_panel.setBackground(new java.awt.Color(255, 153, 153));
+
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         tbl_data.setModel(new javax.swing.table.DefaultTableModel(

@@ -84,6 +84,8 @@ public class KhuyenMai extends javax.swing.JFrame {
             .addGap(0, 625, Short.MAX_VALUE)
         );
 
+        content_panel.setBackground(new java.awt.Color(255, 204, 204));
+
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         tbl_sp.setModel(new javax.swing.table.DefaultTableModel(
