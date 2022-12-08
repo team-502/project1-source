@@ -111,8 +111,6 @@ public class QLSP extends javax.swing.JFrame {
         txt_product_export_price = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btn_insert = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jComboBox4 = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
@@ -248,6 +246,10 @@ public class QLSP extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 0));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon("/Users/nguyenvanviet/Desktop/502/project1-source/icon/icons8-update-30.png")); // NOI18N
         jButton1.setText("Sửa");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,16 +257,16 @@ public class QLSP extends javax.swing.JFrame {
             }
         });
 
+        btn_insert.setBackground(new java.awt.Color(255, 0, 0));
+        btn_insert.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_insert.setForeground(new java.awt.Color(0, 0, 0));
+        btn_insert.setIcon(new javax.swing.ImageIcon("/Users/nguyenvanviet/Desktop/502/project1-source/icon/icons8-save-48.png")); // NOI18N
         btn_insert.setText("Thêm");
         btn_insert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_insertActionPerformed(evt);
             }
         });
-
-        jButton5.setText("Sắp Xếp");
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton2.setText("clear form");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -311,14 +313,12 @@ public class QLSP extends javax.swing.JFrame {
                             .addComponent(txt_product_size, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_product_export_price)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
                         .addComponent(jButton1)
-                        .addGap(238, 238, 238)
-                        .addComponent(jButton5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(jButton2)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGap(208, 208, 208)
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,10 +365,8 @@ public class QLSP extends javax.swing.JFrame {
                             .addComponent(cbb_producer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_insert)
+                    .addComponent(btn_insert, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jButton5)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addGap(15, 15, 15))
         );
@@ -406,7 +404,7 @@ public class QLSP extends javax.swing.JFrame {
                 .addComponent(jButton4)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
         content_panelLayout.setVerticalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,8 +631,6 @@ public class QLSP extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

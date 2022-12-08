@@ -727,17 +727,7 @@ public class BanHang_fr extends javax.swing.JFrame {
             }
 
             System.out.println("successully");
-//        XWPFParagraph paragraph2 = document.createParagraph();
-//        run = paragraph2.createRun();
-//        run.setText("Paragraph 2: demo read/write file MS-Word");
-            // Write the Document in file system
 
-//            try {
-//              Document doc = new Document("Input.docx");
-//              doc.save("Output.pdf");
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 

@@ -4,7 +4,6 @@
  */
 package com.project1.view;
 
-
 import com.project1.model.Promotion;
 import com.project1.model_adapter.ProductAdapter;
 import com.project1.model_adapter.promotionAdater;
@@ -27,7 +26,7 @@ public class KhuyenMai extends javax.swing.JFrame {
         tbl_km.setModel(new promotionAdater().model());
         tbl_sp.setModel(new ProductAdapter().model1());
     }
-    
+
     public JPanel getPanel() {
         return content_panel;
     }
@@ -201,7 +200,9 @@ public class KhuyenMai extends javax.swing.JFrame {
             }
         });
 
+        btn_luu.setBackground(new java.awt.Color(255, 51, 51));
         btn_luu.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_luu.setIcon(new javax.swing.ImageIcon("/Users/nguyenvanviet/Desktop/502/project1-source/icon/icons8-save-48.png")); // NOI18N
         btn_luu.setText("Lưu");
         btn_luu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,7 +210,10 @@ public class KhuyenMai extends javax.swing.JFrame {
             }
         });
 
+        btn_sua.setBackground(new java.awt.Color(255, 255, 102));
         btn_sua.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_sua.setForeground(new java.awt.Color(0, 0, 0));
+        btn_sua.setIcon(new javax.swing.ImageIcon("/Users/nguyenvanviet/Desktop/502/project1-source/icon/icons8-update-30.png")); // NOI18N
         btn_sua.setText("Sửa");
         btn_sua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,18 +243,20 @@ public class KhuyenMai extends javax.swing.JFrame {
                                     .addComponent(jLabel9))
                                 .addGap(0, 286, Short.MAX_VALUE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(btn_luu, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addComponent(btn_reset)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_sua, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(btn_luu, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(94, 94, 94)
+                                .addComponent(btn_sua, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txt_nkt, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(205, 205, 205)
+                                .addComponent(btn_reset)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txt_nkt, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,14 +270,14 @@ public class KhuyenMai extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(txt_nkt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_reset)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(68, 68, 68))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(195, 195, 195)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -366,43 +372,66 @@ public class KhuyenMai extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public Optional<Promotion> toPromotion(Promotion p){
-        if(valid()){
+    public Optional<Promotion> toPromotion(Promotion p) {
+        if (valid()) {
             var promotion = p;
             promotion.setName(txt_tenkm.getText().trim());
             promotion.setStateDate(txt_nbd.getDate());
             promotion.setEndDate(txt_nkt.getDate());
             promotion.setType(cbb_ht.getSelectedItem().toString().compareTo("Giảm Theo Phầm Trăm") == 0);
-            if(promotion.getType()){
+            if (promotion.getType()) {
                 promotion.setPercent(Integer.parseInt(txt_mgiam.getText().trim()));
-            }else{
-            promotion.setMoney(Integer.parseInt(txt_mgiam.getText().trim()));
+            } else {
+                promotion.setMoney(Integer.parseInt(txt_mgiam.getText().trim()));
             }
             return Optional.of(promotion);
         }
         return Optional.empty();
     }
-    public boolean valid(){
+
+    public boolean valid() {
         return true;
-        
+
     }
     private void btn_luuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_luuActionPerformed
         // TODO add your handling code here:
-        var p = toPromotion(new Promotion());
-        if(p.isPresent()){
-            if(new PromotionRepository().insert(p.get()).isPresent()){
-                JOptionPane.showMessageDialog(this, "Áp dụng mã giảm giá thành công");
-                tbl_km.setModel(new promotionAdater().model());
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn thêm khuyến mãi không?", "Xác Nhận", JOptionPane.YES_NO_OPTION);
+        if (chon == 0) {
+            var p = toPromotion(new Promotion());
+            if (p.isPresent()) {
+                if (new PromotionRepository().insert(p.get()).isPresent()) {
+                    JOptionPane.showMessageDialog(this, "Áp dụng mã giảm giá thành công");
+                    tbl_km.setModel(new promotionAdater().model());
+                }
             }
         }
     }//GEN-LAST:event_btn_luuActionPerformed
 
+    public void reset() {
+        txt_makm.setText("");
+        txt_tenkm.setText("");
+        txt_mgiam.setText("");
+        txt_mta.setText("");
+        cbb_ht.setSelectedIndex(0);
+    }
     private void btn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resetActionPerformed
         // TODO add your handling code here:
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn Làm mới không?", "Xác Nhận", JOptionPane.YES_NO_OPTION);
+        if (chon == 0) {
+            reset();
+        }
     }//GEN-LAST:event_btn_resetActionPerformed
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
-        // TODO add your handling code here:
+
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn sửa khuyến mãi không?", "Xác Nhận", JOptionPane.YES_NO_OPTION);
+        if (chon == 0) {
+            if (tbl_km.getSelectedRowCount() == 1) {
+                var p = new PromotionRepository().getAll().get(tbl_km.getSelectedRow());
+                new PromotionRepository().update(toPromotion(p).get());
+                tbl_km.setModel(new promotionAdater().model());
+            }
+        }
     }//GEN-LAST:event_btn_suaActionPerformed
 
     /**
