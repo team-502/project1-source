@@ -23,7 +23,7 @@ public class HoaDon extends javax.swing.JFrame {
      */
     public HoaDon() {
         initComponents();
-        reLoad();
+//        reLoad();
     }
     
     public void reLoad() {
