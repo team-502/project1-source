@@ -4,7 +4,17 @@
  */
 package com.project1.view;
 
+import com.project1.model.Promotion;
+import com.project1.model.PromotionDetail;
+import com.project1.model_adapter.ProductDetailAdapter;
+import com.project1.model_adapter.promotionAdater;
+import com.project1.repository.implement.ProductDetailReposytory;
+import com.project1.repository.implement.PromotionRepository;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Optional;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import com.project1.model.Promotion;
 import com.project1.model.PromotionDetail;
 import com.project1.model_adapter.ProductDetailAdapter;
@@ -16,7 +26,6 @@ import java.util.Date;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 /**
  *
  * @author nguyenvanviet
@@ -28,24 +37,24 @@ public class KhuyenMai extends javax.swing.JFrame {
      */
     public KhuyenMai() {
         initComponents();
-//        reLoad();
+        reLoad();
     }
-
+    
     public JPanel getPanel() {
         return content_panel;
     }
-
+    
     public void reLoad() {
-        for (var i : new PromotionRepository().getAll()) {
-            if (i.getEndDate().equals(new Date())) {
+        for(var i: new PromotionRepository().getAll()){
+            if(i.getEndDate().equals(new Date())){
                 i.setState(false);
                 new PromotionRepository().update(i);
             }
+            
         }
         tbl_km.setModel(new promotionAdater().model());
-        tbl_sp.setModel(new ProductDetailAdapter()
-                .searchModel(new ProductDetailReposytory().getNonPromotion()));
-
+        tbl_sp.setModel(new ProductDetailAdapter().model());
+        
     }
 
     /**
@@ -382,52 +391,46 @@ public class KhuyenMai extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public Optional<Promotion> toPromotion(Promotion p) {
-        if (valid() && tbl_sp.getSelectedRowCount() >= 1) {
+    public Optional<Promotion> toPromotion(Promotion p){
+        if(valid()){
             var promotion = p;
             promotion.setName(txt_tenkm.getText().trim());
             promotion.setStateDate(txt_nbd.getDate());
             promotion.setEndDate(txt_nkt.getDate());
             promotion.setType(cbb_ht.getSelectedItem().toString().compareTo("Giảm Theo Phần Trăm") == 0);
-            if (promotion.getType()) {
+            if(promotion.getType()){
                 promotion.setPercent(Integer.parseInt(txt_mgiam.getText().trim()));
                 promotion.setMoney(BigInteger.valueOf(0));
-            } else {
+            }else{
                 promotion.setMoney(new BigInteger(txt_mgiam.getText().trim()));
             }
             promotion.setState(promotion.getEndDate().compareTo(new Date()) > 0);
-
-            var pd_s = new ArrayList<PromotionDetail>();
+            
+            
             var pro = new PromotionDetail();
-            for (var i : tbl_sp.getSelectedRows()) {
-                pro = new PromotionDetail();
-                pro.setProductDetail(new ProductDetailReposytory()
-                        .getNonPromotion()
-                        .get(tbl_sp.getSelectedRow()));
-                pd_s.add(pro);
-                pro.setPromotion(promotion);
-            }
-//            pro.setProductDetail(new ProductDetailReposytory()
-//                .getNonPromotion()
-//                .get(tbl_sp.getSelectedRow()));
-
+            pro.setProductDetail(new ProductDetailReposytory()
+                .getAll()
+                .get(tbl_sp.getSelectedRow()));
+            pro.setPromotion(promotion);
+            
             promotion
-                    .setPromotionDetailCollection(pd_s);
-
+                    .setPromotionDetailCollection(new ArrayList<PromotionDetail>());
+            promotion.getPromotionDetailCollection().add(pro);
+            
+            
             return Optional.of(promotion);
         }
         return Optional.empty();
     }
-
-    public boolean valid() {
+    public boolean valid(){
         return true;
-
+        
     }
     private void btn_luuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_luuActionPerformed
         // TODO add your handling code here:
         var p = toPromotion(new Promotion());
-        if (p.isPresent()) {
-            if (new PromotionRepository().insert(p.get()).isPresent()) {
+        if(p.isPresent()){
+            if(new PromotionRepository().insert(p.get()).isPresent()){
                 JOptionPane.showMessageDialog(this, "Áp dụng mã giảm giá thành công");
                 reLoad();
             }
@@ -442,6 +445,40 @@ public class KhuyenMai extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_suaActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(KhuyenMai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(KhuyenMai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(KhuyenMai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(KhuyenMai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new KhuyenMai().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_luu;

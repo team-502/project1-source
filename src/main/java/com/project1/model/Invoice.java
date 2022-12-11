@@ -54,17 +54,6 @@ public class Invoice implements Serializable {
     
     @Column(name = "payment")
     private BigInteger payment;
-    
-    @Column(name = "total_price")
-    private BigInteger totalPricel;
-
-    public BigInteger getTotalPricel() {
-        return totalPricel;
-    }
-
-    public void setTotalPricel(BigInteger totalPricel) {
-        this.totalPricel = totalPricel;
-    }
 
     public BigInteger getPayment() {
         return payment;

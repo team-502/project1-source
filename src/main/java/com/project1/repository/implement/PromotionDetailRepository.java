@@ -5,7 +5,6 @@
 package com.project1.repository.implement;
 
 import com.project1.model.PromotionDetail;
-import java.util.Optional;
 
 /**
  *
@@ -15,16 +14,6 @@ public class PromotionDetailRepository extends Repository<PromotionDetail> {
     
     public PromotionDetailRepository() {
         super(PromotionDetail.class);
-    }
-    
-    public Optional<PromotionDetail> getByProductDetailId(String id) {
-        
-        var join_pd = root().join("productDetail");
-        
-        var confition = e().equal(root().get("id"), id);
-        
-        return single(query().select(root()).where(confition));
-        
     }
     
 }
