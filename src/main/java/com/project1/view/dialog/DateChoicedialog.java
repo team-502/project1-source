@@ -40,7 +40,7 @@ public class DateChoicedialog extends javax.swing.JDialog {
         this.day = local_date.getDayOfMonth();
         
         
-//        JOptionPane.showMessageDialog(this, this.day + "-" + this.month + "-" + this.year);
+        JOptionPane.showMessageDialog(this, this.day + "-" + this.month + "-" + this.year);
         init();
 
         this.setVisible(true);
@@ -75,7 +75,7 @@ public class DateChoicedialog extends javax.swing.JDialog {
         }
         cbb_day.setSelectedItem(this.day + "");
         setDay();
-//        JOptionPane.showMessageDialog(this, this.day + "-" + this.month + "-" + this.year);
+        JOptionPane.showMessageDialog(this, this.day + "-" + this.month + "-" + this.year);
     }
     
     public void setDay() {

@@ -205,7 +205,6 @@ public class Main_FR extends javax.swing.JFrame {
 
     private void product_managerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_product_managerActionPerformed
         reRender();
-        qlsp.reLoad();
         panels.get(product_manager).setVisible(true);
     }//GEN-LAST:event_product_managerActionPerformed
 

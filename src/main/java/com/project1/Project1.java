@@ -6,7 +6,6 @@
 package com.project1;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.project1.repository.implement.ProductDetailReposytory;
 import com.project1.view.Main_FR;
 import javax.swing.UIManager;
 /**
