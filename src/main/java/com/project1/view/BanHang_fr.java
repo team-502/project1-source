@@ -45,7 +45,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
  * @author nguyenvanviet
  */
 public class BanHang_fr extends javax.swing.JFrame {
-
+    
     private Customer customer;
     private InvoiceService service;
     private Staff staff;
@@ -60,36 +60,29 @@ public class BanHang_fr extends javax.swing.JFrame {
      */
     public BanHang_fr(Staff s) {
         initComponents();
-
+        
         txt_tienkhachdua.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 warn();
             }
-
+            
             public void removeUpdate(DocumentEvent e) {
                 warn();
             }
-
+            
             public void insertUpdate(DocumentEvent e) {
                 warn();
             }
-
+            
             public void warn() {
                 if (Pattern.matches("^[0-9]+$", txt_tienkhachdua.getText().trim())) {
                     current_invoice.get().setPayment(new BigInteger(txt_tienkhachdua.getText().trim()));
-                    if (current_invoice.get().getPayment().compareTo(service.getFinalPrice(current_invoice.get()).get()) >= 0) {
-
-                        txt_tienthua.setText(
-                                current_invoice.get().getPayment().subtract(
-                                        service.getFinalPrice(
-                                                current_invoice.get()).get()).toString());
-
-                    }
+                    current_invoice.get().setTotalPricel(service.gettotalPrice(current_invoice.get()));
                     txt_tienkhachdua.setText(current_invoice.get().getPayment().toString());
                 }
             }
         });
-
+        
         current_invoice = Optional.empty();
         service = new InvoiceService();
         this.staff = s;
@@ -99,15 +92,15 @@ public class BanHang_fr extends javax.swing.JFrame {
         tbl_list_product
                 .setModel(new ProductDetailAdapter().model_1());
     }
-
+    
     public JPanel getPanel() {
         return content_panel;
     }
-
+    
     public BigInteger totalPrice() {
         return service.gettotalPrice(current_invoice.get());
     }
-
+    
     public void reLoad() {
         if (current_invoice.isPresent()) {
             tbl_cart
@@ -116,7 +109,7 @@ public class BanHang_fr extends javax.swing.JFrame {
             txt_total_price.setText(totalPrice() + "");
             txt_giamgia.setText(service.getPromotionPrice(current_invoice.get()).toString());
         }
-
+        
         tbl_list_product
                 .setModel(new InvoiceAdapter()
                         .listProductModel(invoices));
@@ -670,7 +663,7 @@ public class BanHang_fr extends javax.swing.JFrame {
 //        // TODO add your handling code here
         int chon = JOptionPane.showConfirmDialog(this, "Ban muon xuat hoa don?", "Xac Nhan", JOptionPane.YES_NO_OPTION);
         if (chon == 0) {
-
+            
             if (service.getFinalPrice(current_invoice.get()).isEmpty()) {
                 JOptionPane.showMessageDialog(this, "tien khach dua khong du");
                 return;
@@ -684,7 +677,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                     return;
                 }
             }
-
+            
             if (service.insert(current_invoice.get()).isPresent()) {
                 JOptionPane.showMessageDialog(this, "thanh toan thanh cong");
             } else {
@@ -731,12 +724,12 @@ public class BanHang_fr extends javax.swing.JFrame {
             XWPFTable table = document.createTable();
             //
             XWPFTableRow tableRowOne = table.getRow(0);
-
+            
             tableRowOne.getCell(0).setText("Ma SP                              ");
             tableRowOne.addNewTableCell().setText("Ten SP                      ");
             tableRowOne.addNewTableCell().setText("So Luong                    ");
             tableRowOne.addNewTableCell().setText("Tong Tien                   ");
-
+            
             for (var i : current_invoice.get().getInvoiceDetail()) {
                 //create second row
                 XWPFTableRow tableRowTwo = table.createRow();
@@ -779,19 +772,19 @@ public class BanHang_fr extends javax.swing.JFrame {
             run1.addBreak();
             run1.addBreak();
             run1.setText("");
-
+            
             try {
                 FileOutputStream out = new FileOutputStream(new File(current_invoice.get().getIdInvoice() + ".docx"));
 //                Document doc = new Document("Input.docx");
 //                doc.save("Output.pdf");
                 document.write(out);
-
+                
                 out.close();
                 document.close();
             } catch (IOException ex) {
                 Logger.getLogger(BanHang_fr.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
             System.out.println("successully");
 //        XWPFParagraph paragraph2 = document.createParagraph();
 //        run = paragraph2.createRun();
@@ -817,15 +810,15 @@ public class BanHang_fr extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "hay chon 1 hoa don");
             return;
         }
-
+        
         var product_detail = new ProductDetailReposytory()
                 .getAll()
                 .get(tbl_list_product
                         .getSelectedRow());
-
+        
         var quantity = new InputNumberDialog(this, true, product_detail.getQuantity())
                 .getValue();
-
+        
         var find = false;
         for (var i : current_invoice.get().getInvoiceDetail()) {
             if (i.getProductDetail1().equals(product_detail)) {
@@ -833,7 +826,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                 i.setQuantity(i.getQuantity() + quantity.get());
             }
         }
-
+        
         if (!find && quantity.isPresent()) {
             InvoiceDetail invoiceDetail = new InvoiceDetail();
             invoiceDetail.setQuantity(quantity.get());
@@ -841,7 +834,7 @@ public class BanHang_fr extends javax.swing.JFrame {
             invoiceDetail.setInvoice1(current_invoice.get());
             current_invoice.get().getInvoiceDetail().add(invoiceDetail);
         }
-
+        
         reLoad();
     }//GEN-LAST:event_jButton5ActionPerformed
 

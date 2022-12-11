@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  mssql:
+    container_name: mssql
+    image: mcr.microsoft.com/mssql/server
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "R00T@r00t"
+      ACCEPT_EULA: "Y"

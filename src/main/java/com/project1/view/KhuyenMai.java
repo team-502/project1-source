@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 /**
  *
  * @author nguyenvanviet
@@ -27,24 +28,24 @@ public class KhuyenMai extends javax.swing.JFrame {
      */
     public KhuyenMai() {
         initComponents();
-        reLoad();
+//        reLoad();
     }
-    
+
     public JPanel getPanel() {
         return content_panel;
     }
-    
+
     public void reLoad() {
-        for(var i: new PromotionRepository().getAll()){
-            if(i.getEndDate().equals(new Date())){
+        for (var i : new PromotionRepository().getAll()) {
+            if (i.getEndDate().equals(new Date())) {
                 i.setState(false);
                 new PromotionRepository().update(i);
             }
-            
         }
         tbl_km.setModel(new promotionAdater().model());
-        tbl_sp.setModel(new ProductDetailAdapter().model());
-        
+        tbl_sp.setModel(new ProductDetailAdapter()
+                .searchModel(new ProductDetailReposytory().getNonPromotion()));
+
     }
 
     /**
@@ -381,46 +382,52 @@ public class KhuyenMai extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public Optional<Promotion> toPromotion(Promotion p){
-        if(valid()){
+    public Optional<Promotion> toPromotion(Promotion p) {
+        if (valid() && tbl_sp.getSelectedRowCount() >= 1) {
             var promotion = p;
             promotion.setName(txt_tenkm.getText().trim());
             promotion.setStateDate(txt_nbd.getDate());
             promotion.setEndDate(txt_nkt.getDate());
             promotion.setType(cbb_ht.getSelectedItem().toString().compareTo("Giảm Theo Phần Trăm") == 0);
-            if(promotion.getType()){
+            if (promotion.getType()) {
                 promotion.setPercent(Integer.parseInt(txt_mgiam.getText().trim()));
                 promotion.setMoney(BigInteger.valueOf(0));
-            }else{
+            } else {
                 promotion.setMoney(new BigInteger(txt_mgiam.getText().trim()));
             }
             promotion.setState(promotion.getEndDate().compareTo(new Date()) > 0);
-            
-            
+
+            var pd_s = new ArrayList<PromotionDetail>();
             var pro = new PromotionDetail();
-            pro.setProductDetail(new ProductDetailReposytory()
-                .getAll()
-                .get(tbl_sp.getSelectedRow()));
-            pro.setPromotion(promotion);
-            
+            for (var i : tbl_sp.getSelectedRows()) {
+                pro = new PromotionDetail();
+                pro.setProductDetail(new ProductDetailReposytory()
+                        .getNonPromotion()
+                        .get(tbl_sp.getSelectedRow()));
+                pd_s.add(pro);
+                pro.setPromotion(promotion);
+            }
+//            pro.setProductDetail(new ProductDetailReposytory()
+//                .getNonPromotion()
+//                .get(tbl_sp.getSelectedRow()));
+
             promotion
-                    .setPromotionDetailCollection(new ArrayList<PromotionDetail>());
-            promotion.getPromotionDetailCollection().add(pro);
-            
-            
+                    .setPromotionDetailCollection(pd_s);
+
             return Optional.of(promotion);
         }
         return Optional.empty();
     }
-    public boolean valid(){
+
+    public boolean valid() {
         return true;
-        
+
     }
     private void btn_luuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_luuActionPerformed
         // TODO add your handling code here:
         var p = toPromotion(new Promotion());
-        if(p.isPresent()){
-            if(new PromotionRepository().insert(p.get()).isPresent()){
+        if (p.isPresent()) {
+            if (new PromotionRepository().insert(p.get()).isPresent()) {
                 JOptionPane.showMessageDialog(this, "Áp dụng mã giảm giá thành công");
                 reLoad();
             }
