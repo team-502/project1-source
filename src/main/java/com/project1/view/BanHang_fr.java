@@ -78,7 +78,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                 if (Pattern.matches("^[0-9]+$", txt_tienkhachdua.getText().trim())) {
                     current_invoice.get().setPayment(new BigInteger(txt_tienkhachdua.getText().trim()));
                     current_invoice.get().setTotalPricel(service.gettotalPrice(current_invoice.get()));
-                    txt_tienkhachdua.setText(current_invoice.get().getPayment().toString());
+                    txt_tienthua.setText(current_invoice.get().getPayment().subtract(current_invoice.get().getTotalPricel()).toString());
                 }
             }
         });
@@ -103,11 +103,18 @@ public class BanHang_fr extends javax.swing.JFrame {
     
     public void reLoad() {
         if (current_invoice.isPresent()) {
+            txt_tienkhachdua.setEditable(true);
             tbl_cart
                     .setModel(new GioHangAdater()
                             .model(current_invoice.get()));
             txt_total_price.setText(totalPrice() + "");
             txt_giamgia.setText(service.getPromotionPrice(current_invoice.get()).toString());
+            txt_tienkhachdua.setText(current_invoice.get().getPayment().toString());
+            txt_tienthua.setText(current_invoice.get()
+                    .getPayment().subtract(current_invoice.get()
+                    .getTotalPricel()).toString());
+        } else {
+            txt_tienkhachdua.setEditable(false);
         }
         
         tbl_list_product
@@ -737,7 +744,7 @@ public class BanHang_fr extends javax.swing.JFrame {
                 tableRowTwo.getCell(0).setText("                      " + i.getProductDetail1().getProduct().getIdProduct());
                 tableRowTwo.getCell(1).setText("                      " + i.getProductDetail1().getProduct().getName());
                 tableRowTwo.getCell(2).setText("                      " + i.getQuantity());
-                tableRowTwo.getCell(3).setText("                      " + txt_total_price.getText());
+                tableRowTwo.getCell(3).setText("                      " + current_invoice.get().getTotalPricel().toString());
             }
 
             //create third row
@@ -755,7 +762,7 @@ public class BanHang_fr extends javax.swing.JFrame {
             run1.addBreak();
             run1.addBreak();
             run1.setText("Thành tiền                      "
-                    + service.gettotalPrice(current_invoice.get()));
+                    + current_invoice.get().getTotalPricel());
             run1.addBreak();
             run1.addBreak();
             run1.setText("Tiền Khách Đưa:                 "
