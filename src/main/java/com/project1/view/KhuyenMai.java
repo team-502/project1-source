@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 /**
  *
  * @author nguyenvanviet
@@ -39,22 +40,22 @@ public class KhuyenMai extends javax.swing.JFrame {
         initComponents();
         reLoad();
     }
-    
+
     public JPanel getPanel() {
         return content_panel;
     }
-    
+
     public void reLoad() {
-        for(var i: new PromotionRepository().getAll()){
-            if(i.getEndDate().equals(new Date())){
+        for (var i : new PromotionRepository().getAll()) {
+            if (i.getEndDate().equals(new Date())) {
                 i.setState(false);
                 new PromotionRepository().update(i);
             }
-            
+
         }
         tbl_km.setModel(new promotionAdater().model());
         tbl_sp.setModel(new ProductDetailAdapter().model());
-        
+
     }
 
     /**
@@ -79,7 +80,6 @@ public class KhuyenMai extends javax.swing.JFrame {
         txt_mgiam = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         cbb_ht = new javax.swing.JComboBox<>();
-        ckb_slall = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -149,8 +149,6 @@ public class KhuyenMai extends javax.swing.JFrame {
 
         cbb_ht.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Giảm Theo Phần Trăm", "Giảm Theo Giá Tiền" }));
 
-        ckb_slall.setText("Select All");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -172,8 +170,7 @@ public class KhuyenMai extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txt_mgiam)))
-                    .addComponent(ckb_slall))
+                            .addComponent(txt_mgiam))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -196,8 +193,6 @@ public class KhuyenMai extends javax.swing.JFrame {
                     .addComponent(txt_mgiam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbb_ht, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ckb_slall)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -318,6 +313,14 @@ public class KhuyenMai extends javax.swing.JFrame {
                 "Mã KM", "Tên KM", "Hình Thức Giảm", "Mức Giảm", "San Phẩm", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Trạng Thái", "Mô Tả"
             }
         ));
+        tbl_km.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_kmMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbl_kmMouseEntered(evt);
+            }
+        });
         jScrollPane3.setViewportView(tbl_km);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -391,59 +394,109 @@ public class KhuyenMai extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public Optional<Promotion> toPromotion(Promotion p){
-        if(valid()){
+    public Optional<Promotion> toPromotion(Promotion p) {
+        if (valid()) {
             var promotion = p;
             promotion.setName(txt_tenkm.getText().trim());
             promotion.setStateDate(txt_nbd.getDate());
             promotion.setEndDate(txt_nkt.getDate());
             promotion.setType(cbb_ht.getSelectedItem().toString().compareTo("Giảm Theo Phần Trăm") == 0);
-            if(promotion.getType()){
+            if (promotion.getType()) {
                 promotion.setPercent(Integer.parseInt(txt_mgiam.getText().trim()));
                 promotion.setMoney(BigInteger.valueOf(0));
-            }else{
+            } else {
                 promotion.setMoney(new BigInteger(txt_mgiam.getText().trim()));
             }
             promotion.setState(promotion.getEndDate().compareTo(new Date()) > 0);
-            
-            
+
             var pro = new PromotionDetail();
             pro.setProductDetail(new ProductDetailReposytory()
-                .getAll()
-                .get(tbl_sp.getSelectedRow()));
+                    .getAll()
+                    .get(tbl_sp.getSelectedRow()));
             pro.setPromotion(promotion);
-            
+
             promotion
                     .setPromotionDetailCollection(new ArrayList<PromotionDetail>());
             promotion.getPromotionDetailCollection().add(pro);
-            
-            
+
             return Optional.of(promotion);
         }
         return Optional.empty();
     }
-    public boolean valid(){
+
+    public boolean valid() {
         return true;
-        
+
     }
+
+    void Reset() {
+
+    }
+
     private void btn_luuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_luuActionPerformed
         // TODO add your handling code here:
-        var p = toPromotion(new Promotion());
-        if(p.isPresent()){
-            if(new PromotionRepository().insert(p.get()).isPresent()){
-                JOptionPane.showMessageDialog(this, "Áp dụng mã giảm giá thành công");
-                reLoad();
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn Muốn thêm khuyến mại?", "Xác Nhận", JOptionPane.YES_NO_OPTION);
+        if (chon == 0) {
+            var p = toPromotion(new Promotion());
+            if (p.isPresent()) {
+                if (new PromotionRepository().insert(p.get()).isPresent()) {
+                    JOptionPane.showMessageDialog(this, "Áp dụng mã giảm giá thành công");
+                    reLoad();
+                }
             }
         }
     }//GEN-LAST:event_btn_luuActionPerformed
 
     private void btn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resetActionPerformed
-        // TODO add your handling code here:
+
+        txt_makm.setText("");
+        txt_mgiam.setText("");
+        txt_mta.setText("");
+       // txt_nbd.setDate("" +);
+        
+
     }//GEN-LAST:event_btn_resetActionPerformed
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
-        // TODO add your handling code here:
+//        if (tbl_data.getSelectedRowCount() == 1) {
+//            var c = new CustomerService().getAll().get(tbl_data.getSelectedRow());
+//            new CustomerService().update(toCustomer(c).get());
+//            tbl_data.setModel(new CustomerAdapter().model());
+//        }
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn Muốn sửa khuyến mại?", "Xác Nhận", JOptionPane.YES_NO_OPTION);
+        if (chon == 0) {
+            if (tbl_km.getSelectedRowCount() == 1) {
+                var k = new PromotionRepository().getAll().get(tbl_km.getSelectedRow());
+                new PromotionRepository().update(toPromotion(k).get());
+                tbl_km.setModel(new promotionAdater().model());
+                reLoad();
+                JOptionPane.showMessageDialog(this, "Sửa Thành Công");
+            }else{
+                
+            }
+        }
     }//GEN-LAST:event_btn_suaActionPerformed
+
+    private void tbl_kmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_kmMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbl_kmMouseEntered
+
+    private void tbl_kmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_kmMouseClicked
+        // TODO add your handling code here:
+        if (tbl_km.getSelectedRowCount() == 1) {
+            var k = new PromotionRepository().getAll().get(tbl_km.getSelectedRow());
+            txt_makm.setText(k.getId());
+            txt_tenkm.setText(k.getName());
+            cbb_ht.setSelectedItem(k.getType());
+            if (k.getType()) {
+                txt_mgiam.setText(k.getMoney().toString());
+            } else {
+                txt_mgiam.setText(String.valueOf(k.getPercent()));
+            }
+            txt_nbd.setDate(k.getStateDate());
+            txt_nkt.setDate(k.getEndDate());
+        }
+    }//GEN-LAST:event_tbl_kmMouseClicked
 
     /**
      * @param args the command line arguments
@@ -485,7 +538,6 @@ public class KhuyenMai extends javax.swing.JFrame {
     private javax.swing.JButton btn_reset;
     private javax.swing.JButton btn_sua;
     private javax.swing.JComboBox<String> cbb_ht;
-    private javax.swing.JCheckBox ckb_slall;
     private javax.swing.JPanel content_panel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

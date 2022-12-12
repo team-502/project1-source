@@ -30,7 +30,7 @@ public class RegisterDialog extends javax.swing.JDialog {
         staff.setFullName(txt_name.getText().trim());
         staff.setGender(rb_male.isSelected());
         staff.setEmai(txt_email.getText().trim());
-        staff.setBirth(new SimpleDateFormat("dd-MM-yyyy").parse(txt_birth.getText().trim()));
+        staff.setBirth(txt_ns.getDate());
         staff.setAddress(txt_address.getText().trim());
         staff.setPhoneNumber(txt_phone_number.getText().trim());
         staff.setPassword(new String(txt_password.getPassword()).trim());
@@ -45,7 +45,7 @@ public class RegisterDialog extends javax.swing.JDialog {
         txt_address.setText("");
         txt_phone_number.setText("");
         txt_password.setText("");
-        txt_birth.setText("");
+        //txt_ns.setDate("");
     }
 
     /**
@@ -66,18 +66,17 @@ public class RegisterDialog extends javax.swing.JDialog {
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txt_birth = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txt_email = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txt_address = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_dangnhap = new javax.swing.JButton();
+        btn_dk = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txt_phone_number = new javax.swing.JTextField();
         txt_password = new javax.swing.JPasswordField();
+        txt_ns = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -96,13 +95,6 @@ public class RegisterDialog extends javax.swing.JDialog {
 
         jLabel4.setText("ngay sinh");
 
-        jButton1.setText("chon");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("mat khau");
 
         jLabel6.setText("email");
@@ -111,17 +103,17 @@ public class RegisterDialog extends javax.swing.JDialog {
 
         txt_address.setText("jTextField6");
 
-        jButton2.setText("dang nhap");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_dangnhap.setText("dang nhap");
+        btn_dangnhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_dangnhapActionPerformed(evt);
             }
         });
 
-        jButton3.setText("dang ki");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_dk.setText("dang ki");
+        btn_dk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_dkActionPerformed(evt);
             }
         });
 
@@ -140,11 +132,8 @@ public class RegisterDialog extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(jLabel7)
                     .addComponent(txt_id)
-                    .addComponent(txt_address)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txt_birth, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                    .addComponent(txt_address, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                    .addComponent(txt_ns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -159,9 +148,9 @@ public class RegisterDialog extends javax.swing.JDialog {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton3)
+                                .addComponent(btn_dk)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2))
+                                .addComponent(btn_dangnhap))
                             .addComponent(jLabel8))
                         .addComponent(txt_email, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -192,10 +181,8 @@ public class RegisterDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_birth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_ns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -210,15 +197,15 @@ public class RegisterDialog extends javax.swing.JDialog {
                         .addComponent(txt_phone_number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(btn_dangnhap)
+                    .addComponent(btn_dk))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_dkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dkActionPerformed
         var rsv = new StaffService();
         try {
             var inserter = rsv.insert(getStaff());
@@ -231,29 +218,23 @@ public class RegisterDialog extends javax.swing.JDialog {
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_dkActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_dangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dangnhapActionPerformed
         var str = "ban co chac chan muon quay lai man hinh dang nhap khong?\n du lieu ban dang nhap sex bij xoa";
         var msg = JOptionPane
                 .showConfirmDialog(this , str);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        var dlg = new DateChoicedialog(this, true, 1990, 2022);
-        try {
-            txt_birth.setText(dlg.getDateAsString());
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+//         var LoginDialog = new  LoginDialog(null, true);
+//         
+//         LoginDialog.setVisible(true);
+//         this.dispose();
+    }//GEN-LAST:event_btn_dangnhapActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_dangnhap;
+    private javax.swing.JButton btn_dk;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -265,10 +246,10 @@ public class RegisterDialog extends javax.swing.JDialog {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton rb_male;
     private javax.swing.JTextField txt_address;
-    private javax.swing.JTextField txt_birth;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_name;
+    private com.toedter.calendar.JDateChooser txt_ns;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_phone_number;
     // End of variables declaration//GEN-END:variables

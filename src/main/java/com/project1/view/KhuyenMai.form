@@ -134,7 +134,6 @@
                                   <Component id="txt_mgiam" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="ckb_slall" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -162,8 +161,6 @@
                           <Component id="cbb_ht" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="ckb_slall" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="155" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -263,11 +260,6 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="ckb_slall">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Select All"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -553,6 +545,10 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_kmMouseClicked"/>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_kmMouseEntered"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

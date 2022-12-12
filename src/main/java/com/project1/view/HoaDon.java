@@ -6,10 +6,24 @@ package com.project1.view;
 
 import com.project1.model_adapter.InvoiceAdapter;
 import com.project1.model.Invoice;
+import com.project1.model.InvoiceDetail;
+import com.project1.model.Staff;
 import com.project1.model_adapter.InvoiceDetailAdapter;
+import com.project1.repository.implement.InvoicedetailRepository;
 import com.project1.service.implement.InvoiceService;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -18,6 +32,7 @@ import javax.swing.JPanel;
 public class HoaDon extends javax.swing.JFrame {
 
     public ArrayList<Invoice> cache;
+
     /**
      * Creates new form HoaDon
      */
@@ -25,12 +40,12 @@ public class HoaDon extends javax.swing.JFrame {
         initComponents();
         reLoad();
     }
-    
+
     public void reLoad() {
         cache = new InvoiceService().getAll();
         tbl_invoice.setModel(new InvoiceAdapter().model());
     }
-    
+
     public JPanel getPanel() {
         return content_panel;
     }
@@ -59,6 +74,7 @@ public class HoaDon extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
+        btn_Export = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_invoice_detail = new javax.swing.JTable();
@@ -115,6 +131,8 @@ public class HoaDon extends javax.swing.JFrame {
             tbl_invoice.getColumnModel().getColumn(11).setResizable(false);
         }
 
+        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel3.setText("Tìm Kiếm Hoá Đơn");
 
@@ -131,7 +149,14 @@ public class HoaDon extends javax.swing.JFrame {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12", " " }));
+
+        btn_Export.setText("Export ");
+        btn_Export.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ExportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -156,7 +181,10 @@ public class HoaDon extends javax.swing.JFrame {
                         .addGap(52, 52, 52)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_Export)))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -175,7 +203,8 @@ public class HoaDon extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Export))
                 .addContainerGap())
         );
 
@@ -296,14 +325,95 @@ public class HoaDon extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbl_invoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_invoiceMouseClicked
-        if (tbl_invoice.getSelectedRowCount() != 1) return;
-        
+        if (tbl_invoice.getSelectedRowCount() != 1) {
+            return;
+        }
+
         tbl_invoice_detail.setModel(new InvoiceDetailAdapter().model(
-            cache.get(tbl_invoice.getSelectedRow())
+                cache.get(tbl_invoice.getSelectedRow())
         ));
     }//GEN-LAST:event_tbl_invoiceMouseClicked
 
+    private void btn_ExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExportActionPerformed
+//       try{
+//        // TODO add your handling code here:
+//        JFileChooser exel = new JFileChooser();
+//        //Change dialog
+//        exel.setDialogTitle("Save As");
+//        //
+////        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
+////        exel.setFileFilter(fnef);
+//       
+//            // Import execel lib
+//            XSSFWorkbook exelJTable = new XSSFWorkbook();
+//            XSSFSheet sheet = exelJTable.createSheet("DanhSach");
+//            XSSFRow row = null;
+//            Cell cell = null;
+//            row = sheet.createRow((short) 2);
+//            row.setHeight((short) 500);
+//            cell = row.createCell(0, CellType.STRING);
+//            cell.setCellValue("DANH SÁCH HOÁ ĐƠN");
+//            
+//            row = sheet.createRow((short) 11);
+//            row.setHeight((short) 500);
+//            cell = row.createCell(0, CellType.STRING);
+//            cell.setCellValue("Mã HĐ");
+//            cell = row.createCell(1, CellType.STRING);
+//            cell.setCellValue("Mã NV");
+//            cell = row.createCell(2, CellType.STRING);
+//            cell.setCellValue("Tên NV");
+//            cell = row.createCell(3, CellType.STRING);
+//            cell.setCellValue("Mã KH");
+//            cell = row.createCell(4, CellType.STRING);
+//            cell.setCellValue("Tên Khách Hàng");
+//            cell = row.createCell(5, CellType.STRING);
+//            cell.setCellValue("Ngày Tạo");
+//            cell = row.createCell(6, CellType.STRING);
+//            cell.setCellValue("Ngày Thanh Toán");
+//            cell = row.createCell(7, CellType.STRING);
+//            cell.setCellValue("Hình Thức");
+//            cell = row.createCell(8, CellType.STRING);
+//            cell.setCellValue("Tổng Tiền");
+//            cell = row.createCell(9, CellType.STRING);
+//            cell.setCellValue("Tiền Thanh Toán");
+//            cell = row.createCell(10, CellType.STRING);
+//            cell.setCellValue("Tiền Thừa");
+//            cell = row.createCell(11, CellType.STRING);
+//            cell.setCellValue("Ghi Chú");
+//            
+//            var invoiceDetail_ = new  InvoicedetailRepository();
+//            List<InvoiceDetail> ls = invoiceDetail_.getAll();
+//            
+//            for(int i = 0; i < ls.size(); i++){
+//                InvoiceDetail invoi = ls.get(i);
+//                row = sheet.createRow((short) 11 + i);
+//                row.setHeight((short) 400);
+//                //row.createCell(0).setCellValue(i + 1);
+//                row.createCell(0).setCellValue(invoi.getInvoice1().getIdInvoice());
+//                row.createCell(1).setCellValue(invoi.getInvoice1().getStaff().getIdStaff());
+//                row.createCell(2).setCellValue(invoi.getInvoice1().getStaff().getFullName());
+//                row.createCell(3).setCellValue(invoi.getInvoice1().getCustomer().getIdCustomer());
+//                row.createCell(4).setCellValue(invoi.getInvoice1().getCustomer().getFullName());
+//                row.createCell(5).setCellValue(invoi.getInvoice1().getCreatedDate().toString());
+//                row.createCell(6).setCellValue(invoi.getInvoice1().getPaymentDate().toString());
+//                row.createCell(7).setCellValue(invoi.getInvoice1().getPaymentMethod());
+//                row.createCell(9).setCellValue(invoi.getInvoice1().getPayment().toString());
+//                
+//            }
+//            FileOutputStream fos = new FileOutputStream(new File("HD.xlsx"));
+//            exelJTable.write(fos);
+//            fos.close();
+//            
+//            
+//            
+//        
+//       }catch(IOException e){
+//           e.printStackTrace();
+//       }
+    }//GEN-LAST:event_btn_ExportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Export;
     private javax.swing.JPanel content_panel;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;

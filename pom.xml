@@ -66,12 +66,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
+            <artifactId>poi-ooxml</artifactId>
             <version>3.17</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
+            <artifactId>poi</artifactId>
             <version>3.17</version>
         </dependency>
         <dependency>
@@ -91,13 +91,30 @@
             <artifactId>jcalendar</artifactId>
             <version>1.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+        
+        
+
     </dependencies>
-    
+ 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                
+<!--                <artifact>
+                    <id>org.apache.poi:poi:3.14</id>
+                    <source>true</source>
+                    <transitive>false</transitive>
+
+                    <instructions>
+                        <Import-Package></Import-Package>
+                        <Export-Package>*</Export-Package>
+                        <DynamicImport-Package>*</DynamicImport-Package>
+                    </instructions>
+                </artifact>-->
+                
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>

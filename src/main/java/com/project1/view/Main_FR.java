@@ -103,42 +103,62 @@ public class Main_FR extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        product_manager.setText("QLSP");
+        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+
+        product_manager.setBackground(new java.awt.Color(255, 153, 153));
+        product_manager.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        product_manager.setForeground(new java.awt.Color(255, 255, 255));
+        product_manager.setText("Quản Lý Sản Phẩm");
         product_manager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 product_managerActionPerformed(evt);
             }
         });
 
-        btn_customer.setText("khach hang");
+        btn_customer.setBackground(new java.awt.Color(255, 153, 153));
+        btn_customer.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btn_customer.setForeground(new java.awt.Color(255, 255, 255));
+        btn_customer.setText("Khách Hàng");
         btn_customer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_customerActionPerformed(evt);
             }
         });
 
-        btn_payment.setText("ban hang");
+        btn_payment.setBackground(new java.awt.Color(255, 153, 153));
+        btn_payment.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btn_payment.setForeground(new java.awt.Color(255, 255, 255));
+        btn_payment.setText("Bán Hàng");
         btn_payment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_paymentActionPerformed(evt);
             }
         });
 
-        btn_promotion.setText("khuyen mai");
+        btn_promotion.setBackground(new java.awt.Color(255, 153, 153));
+        btn_promotion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btn_promotion.setForeground(new java.awt.Color(255, 255, 255));
+        btn_promotion.setText("Khuyến Mại");
         btn_promotion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_promotionActionPerformed(evt);
             }
         });
 
-        btn_invoice.setText("hoa don");
+        btn_invoice.setBackground(new java.awt.Color(255, 153, 153));
+        btn_invoice.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btn_invoice.setForeground(new java.awt.Color(255, 255, 255));
+        btn_invoice.setText("Hoá Đơn");
         btn_invoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_invoiceActionPerformed(evt);
             }
         });
 
-        jButton6.setText("jButton1");
+        jButton6.setBackground(new java.awt.Color(255, 153, 153));
+        jButton6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Thoát");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
